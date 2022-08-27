@@ -60,5 +60,7 @@ Il faudra que votre application soit esthétique, codée proprement et fonctionn
 * Etape 2:
   * `le Mercredi 13 Juillet (Itération 1)`
   * `le Jeudi 11 Aout (Itération 2)`
+  * `le Jeudi 22 Septembre (Rapport)`
 
 * Etape 3: Soutenance
+  * `le jeudi 20 octobre (soutenance)`
