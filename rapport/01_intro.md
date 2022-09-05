@@ -8,7 +8,7 @@
 
 Test d'image
 
-![Grpahique](images/103 Plot évo temp par mois.png)
+![Graphique](images/103_Plot_evo_temp_par_mois.png)
 
 
 ## Questions de recherche
