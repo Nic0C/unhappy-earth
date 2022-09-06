@@ -21,7 +21,7 @@ Pour ce faire, nous allons :
 - Produire des représentation graphiques afin de mieux visualiser les données, et confirmer ou orienter des intuitions ;
 - Construire des modèles de régression et de prédiction.
 
-# Environnement de travail et outils
+# Environnement et outils de travail
 
 ## Utilisation de Google Drive & Colaboratory
 
@@ -29,39 +29,23 @@ Afin de travailler ensemble, à distance mais de manière collaborative, nous av
 
 ## Packages
 
-La totalité des notebooks a été codée en Python, à l'aide notamment des packages suivants :
+La totalité des notebooks a été codée en langage Python, à l'aide des packages et sous-packages suivants :
 
-- pandas
-- numpy
-- re
-- matplotlib
-- geopandas
-- pycountry
-- mapclassify
-- seaborn
-- from scipy.stats import pearsonr
-- from sklearn.linear_model import LinearRegression
-- from sklearn.metrics import r2_score
-- from prophet import Prophet
-- warnings
-
-| Package  	| Sous-package   	| Fonction   	| Utilisation  	|
-|---	|---	|---	|---	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-|   	|   	|   	|   	|
-
-
+| Package     	| Sous-package   	| Fonction    	   | Utilisation  	|
+|---	          |---	            |---	             |---	          |
+| pandas        |   	            |   	             | Création et manipulation de DataFrames |
+| numpy   	    |                	|             	   | Fonctions mathématiques  	|
+| matplotlib    |                	|           	     | Visualisations (graphiques, colorisation 	|
+| seaborn  	    |               	|              	   | Visualisations (heatmap)  	|
+| re            |                 |                  | Expressions régulières pour extraction de données depuis fichiers textes |
+| GeoPandas  	  |               	|             	   | Données géospatiales et représentations cartographiques 	|
+| pycountry  	  |               	|             	   | Base de données ISO pour les codes pays |
+| mapclassify   |               	|            	     | Classification cartographique  	|
+| SciPy  	      | stats         	| pearsonr  	     | Tests de corrélation  	|
+| Scikit-learn  | linear_model  	| LinearRegression | Modèle de régression lineaire  	|
+| Scikit-learn 	| metrics       	| r2_score  	     | Evaluation du modèle de régression linéaire  	|
+| FB prophet    | Prophet       	|                  | Analyse et prédictions de séries temporelles  	|
+| warnings    	|               	|           	     | Allègement visuel des NoteBooks en empêchant l'affichage des messages d'avertissement  	|
 
 ## Fonctions
 
