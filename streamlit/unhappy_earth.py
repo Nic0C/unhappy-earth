@@ -22,6 +22,7 @@ dataframe = pd.DataFrame(
 
 st.dataframe(dataframe.style.highlight_max(axis=0))
 
+st.write("## Unhappy TOTO Earth")
 
 dataframe = pd.DataFrame(
     np.random.randn(10, 20),
