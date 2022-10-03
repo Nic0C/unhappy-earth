@@ -8,7 +8,7 @@ sidebar_name = "Prédictions"
 
 
 def run():
-    #Importer les donnes:
+#Importer les donnes:
     df = pd.read_csv('data/unhappy_earth/temperatures_globales.csv')
     
     st.title("Modélisation / prédiction de la température sur les prochaines années.")
@@ -23,5 +23,32 @@ def run():
     new_column.columns = ['ds', 'y'] 
     new_column.tail()  
 
-    st.write(new_column.tail())     
+#Premier tableau:
+    st.write(new_column.tail()) 
+
+    st.markdown("Nous visualisons bien que pendant la période entre 1975 et 2022 la tendance de la température absolue est explicite, croissante, constante et forte :")    
+
+#Premier graphique:
+    import altair as alt
+
+    chart = (
+        alt.Chart(
+            data = new_column,
+            title = "Température absolue entre 1975 et 2022 (données mensuelles)",
+        )
+        .mark_line()
+        .encode(
+            x = alt.X("ds", axis = alt.Axis(labelOverlap="greedy",grid=False, title = "Date")),
+            y = alt.Y("y", axis = alt.Axis(title = "Température absolue en °C"))
+            ).properties(height = 360, width = 140)
+        )
+
+    st.altair_chart(chart, use_container_width = True)
+
+    st.markdown("Prédiction de la température sur les 50 prochaines années :")
+
+
+
+    
+
 
