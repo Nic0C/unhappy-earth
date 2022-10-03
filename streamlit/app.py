@@ -6,7 +6,7 @@ import streamlit as st
 import config
 
 # TODO : you can (and should) rename and add tabs in the ./tabs folder, and import them here.
-from tabs import intro, second_tab, third_tab
+from tabs import intro, donnees, existence, correlation, prediction, conclusion
 
 
 st.set_page_config(
@@ -14,7 +14,7 @@ st.set_page_config(
     page_icon="https://datascientest.com/wp-content/uploads/2020/03/cropped-favicon-datascientest-1-32x32.png",
 )
 
-with open("style.css", "r") as f:
+with open("streamlit/UnhapPy_Earth_project/streamlit_app/style.css", "r") as f:
     style = f.read()
 
 st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
@@ -26,8 +26,11 @@ st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
 TABS = OrderedDict(
     [
         (intro.sidebar_name, intro),
-        (second_tab.sidebar_name, second_tab),
-        (third_tab.sidebar_name, third_tab),
+        (donnees.sidebar_name, donnees),
+        (existence.sidebar_name, existence),
+        (correlation.sidebar_name, correlation),
+        (prediction.sidebar_name, prediction),
+        (conclusion.sidebar_name, conclusion),
     ]
 )
 
