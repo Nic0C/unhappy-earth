@@ -4,8 +4,8 @@ import numpy as np
 from PIL import Image
 
 
-title = "Second tab"
-sidebar_name = "Second Tab"
+title = "Données"
+sidebar_name = "Données"
 
 
 def run():
