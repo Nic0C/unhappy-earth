@@ -45,7 +45,7 @@ def run():
     ax1.plot(co2_temps['year'], co2_temps['Total emissions (GtCO2)'],
          label="Emissions totales")
     ax1.set_xlabel("Year")
-    ax1.set_ylabel("$CO^2$ émis / Gigatonnes")
+    ax1.set_ylabel("$CO_2$ émis / Gigatonnes")
 
     ax2 = ax1.twinx()
     ax2.plot(co2_temps['year'], co2_temps['abs_10y_mov_avg'], c='r', linestyle='--',
