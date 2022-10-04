@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import datetime as datetime
+from prophet import Prophet
 
 
 title = "Prédictions"
@@ -48,7 +52,39 @@ def run():
     st.markdown("Prédiction de la température sur les 50 prochaines années :")
 
 
+    # Affichage graphe evolution températures / tendance:
+    fig, ax1 = plt.subplots(figsize=(16,4))
 
+
+    ax1.plot(new_column['ds'], new_column['y'], label="Temperature absolue")
     
+    ax2 = ax1.twinx()
+
+    x = mdates.date2num(new_column['ds'])
+    y= new_column['y']
+    z = np.polyfit(x, y, 1)
+    p = np.poly1d(z)
+      
+    ax2.plot(x,p(x),"r--")
+    ax1.set_xlabel("Date")
+    ax1.set_ylabel("Température absolue en °C")
+    plt.title("Température absolue entre 1975 et 2022 (données mensuelles)")
 
 
+    fig.legend(loc='upper center', bbox_to_anchor=(0.28, 0.85))
+    
+    st.pyplot(fig)
+
+
+#Prediction Prohet    
+    st.markdown("Prédiction de la température sur les 50 prochaines années :")
+
+    m = Prophet(seasonality_mode='additive').fit(new_column)
+    future = m.make_future_dataframe(periods=600, freq='M')
+    fcst = m.predict(future)
+
+    fig = m.plot(fcst, figsize=(16,6), xlabel ='Date (par annnée)', ylabel='Température absolue en °C')
+    fig.suptitle("Prédiction de la température sur les 50 prochaines années",  y=1.02)
+    import warnings
+    warnings.filterwarnings("ignore")
+    st.pyplot(fig)
