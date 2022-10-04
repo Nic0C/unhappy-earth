@@ -58,7 +58,9 @@ def run():
     
     # Tests de corrélation
     
-    st.write("Mesurez la corrélation entre 2 variables :")
+    st.markdown("### Corrélation")
+    
+    st.markdown("Mesurez la corrélation entre 2 variables :")
     
     cols = {
         "year" : "Année",
@@ -72,14 +74,19 @@ def run():
                              format_func=cols.get)
     
     if len(options) == 0 : 
-        st.write("Selectionnez 2 variables")
+        st.markdown("Selectionnez 2 variables")
     elif len(options) == 1 :
-        st.write("Sélectionnez une 2nde variable")
+        st.markdown("Sélectionnez une 2nde variable")
     elif len(options) > 2 :
-        st.write("Merci de ne selectionnez que 2 variables")
-    elif len(options) == 2 :
-        pearson_coef = pearsonr(co2_temps[options[0]], co2_temps[options[1]])[0]
-        st.write("Le coefficient de corrélation selon le test de Pearson est :", round(pearson_coef, 5))
-        
-        
-        
+        st.markdown("Merci de ne selectionnez que 2 variables")
+    else :
+        pearson_coef = round(pearsonr(co2_temps[options[0]], co2_temps[options[1]])[0], 5)
+        st.markdown("Le coefficient de corrélation selon le test de Pearson est :")
+        st.markdown(str(pearson_coef))
+          
+        if pearson_coef >= 0.90 :
+            st.markdown("La corrélation entre ces 2 variables est FORTE.")
+        elif pearson_coef < 0.90 and pearson_coef >= 0.50 :
+            st.markdown("La corrélation entre ces 2 variables est MOYENNE.")
+        else :
+            st.markdown("La corrélation entre ces 2 variables est FAIBLE.")
