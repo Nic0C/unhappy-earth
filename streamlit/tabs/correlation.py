@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import cm
+
 from scipy.stats import pearsonr
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
@@ -153,9 +152,6 @@ def run():
     st.markdown("Nous modélisons le lien entre nos deux variables avec la fonction LinearRegression.")
     
     # Entraînement de la régression :
-
-    #temp_lr = co2_temps['abs_10y_mov_avg'].loc[9:]
-    #co2_lr = co2_temps[['Total emissions (GtCO2)']].loc[9:]
     
     slr = LinearRegression()
     slr.fit(co2_temps[['Total emissions (GtCO2)']], co2_temps['abs_10y_mov_avg'])
@@ -170,7 +166,7 @@ def run():
     
     # Affichage scatter + droite régression
     
-    st.markdown("Il est plus facile de comprendre ces résultats en les visualisant :")
+    st.markdown("Il est plus facile de comprendre ces résultats en visualisant la droite de régression sur le nuage de points :")
     
     fig, ax1 = plt.subplots(figsize=(18,10))
     plt.grid(color='grey', alpha=0.5, linewidth=2)
@@ -180,9 +176,6 @@ def run():
                 cmap='jet',
                 s=20,
                 label='Températures absolues')
-    #ax1.set_xlabel('$CO^2$ émis / Gigatonnes')
-    #ax1.set_ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
-    #ax1.set_title("Evolution des températures absolues en fonction des émissions de $CO^2$")
     ax2 = ax1
     ax2.plot(co2_temps['Total emissions (GtCO2)'],
              slr.intercept_ + slr.coef_[0] * co2_temps['Total emissions (GtCO2)'],
@@ -209,4 +202,4 @@ def run():
     
     st.markdown("Forts des résultats des tests statistiques de Pearson, et du score obtenu par le modèle de régression linéaire, nous sommes à présent en mesure d'affirmer que **statistiquement, la hausse des températures est très fortement liée à celle des émissions de $CO^2$**.")
     st.markdown("**Attention cependant** : dans le cadre d'une étude statistique comme la nôtre, **corrélation ou linéarité ne signifient pas nécessairement causalité**.")
-    
+dsfsdfsd    
