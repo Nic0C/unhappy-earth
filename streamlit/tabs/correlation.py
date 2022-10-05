@@ -202,4 +202,4 @@ def run():
     
     st.markdown("Forts des résultats des tests statistiques de Pearson, et du score obtenu par le modèle de régression linéaire, nous sommes à présent en mesure d'affirmer que **statistiquement, la hausse des températures est très fortement liée à celle des émissions de $CO^2$**.")
     st.markdown("**Attention cependant** : dans le cadre d'une étude statistique comme la nôtre, **corrélation ou linéarité ne signifient pas nécessairement causalité**.")
-dsfsdfsd    
+    
