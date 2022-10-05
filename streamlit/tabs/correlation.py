@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from scipy.stats import pearsonr
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
 
 
 # Lecture des datasets
@@ -64,7 +65,7 @@ def run():
     
     # Affichage graphe températures / émissions CO2 :
         
-    st.markdown("Nous pouvons comparer l’évolution des 4 variables de ce DataFrame dans le graphique suivant :")
+    st.markdown("Nous pouvons comparer l’évolution de ces 4 variables de ce DataFrame dans le graphique suivant :")
     
     fig, ax1 = plt.subplots(figsize=(18,10))
     ax1.plot(co2_temps['year'], co2_temps['Land use emissions (GtCO2)'],
@@ -102,7 +103,7 @@ def run():
     
     options = st.multiselect("Quelle paire de variables souhaitez-vous soumettre au test de Pearson ?",
                              list(co2_temps.drop("abs", axis=1).columns),
-                             list(co2_temps.drop(["abs", "Land use emissions (GtCO2)", "Fossil fuel and industry emissions (GtCO2)", "Total emissions (GtCO2)"], axis=1).columns),
+                             #list(co2_temps.drop(["abs", "Land use emissions (GtCO2)", "Fossil fuel and industry emissions (GtCO2)", "Total emissions (GtCO2)"], axis=1).columns),
                              format_func=cols.get)
     
     if len(options) == 0 : 
@@ -117,11 +118,11 @@ def run():
         st.markdown(str(pearson_coef))
           
         if pearson_coef >= 0.90 :
-            st.markdown("⮕ La corrélation entre ces 2 variables est FORTE.")
+            st.markdown("La corrélation entre ces 2 variables est FORTE.")
         elif pearson_coef < 0.90 and pearson_coef >= 0.50 :
-            st.markdown("⮕ La corrélation entre ces 2 variables est MOYENNE.")
+            st.markdown("La corrélation entre ces 2 variables est MOYENNE.")
         else :
-            st.markdown("⮕ La corrélation entre ces 2 variables est FAIBLE.")
+            st.markdown("La corrélation entre ces 2 variables est FAIBLE.")
             
     st.markdown("Les résultats de ces tests nous confirment que :")
     st.markdown("- Les émissions totales de CO2 et les températures moyennes sur 10 ans présentent chacune une forte corrélation aux années : coefs > 0.90. Les années passant, les émissions de CO2 et les températures augmentent.")
@@ -151,7 +152,7 @@ def run():
     st.markdown("Une régression linéaire simple a pour objectif d’expliquer une variable Y par le moyen d’une autre variable X.")
     st.markdown("Nous modélisons le lien entre nos deux variables avec la fonction LinearRegression.")
     
-    # Entraânement de la régression :
+    # Entraînement de la régression :
 
     #temp_lr = co2_temps['abs_10y_mov_avg'].loc[9:]
     #co2_lr = co2_temps[['Total emissions (GtCO2)']].loc[9:]
@@ -165,13 +166,47 @@ def run():
     st.markdown(slr.coef_[0])
     
     st.markdown("Nous pouvons donc interprêter le modèle grâce à cette formule :")
-    st.markdown("$Température \ (°C) = 7.990 + 0.038 * émissions \ de \ CO2 \ (Gt)$.")
+    st.markdown("$Température \ (°C) = 7.990 + 0.038 * émissions \ de \ CO_2 \ (Gt)$.")
+    
+    # Affichage scatter + droite régression
     
     st.markdown("Il est plus facile de comprendre ces résultats en les visualisant :")
     
-    # Scatter + droite régression
+    fig, ax1 = plt.subplots(figsize=(18,10))
+    plt.grid(color='grey', alpha=0.5, linewidth=2)
+    ax1.scatter(co2_temps['Total emissions (GtCO2)'],
+                co2_temps['abs_10y_mov_avg'], 
+                c=co2_temps['abs_10y_mov_avg'],
+                cmap='jet',
+                s=20,
+                label='Températures absolues')
+    #ax1.set_xlabel('$CO^2$ émis / Gigatonnes')
+    #ax1.set_ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
+    #ax1.set_title("Evolution des températures absolues en fonction des émissions de $CO^2$")
+    ax2 = ax1
+    ax2.plot(co2_temps['Total emissions (GtCO2)'],
+             slr.intercept_ + slr.coef_[0] * co2_temps['Total emissions (GtCO2)'],
+             'r--',
+             label='Régression linéaire')
+    plt.xlabel('$CO^2$ émis / Gigatonnes')
+    plt.ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
+    plt.legend(loc='upper left', bbox_to_anchor=(0.05, 0.9))
+    st.pyplot(fig)
     
+    # Evaluation de la régression :
     
+    st.markdown("Afin d'évaluons notre régression, nous utilisons la métrique du score $R^2$. Voici le score obtenu :")
+
+    pred_temp = slr.predict(co2_temps[['Total emissions (GtCO2)']])
+    score = r2_score(co2_temps['abs_10y_mov_avg'], pred_temp)
     
+    st.markdown(score)
+    st.markdown("Notre modèle obtient un score R2 proche de 0.92, il est donc performant et confirme la linéarité entre nos variables. Les émissions de $CO_2$ semblent donc bien être une variable explicative majeure de la hausse des températures.")
     
+    # Conclusion
+    
+    st.header("Conclusion")
+    
+    st.markdown("Forts des résultats des tests statistiques de Pearson, et du score obtenu par le modèle de régression linéaire, nous sommes à présent en mesure d'affirmer que **statistiquement, la hausse des températures est très fortement liée à celle des émissions de $CO^2$**.")
+    st.markdown("**Attention cependant** : dans le cadre d'une étude statistique comme la nôtre, **corrélation ou linéarité ne signifient pas nécessairement causalité**.")
     
