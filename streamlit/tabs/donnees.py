@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from PIL import Image
 
 
 title = "Données utilisées"
@@ -33,11 +31,10 @@ def run():
     co2_global, co2_countries = read_co2()
     co2_countries_10y = pd.concat([co2_countries['year'], co2_countries.iloc[:,2:].rolling(120).mean()], axis=1)
     
+    st.header('Identification des sources')
+    
     st.markdown(
         """
-
-## Identification des sources
-
 Nous avons identifié deux sources de données pour nos recherches : [Berkeley Earth](http://berkeleyearth.org/data/) 
 et [Our world in data](https://ourworldindata.org/). Toutes nos données sont publiquement téléchargeables, sous une 
 licence spécifique pour le premier et [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode) pour le second. 
@@ -53,9 +50,13 @@ données sur un ensemble de sujets d'actualité tels que la pollution, la santé
 librement [téléchargeables sur GitHub](https://github.com/owid/), et sont notamment utilisées pour [l'enseignement 
 et la recherche](https://ourworldindata.org/coverage) à travers le monde. Nous nous appuyons sur leurs données 
 d'émission de CO2 disponibles dans [leur référentiel GitHub](https://github.com/owid/co2-data).
+        """
+    )
 
-## Données de températures
+    st.header('Données de températures')
 
+    st.markdown(
+        """
 Les jeux de données de Berkeley Earth sont fournis sous forme de fichiers .txt, chacun d’entre eux correspondant 
 à une région (totalité du globe, par hémisphère ou par pays). La fréquence d'échantillonnage est mensuelle.
 
@@ -151,7 +152,8 @@ manquer en fonction des années et des pays.
 Les **données de CO2 globales** nous fournissent une autre information : la quantité de CO2 émise par l’utilisation 
 des terres, en plus de la génération de CO2 liée à la production d'énergie et industrielle. Les terres, en fonction 
 de leur utilisation, produisent une certaine quantité de CO2 qui vient s’ajouter à la production industrielle ; dans 
-certains cas elles peuvent aussi en consommer, et nous pouvons avoir des valeurs négatives sur cette mesure.         """
+certains cas elles peuvent aussi en consommer, et nous pouvons avoir des valeurs négatives sur cette mesure.
+        """
     )
 
     st.header('Lecture et pré-traitement des données')
