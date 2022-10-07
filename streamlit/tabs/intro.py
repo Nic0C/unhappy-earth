@@ -8,7 +8,7 @@ sidebar_name = "Introduction"
 def run():
 
     # TODO: choose between one of these GIFs
-    st.image("https://dst-studio-template.s3.eu-west-3.amazonaws.com/1.gif")
+    st.image("streamlit/assets/starving_polar_bear.jpg")
     # st.image("https://dst-studio-template.s3.eu-west-3.amazonaws.com/2.gif")
     # st.image("https://dst-studio-template.s3.eu-west-3.amazonaws.com/3.gif")
     
@@ -47,11 +47,20 @@ def run():
     
     st.subheader("Classification du problème") 
     st.markdown("""
-                Grâce aux outils classiques de Data Analyse et de Dataviz, nous allons explorer, nettoyer, fusionner, visualiser et analyser nos données, et ainsi pouvoir répondre à nos problématiques 1, 2, 3.
-                Deux algorithmes de machine learning nous permettront de répondre aux problématiques 4 et 6 : 
-                Une régression linéaire afin d’étudier la relation entre les quantités de CO2 émises et l’évolution des températures. Celle-ci permet d’estimer si deux variables évoluent ensemble, et sera ensuite évaluée par une métrique de performance.
-                Un modèle prédictif afin de proposer une prévision de l’évolution des températures.
-                Enfin, c’est plutôt un travail de recherche qui nous aidera à répondre à la problématique n°5, et plus globalement, à nous assurer de l’adéquation de nos résultats avec les recherches courantes (point n°7).
+Grâce aux outils classiques de Data Analyse et de Dataviz, nous allons explorer, nettoyer, fusionner, visualiser et analyser nos données, et ainsi pouvoir répondre à nos problématiques 1, 2, 3.
+Deux algorithmes de machine learning nous permettront de répondre aux problématiques 4 et 6 : 
+* Une régression linéaire afin d’étudier la relation entre les quantités de CO2 émises et l’évolution des températures. Celle-ci permet d’estimer si deux variables évoluent ensemble, et sera ensuite évaluée par une métrique de performance.
+* Un modèle prédictif afin de proposer une prévision de l’évolution des températures.
+
+Enfin, c’est plutôt un travail de recherche qui nous aidera à répondre à la problématique n°5, et plus globalement, à nous assurer de l’adéquation de nos résultats avec les recherches courantes (point n°7). 
+
+<br />
+""", unsafe_allow_html=True)
+
+    st.markdown("""
+----
+
+Crédit image : Andreas Weith, [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Endangered_arctic_-_starving_polar_bear.jpg).
                 """)
             
             
