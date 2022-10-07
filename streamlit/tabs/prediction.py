@@ -49,8 +49,8 @@ def run():
     plt.title("Température absolue entre 1975 et 2022 (données mensuelles)")
     plt.grid(color='grey', alpha=0.2)
 
-    fig.legend(loc='upper center', bbox_to_anchor=(0.28, 0.85))
-    
+    fig.legend(loc='upper center', bbox_to_anchor=(0.19, 0.90))
+
     st.pyplot(fig)
 
 
@@ -60,7 +60,6 @@ def run():
     m = Prophet(seasonality_mode='additive').fit(new_column)
     future = m.make_future_dataframe(periods=600, freq='M')
     fcst = m.predict(future)
-
     fig = m.plot(fcst, figsize=(16,6), xlabel ='Date (par annnée)', ylabel='Température absolue en °C')
     fig.suptitle("Prédiction de la température sur les 50 prochaines années",  y=1.02)
     import warnings
@@ -74,7 +73,7 @@ def run():
     st.markdown("- la tendance ;")
     st.markdown("- les déviations saisonnières de cette tendance :")
     
-    fig = m.plot_components(fcst, figsize=(16,8))
+    fig = m.plot_components(fcst, figsize=(18, 10))
     fig.suptitle("Prediction de la tendance de la température absolue et de la variation saisonnière", y=1.02, fontsize=14)
     axes = fig.get_axes()
 
@@ -83,8 +82,9 @@ def run():
     axes[1].set_xlabel("Mois de l'année")
     axes[1].set_ylabel('Var saisonnière de la temp par rapport à la tendance, en°C')
     warnings.filterwarnings("ignore")
-    st.pyplot(fig)
     
+    st.pyplot(fig)
+
 #Conclusion
     st.markdown("Notre prévision repose sur le principe que la température globale absolue va suivre la même tendance que ces 46 dernières années, sans action climatique majeure. Dans ce cas, notre modèle prédit une croissance approximative de 1.9 °C dans 50 ans (10 °C en 2021, jusqu’à 11,9 °C en 2072) . En comparaison avec la multitude d'études prévisionnelles qui existent actuellement, notre résultat semble juste et raisonnable, mais bien peu optimiste.")
     
