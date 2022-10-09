@@ -11,7 +11,7 @@ title = "L'évolution des températures est-elle corrélée aux émissions de $C
 sidebar_name = "Corrélations"                                                  
                                                     
 def run():
-
+    st.image("streamlit/assets/CO2.jpg", use_column_width=True)   
     st.title(title)
 
 # Création du DataFrame "co2_temps" :

@@ -6,7 +6,9 @@ sidebar_name = "Conclusion"
 
 
 def run():
-
+    
+    st.image("streamlit/assets/Unhappy_earth2.jpg", use_column_width=True)
+    
     st.title(title)
 
     st.markdown("---")
@@ -25,9 +27,9 @@ def run():
         * Nos prédictions ne sont pas optimistes. D'après notre modèle Prophet, la température moyenne globale augmentera de près de
             2°C dans les 50 prochaines années. Ces résultats rejoignent ceux de la majorité des études disponibles sur le changement
             climatique :
-          * La hausse de la température globale s’est encore accentuée, selon le dernier rapport du GIEC
-          * Réchauffement climatique : voici l'ampleur des hausses que vous connaîtrez
-          * Réchauffement climatique : les prévisions alarmantes de Météo France
+          * [La hausse de la température globale s’est encore accentuée, selon le dernier rapport du GIEC](https://www.ecologie.gouv.fr/hausse-temperature-globale-sest-encore-accentuee-selon-dernier-rapport-du-giec)
+          * [Réchauffement climatique : voici l'ampleur des hausses que vous connaîtrez]((https://www.francelive.fr/article/france-live/vous-pouvez-desormais-savoir-le-changement-climatique-que-vous-subirez-selon-votre-age-7403908/))
+          * [Réchauffement climatique : les prévisions alarmantes de Météo France](https://www.lefigaro.fr/sciences/rechauffement-climatique-les-previsions-alarmantes-de-meteo-france-20210201)
         
         Afin de compléter notre étude, de nombreux autres facteurs impactants pourraient être analysés, notamment :
         * Émissions de Gaz à Effet de Serre autre que le CO2 (méthane, etc.).
