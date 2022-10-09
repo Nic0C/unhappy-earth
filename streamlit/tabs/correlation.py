@@ -13,33 +13,17 @@ sidebar_name = "Corrélations"
 def run():
 
     st.title(title)
-    
-# Lecture des datasets
-    global_land = pd.read_csv('data/unhappy_earth/temperatures_globales.csv')
-    co2_global = pd.read_csv('data/unhappy_earth/co2_global.csv')
 
-# Preprocess sur datasets
-    co2_global_reduc = co2_global.rename(columns={'Year': 'year'})
-    temps_reduc = global_land.groupby('year').agg({'abs': 'mean'}).reset_index()
-    temps_reduc = temps_reduc.loc[(temps_reduc['year'] >= 1850) & (temps_reduc['year'] < 2021),:]
-    temps_reduc['abs_10y_mov_avg'] = temps_reduc['abs'].rolling(10).mean()
-    co2_temps = pd.merge(temps_reduc, co2_global_reduc, on='year')
-    co2_temps['Total emissions (GtCO2)'] = co2_temps['Land use emissions (GtCO2)'] + co2_temps['Fossil fuel and industry emissions (GtCO2)']
-
-# Résolution d'un problème de cohérence d'unité (tonnes / Gigatonnes)
-    co2_temps[['Land use emissions (GtCO2)', 
-               'Fossil fuel and industry emissions (GtCO2)', 
-               'Total emissions (GtCO2)']] = co2_temps[['Land use emissions (GtCO2)', 
-                                                        'Fossil fuel and industry emissions (GtCO2)', 
-                                                        'Total emissions (GtCO2)']] / 1e+09
-
-    co2_temps = co2_temps[co2_temps['year']>=1860]
-    
 # Création du DataFrame "co2_temps" :
         
-    st.markdown("Afin d'analyser la relation entre ces deux variables, nous créons, à partir de nos datasets 'temperatures_globales.csv' et 'co2_global.csv', le DataFrame 'co2_temps'.")
-    st.markdown("Nous calculons la moyenne glissante sur 10 ans des températures globales, la somme des émissions de $CO_2$ dues à l’utilisation des sols et de celles liés à la combustion d’énergie fossiles.")
-    st.markdown("Enfin, nous le réduisons à la période 1860 - 2020.")
+    st.markdown(
+        """
+        Afin d'analyser la relation entre ces deux variables, nous créons, à partir de nos datasets 'temperatures_globales.csv' et
+        'co2_global.csv', le DataFrame 'co2_temps'. Nous calculons la moyenne glissante sur 10 ans des températures globales, la somme
+        des émissions de $CO_2$ dues à l’utilisation des sols et de celles liés à la combustion d’énergie fossiles. Enfin, nous le
+        réduisons à la période 1860 - 2020.
+        """
+        )
     
         # Lecture des datasets
     global_land = pd.read_csv('data/unhappy_earth/temperatures_globales.csv')
@@ -84,9 +68,15 @@ def run():
     
     # Commentaire graphique :
         
-    st.markdown("La hausse des températures semble suivre celle des émissions totales de $CO_2$, bien que de manière moins linéaire. Nous constatons également une nette baisse des émissions de $CO_2$ en 2020, liée à la baisse globale d'activité pendant la crise Covid.")
-    st.markdown("Malheureusement, cette baisse ponctuelle n’aura  aucun effet sur le climat, face à l’accumulation des rejets de $CO_2$ dans l’atmosphère depuis plusieurs décennies (article [ici](https://www.cairn.info/magazine-pour-la-science-2020-7-page-7.htm)).")
-    
+    st.markdown(
+        """
+        La hausse des températures semble suivre celle des émissions totales de $CO_2$, bien que de manière moins linéaire. Nous constatons
+        également une nette baisse des émissions de $CO_2$ en 2020, liée à la baisse globale d'activité pendant la crise Covid.
+        Malheureusement, cette baisse ponctuelle n’aura  aucun effet sur le climat, face à l’accumulation des rejets de $CO_2$ dans
+        l’atmosphère depuis plusieurs décennies (article [ici](https://www.cairn.info/magazine-pour-la-science-2020-7-page-7.htm)).
+        """
+        )
+                
     st.markdown("---")
     
 # Tests de corrélation :
@@ -95,16 +85,16 @@ def run():
     
     st.markdown("Mesurons la corrélation entre 2 variables de notre DataFrame :")
     
-    cols = {
-        "year" : "Année",
-        "abs_10y_mov_avg" : "Températures moyennes",
-        "Land use emissions (GtCO2)": "Emissions de CO2 liées à l'utilisation des sols",
-        "Fossil fuel and industry emissions (GtCO2)": "Emissions de CO2 des combustibles fossiles et de l'industrie",
-        "Total emissions (GtCO2)": "Emissions totales"}
+    cols = {"year" : "Année",
+            "abs_10y_mov_avg" : "Températures moyennes",
+            "Land use emissions (GtCO2)": "Emissions de CO2 liées à l'utilisation des sols",
+            "Fossil fuel and industry emissions (GtCO2)": "Emissions de CO2 des combustibles fossiles et de l'industrie",
+            "Total emissions (GtCO2)": "Emissions totales"}
     
     options = st.multiselect("Quelle paire de variables souhaitez-vous soumettre au test de Pearson ?",
                              list(co2_temps.drop("abs", axis=1).columns),
-                             #list(co2_temps.drop(["abs", "Land use emissions (GtCO2)", "Fossil fuel and industry emissions (GtCO2)", "Total emissions (GtCO2)"], axis=1).columns),
+                             #list(co2_temps.drop(["abs", "Land use emissions (GtCO2)", "Fossil fuel and industry emissions (GtCO2)",
+                             #"Total emissions (GtCO2)"], axis=1).columns),
                              format_func=cols.get)
     
     if len(options) == 0 : 
@@ -125,18 +115,31 @@ def run():
         else :
             st.markdown("La corrélation entre ces 2 variables est FAIBLE.")
             
-    st.markdown("Les résultats de ces tests nous confirment que :")
-    st.markdown("- Les émissions totales de CO2 et les températures moyennes sur 10 ans présentent chacune une forte corrélation aux années : coefs > 0.90. Les années passant, les émissions de CO2 et les températures augmentent.")
-    st.markdown("- Les températures moyennes sur 10 ans et les émissions totales le sont encore plus entre elles : coef > 0.95. Au-delà de la tendance générale à la hausse de ces 2 variables, cela confirme que globalement, les variations de l'une suit les variations de l'autre.")
-    st.markdown("- Les émissions dues à l'utilisation des sols ne sont que moyennement corrélées aux années : coef = 0.55. Sur le graphique, nous observons en effet une baisse de celles-ci sur le dernier tiers de la période étudiée (1960 - 2020).")
-    
+    st.markdown(
+        """
+        Les résultats de ces tests nous confirment que :
+        - Les émissions totales de CO2 et les températures moyennes sur 10 ans présentent chacune une forte corrélation aux années :
+            coefs > 0.90. Les années passant, les émissions de CO2 et les températures augmentent.
+        - Les températures moyennes sur 10 ans et les émissions totales le sont encore plus entre elles : coef > 0.95. Au-delà de la
+            tendance générale à la hausse de ces 2 variables, cela confirme que globalement, les variations de l'une suit les variations
+            de l'autre.
+        - Les émissions dues à l'utilisation des sols ne sont que moyennement corrélées aux années : coef = 0.55. Sur le graphique, nous
+            observons en effet une baisse de celles-ci sur le dernier tiers de la période étudiée (1960 - 2020).
+        """
+        )
+                
     st.markdown("---")
     
 # Régression linéaire température / émissions CO2 :
     
     st.header("Régression")
     
-    st.markdown("Intéressons nous de plus près à la relation qu'entretiennent émissions de $CO_2$ et températures. Nous pouvons la visualiser à l'aide d'un **scatterplot** (nuage de points) :")
+    st.markdown(
+        """
+        Intéressons nous de plus près à la relation qu'entretiennent émissions de $CO_2$ et températures. Nous pouvons la visualiser
+        à l'aide d'un **scatterplot** (nuage de points) :
+        """
+        )
     
     fig, ax = plt.subplots(figsize=(18,10))
     plt.grid(color='grey', alpha=0.5, linewidth=2)
@@ -149,10 +152,16 @@ def run():
     
     # Commentaire graphique :
         
-    st.markdown("Nous avons vu grâce aux tests statistiques que ces 2 variables sont fortement corrélées, il n'est pas surprenant d'observer une certaine linéarité dans cette représentation graphique.")
-    
-    st.markdown("Une régression linéaire simple a pour objectif d’expliquer une variable Y par le moyen d’une autre variable X.")
-    st.markdown("Nous modélisons le lien entre nos deux variables avec la fonction LinearRegression de la librairie Scikit-Learn.")
+    st.markdown(
+        """
+        Nous avons vu grâce aux tests statistiques que ces 2 variables sont fortement corrélées, il n'est pas surprenant d'observer
+        une certaine linéarité dans cette représentation graphique.
+            
+        Une régression linéaire simple a pour objectif d’expliquer une variable Y par le moyen d’une autre variable X.
+        
+        Nous modélisons le lien entre nos deux variables avec la fonction LinearRegression de la librairie Scikit-Learn :
+        """
+        )
     
     # Entraînement de la régression :
     
@@ -197,7 +206,12 @@ def run():
     score = r2_score(co2_temps['abs_10y_mov_avg'], pred_temp)
     
     st.markdown(score)
-    st.markdown("Notre modèle obtient un score $R^2$ proche de 0.92, il est donc performant et confirme la linéarité entre nos variables. Les émissions de $CO_2$ semblent donc bien être une variable explicative majeure de la hausse des températures.")
+    st.markdown(
+        """
+        Notre modèle obtient un score $R^2$ proche de 0.92, il est donc performant et confirme la linéarité entre nos variables.
+        Les émissions de $CO_2$ semblent donc bien être une variable explicative majeure de la hausse des températures.
+        """
+        )
     
     st.markdown("---")
     
@@ -205,6 +219,16 @@ def run():
     
     st.header("Conclusion")
     
-    st.markdown("Forts des résultats des tests statistiques de Pearson, et du score obtenu par le modèle de régression linéaire, nous sommes à présent en mesure d'affirmer que **statistiquement, la hausse des températures est très fortement liée à celle des émissions de $CO^2$**.")
-    st.markdown("**Attention cependant** : dans le cadre d'une étude statistique comme la nôtre, **corrélation ou linéarité ne signifient pas nécessairement causalité**.")
+    st.markdown(
+        """
+        Forts des résultats des tests statistiques de Pearson, et du score obtenu par le modèle de régression linéaire, nous sommes à
+        présent en mesure d'affirmer que **statistiquement, la hausse des températures est très fortement liée à celle des émissions de
+        $CO^2$**.
+        
+        **Attention cependant** : dans le cadre d'une étude statistique comme la nôtre, **corrélation ou linéarité ne signifient pas
+        nécessairement causalité**.
+        """
+        )
+    
+    st.markdown("---")
     
