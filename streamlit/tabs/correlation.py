@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 from scipy.stats import pearsonr
 from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import r2_score
 
 
@@ -11,7 +12,8 @@ title = "L'évolution des températures est-elle corrélée aux émissions de $C
 sidebar_name = "Corrélations"                                                  
                                                     
 def run():
-    st.image("streamlit/assets/CO2.jpg", use_column_width=True)   
+    
+    st.image("streamlit/assets/Reftinsky_reservoir_of_Sverdlovsk_region.jpg", use_column_width=True)   
     st.title(title)
 
 # Création du DataFrame "co2_temps" :
@@ -25,11 +27,11 @@ def run():
         """
         )
     
-        # Lecture des datasets
+    # Lecture des datasets
     global_land = pd.read_csv('data/unhappy_earth/temperatures_globales.csv')
     co2_global = pd.read_csv('data/unhappy_earth/co2_global.csv')
 
-        # Preprocess sur datasets
+    # Preprocess sur datasets
     co2_global_reduc = co2_global.rename(columns={'Year': 'year'})
     temps_reduc = global_land.groupby('year').agg({'abs': 'mean'}).reset_index()
     temps_reduc = temps_reduc.loc[(temps_reduc['year'] >= 1850) & (temps_reduc['year'] < 2021),:]
@@ -37,7 +39,7 @@ def run():
     co2_temps = pd.merge(temps_reduc, co2_global_reduc, on='year')
     co2_temps['Total emissions (GtCO2)'] = co2_temps['Land use emissions (GtCO2)'] + co2_temps['Fossil fuel and industry emissions (GtCO2)']
 
-        # Résolution d'un problème de cohérence d'unité (tonnes / Gigatonnes)
+    # Résolution d'un problème de cohérence d'unité (tonnes / Gigatonnes)
     co2_temps[['Land use emissions (GtCO2)', 
                'Fossil fuel and industry emissions (GtCO2)', 
                'Total emissions (GtCO2)']] = co2_temps[['Land use emissions (GtCO2)', 
@@ -45,6 +47,25 @@ def run():
                                                         'Total emissions (GtCO2)']] / 1e+09
 
     co2_temps = co2_temps[co2_temps['year']>=1860]
+    
+    # Affichage optionnel d'un aperçu du DF :
+    
+    show_df = st.checkbox("Afficher un aperçu et une description du DataFrame 'co2_temps'")
+    if show_df :
+        st.dataframe(co2_temps)
+        st.markdown(
+            """
+            | Nom   | Type    |NaNs| Description | Exemple |
+            |-------|---------|----|-------------|---------|
+            | year  | int     | 0  | L'année au format xxxx |2016 | 
+            | abs   | float   | 0  | Température moyenne annuelle en valeur absolue, en °C  |10.027833|
+            | abs_10y_mov_avg| float | 9 | Température moyenne glissante sur 10 ans, en valeur absolue en °C | 9.635650 |
+            | Land use $CO_2$ emissions | float | 0 | Quantité de $CO_2$ émise par utilisation des sols (en Gigatonnes)  | 3.703575 |
+            | Fossil fuel and industry $CO_2$ emissions | float | 0 | Quantité de $CO_2$ émise par combustion d'énergies fossiles et par l'industrie (en Gigatonnes) | 35.452459 |
+            | Total  $CO_2$ emissions | float | 0 | Total des émissions de $CO_2$ (en Gigatonnes) | 39.156034 |
+            """
+            )
+    st.write("\n")
     
     # Affichage graphe températures / émissions CO2 :
         
@@ -76,8 +97,7 @@ def run():
         l’atmosphère depuis plusieurs décennies (article [ici](https://www.cairn.info/magazine-pour-la-science-2020-7-page-7.htm)).
         """
         )
-                
-    st.markdown("---")
+    
     
 # Tests de corrélation :
     
@@ -105,8 +125,7 @@ def run():
         st.markdown("Attention : Merci de ne selectionnez que 2 variables !")
     else :
         pearson_coef = round(pearsonr(co2_temps[options[0]], co2_temps[options[1]])[0], 5)
-        st.markdown("Le coefficient de corrélation selon le test de Pearson est :")
-        st.markdown(str(pearson_coef))
+        st.markdown(f"Le coefficient de corrélation selon le test de Pearson est : **{pearson_coef}**")
           
         if pearson_coef >= 0.90 :
             st.markdown("La corrélation entre ces 2 variables est FORTE !")
@@ -127,12 +146,11 @@ def run():
             observons en effet une baisse de celles-ci sur le dernier tiers de la période étudiée (1960 - 2020).
         """
         )
-                
-    st.markdown("---")
+ 
     
-# Régression linéaire température / émissions CO2 :
+# Régressions température / émissions CO2 :
     
-    st.header("Régression")
+    st.header("Régressions")
     
     st.markdown(
         """
@@ -155,80 +173,134 @@ def run():
     st.markdown(
         """
         Nous avons vu grâce aux tests statistiques que ces 2 variables sont fortement corrélées, il n'est pas surprenant d'observer
-        une certaine linéarité dans cette représentation graphique.
-            
-        Une régression linéaire simple a pour objectif d’expliquer une variable Y par le moyen d’une autre variable X.
+        une certaine linéarité dans cette représentation graphique. Une régression polynomaiale a pour objectif d’expliquer une
+        variable Y par le moyen d’une autre variable X. Notons qu'une régression polynomiale de degré 1 est une régression linéaire
+        simple.
         
-        Nous modélisons le lien entre nos deux variables avec la fonction LinearRegression de la librairie Scikit-Learn :
+        Nous modélisons le lien entre nos deux variables grâce aux fonctions LinearRegression et PolynomialFeatures de Scikit-Learn :
         """
         )
     
-    # Entraînement de la régression :
+    x = co2_temps[['Total emissions (GtCO2)']]
+    y = co2_temps['abs_10y_mov_avg']
     
-    slr = LinearRegression()
-    slr.fit(co2_temps[['Total emissions (GtCO2)']], co2_temps['abs_10y_mov_avg'])
+    degree = st.slider('Sélectionnez le degré de la régression :', 1,5)
     
-    st.markdown("Valeur de l'intercept (= valeur de Y lorsque X = 0) :")
-    st.markdown(slr.intercept_)
-    st.markdown("Valeur du coefficient (= 'pente' de la régression) :")
-    st.markdown(slr.coef_[0])
+    # Regression linéraire :
     
-    st.markdown("Nous pouvons donc interprêter le modèle grâce à cette formule :")
-    st.markdown("$Température \ (°C) = 7.990 + 0.038 * émissions \ de \ CO_2 \ (Gt)$.")
+    if degree == 1 :
+        
+        lr = LinearRegression()
+        lr.fit(x, y)
+        
+        st.markdown(f"Valeur de l'intercept (= valeur de Y lorsque X = 0) : **{lr.intercept_}**")
+        st.markdown(f"Valeur du coefficient (= 'pente' de la régression) : **{lr.coef_[0]}**")
+        
+        st.markdown("Le modèle s'interprète donc ainsi :")
+        st.markdown("$Température \ (°C) = 7.990 + 0.038 * émissions \ de \ CO_2 \ (Gt)$.")
     
-    # Affichage scatter + droite régression
+        # Affichage scatter + droite régression
     
-    st.markdown("Il est plus facile de comprendre ces résultats en visualisant la droite de régression sur le nuage de points :")
+        st.markdown("Visualisons le résultat de la régression linéaire en l'affichant sur le nuage de points :")
+        
+        y_pred = lr.predict(x)
+        
+        fig, ax1 = plt.subplots(figsize=(18,10))
+        plt.grid(color='grey', alpha=0.5, linewidth=2)
+        ax1.scatter(x,
+                    y, 
+                    c=y,
+                    cmap='jet',
+                    s=20,
+                    label='Températures absolues')
     
-    fig, ax1 = plt.subplots(figsize=(18,10))
-    plt.grid(color='grey', alpha=0.5, linewidth=2)
-    ax1.scatter(co2_temps['Total emissions (GtCO2)'],
-                co2_temps['abs_10y_mov_avg'], 
-                c=co2_temps['abs_10y_mov_avg'],
-                cmap='jet',
-                s=20,
-                label='Températures absolues')
-    ax2 = ax1
-    ax2.plot(co2_temps['Total emissions (GtCO2)'],
-             slr.intercept_ + slr.coef_[0] * co2_temps['Total emissions (GtCO2)'],
-             'r--',
-             label='Régression linéaire')
-    plt.xlabel('$CO^2$ émis / Gigatonnes')
-    plt.ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
-    plt.legend(loc='upper left', bbox_to_anchor=(0.05, 0.9))
-    st.pyplot(fig)
+        ax2 = ax1
+        ax2.plot(x,
+                 y_pred,
+                 'r--',
+                 label='Régression linéaire')
+        
+        plt.xlabel('$CO_2$ émis / Gigatonnes')
+        plt.ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
+        plt.legend(loc='upper left', bbox_to_anchor=(0.05, 0.9))
+        st.pyplot(fig)
     
-    # Evaluation de la régression :
+        # Evaluation de la régression :
+        
+        st.markdown("Afin d'évaluer notre régression, nous utilisons comme métrique le score $R^2$.")
     
-    st.markdown("Afin d'évaluer notre régression, nous utilisons comme métrique le score $R^2$. Voici le score obtenu :")
+        score = round(r2_score(y, y_pred), 5)
+        st.markdown(f"Score obtenu : **{score}**")
+    
+    
+    if degree > 1 :
+        
+        poly_feats = PolynomialFeatures(degree=degree)
+        x_poly = poly_feats.fit_transform(x)
+        
+        lr = LinearRegression()
+        lr.fit(x_poly, y)
+        
+        st.markdown(f"Visualisons le résultat de la régression polynomiale de degré {degree} en l'affichant sur le nuage de points :")
+        
+        y_poly_pred = lr.predict(x_poly)
+        
+        fig, ax1 = plt.subplots(figsize=(18,10))
+        plt.grid(color='grey', alpha=0.5, linewidth=2)
+        ax1.scatter(x,
+                    y, 
+                    c=y,
+                    cmap='jet',
+                    s=20,
+                    label='Températures absolues')
+    
+        ax2 = ax1
+        ax2.plot(x,
+                 y_poly_pred,
+                 'r--',
+                 label='Régression polynomiale')
+        
+        plt.xlabel('$CO_2$ émis / Gigatonnes')
+        plt.ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
+        plt.legend(loc='upper left', bbox_to_anchor=(0.05, 0.9))
+        st.pyplot(fig)
+        
+        st.markdown("Afin d'évaluer notre régression, nous utilisons comme métrique le score $R^2$.")
+    
+        score = round(r2_score(y, y_poly_pred), 5)
+        st.markdown(f"Score obtenu : **{score}**")
+    
+    st.markdown(
+        """
+        En faisant varier de 1 à 5 le degré de la régression polynomiale, nous obtenons des scores $R^2$ croissants compris entre 0.918
+        et 0.966 (avec un risque d'overfitting).
+        Le modèle est donc performant et confirme l'étroite relation qui existe entre nos 2 variables. Les émissions de $CO_2$ sont
+        donc bien une variable explicative majeure de la hausse des températures.
+        """
+        )    
+    
 
-    pred_temp = slr.predict(co2_temps[['Total emissions (GtCO2)']])
-    score = r2_score(co2_temps['abs_10y_mov_avg'], pred_temp)
+# Interprétation des résultats :
     
-    st.markdown(score)
-    st.markdown(
-        """
-        Notre modèle obtient un score $R^2$ proche de 0.92, il est donc performant et confirme la linéarité entre nos variables.
-        Les émissions de $CO_2$ semblent donc bien être une variable explicative majeure de la hausse des températures.
-        """
-        )
-    
-    st.markdown("---")
-    
-# Conclusion
-    
-    st.header("Conclusion")
+    st.header("Interprétation des résultats")
     
     st.markdown(
         """
-        Forts des résultats des tests statistiques de Pearson, et du score obtenu par le modèle de régression linéaire, nous sommes à
-        présent en mesure d'affirmer que **statistiquement, la hausse des températures est très fortement liée à celle des émissions de
-        $CO^2$**.
+        Forts des résultats des tests statistiques de Pearson, et des scores obtenus avec les différents degrés de régression, nous
+        sommes à présent en mesure d'affirmer que **statistiquement, la hausse des températures est très fortement liée à celle des
+        émissions de $CO^2$**.
         
         **Attention cependant** : dans le cadre d'une étude statistique comme la nôtre, **corrélation ou linéarité ne signifient pas
         nécessairement causalité**.
         """
         )
+
+    st.markdown(
+        """
+                
+        ----
     
-    st.markdown("---")
-    
+        Crédit image : Vasily Iakovlev, [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0),
+        via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Reftinsky_reservoir_of_Sverdlovsk_region.jpg).
+         """
+         )
