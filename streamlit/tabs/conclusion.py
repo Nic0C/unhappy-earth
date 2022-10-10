@@ -1,7 +1,7 @@
 import streamlit as st
 
 
-title = "Bilan & Suite du projet"
+title = "Conclusion"
 sidebar_name = "Conclusion"
 
 
@@ -11,7 +11,9 @@ def run():
     
     st.title(title)
 
-    st.markdown("---")
+# Bilan :
+
+    st.header("Bilan")    
 
     st.markdown(
         """
@@ -20,25 +22,33 @@ def run():
         
         Grâce à l'analyse statistique de données fiables et concrètes, nous avons pu répondre aux problématiques posées en début de
         projet :
-        * Nous avons pu confirmer et quantifier le réchauffement climatique : c'est une réalité indiscutable.
-        * Le phénomène est graduel depuis la révolution industrielle de 1880, et s'accélère à partir de 1975, de manière plus forte
-            encore dans l'hémisphère nord.
-        * Les émissions de CO2 ont une forte influence (corrélation / linéarité) sur la hausse des températures.
-        * Nos prédictions ne sont pas optimistes. D'après notre modèle Prophet, la température moyenne globale augmentera de près de
+        1. Nous avons pu confirmer et quantifier le réchauffement climatique : c'est une réalité indiscutable. Le phénomène est graduel
+            depuis la révolution industrielle de 1880, et s'accélère à partir de 1975, de manière plus forte encore dans l'hémisphère nord.
+        2. Les émissions de CO2 ont une forte influence (corrélation / linéarité) sur la hausse des températures.
+        3. Nos prédictions ne sont pas optimistes. D'après notre modèle Prophet, la température moyenne globale augmentera de près de
             2°C dans les 50 prochaines années. Ces résultats rejoignent ceux de la majorité des études disponibles sur le changement
-            climatique :
-          * [La hausse de la température globale s’est encore accentuée, selon le dernier rapport du GIEC](https://www.ecologie.gouv.fr/hausse-temperature-globale-sest-encore-accentuee-selon-dernier-rapport-du-giec)
-          * [Réchauffement climatique : voici l'ampleur des hausses que vous connaîtrez]((https://www.francelive.fr/article/france-live/vous-pouvez-desormais-savoir-le-changement-climatique-que-vous-subirez-selon-votre-age-7403908/))
-          * [Réchauffement climatique : les prévisions alarmantes de Météo France](https://www.lefigaro.fr/sciences/rechauffement-climatique-les-previsions-alarmantes-de-meteo-france-20210201)
+            climatique.
+            
+        Malheureusement, nos conclusions, et a fortiori celles des experts en climatologie, ne sont positives ni pour notre planète Terre (UnhapPy
+        Earth), ni pour l'humanité.
+        """
+        )
         
-        Afin de compléter notre étude, de nombreux autres facteurs impactants pourraient être analysés, notamment :
-        * Émissions de Gaz à Effet de Serre autre que le CO2 (méthane, etc.).
-        * Évolution de la répartition entre sols naturels et sols exploités par et pour l'activité humaine.
-        
-        Malheureusement, nos conclusions, et a fortiori celles des experts en climatologie, ne sont positives ni pour notre planète Terre (UnhapPy Earth), ni pour l'humanité.
-        """)
+# Suite du projet :
+    
+    st.header("Suite du projet")
+    
+    st. markdown(
+        """
+        Afin de compléter notre étude, de nombreux autres causes et conséquencs pourraient être analysés, notamment :
+        * Émissions de Gaz à Effet de Serre autre que le CO2 (méthane, etc.) ;
+        * Évolution de la répartition entre sols naturels et sols exploités par et pour l'activité humaine ;
+        * Augmentation du niveau des mers et des océans ;
+        * Augmentation de la fréquence et de l'intensité des catastrophes dites naturelles.
+        """
+        )
 
-    st.markdown("---")
+# Bibliographie :
 
     st.header("Bibliographies")
     
@@ -66,7 +76,9 @@ def run():
             * [Le réchauffement climatique anthropique aurait débuté au tout début de la révolution industrielle - IPSL](https://www.ipsl.fr/Actualites/Actualites-scientifiques/Le-rechauffement-climatique-anthropique-aurait-debute-au-tout-debut-de-la-revolution-industrielle)
             * [Covid-19 et baisse des émissions de CO2 | Cairn.info](https://www.cairn.info/magazine-pour-la-science-2020-7-page-7.htm)
             * [Hoax climatique #3 : quand les scientifiques prévoyaient un refroidissement](https://www.lemonde.fr/cop21/article/2015/10/22/hoax-climatique-3-dans-les-annees-1970-les-scientifiques-prevoyaient-un-refroidissement_4794858_4527432.html)
-            
+            * [La hausse de la température globale s’est encore accentuée, selon le dernier rapport du GIEC](https://www.ecologie.gouv.fr/hausse-temperature-globale-sest-encore-accentuee-selon-dernier-rapport-du-giec)
+            * [Réchauffement climatique : voici l'ampleur des hausses que vous connaîtrez](https://www.francelive.fr/article/france-live/vous-pouvez-desormais-savoir-le-changement-climatique-que-vous-subirez-selon-votre-age-7403908/)
+            * [Réchauffement climatique : les prévisions alarmantes de Météo France](https://www.lefigaro.fr/sciences/rechauffement-climatique-les-previsions-alarmantes-de-meteo-france-20210201)
             """
             )
     else : 
@@ -82,9 +94,20 @@ def run():
             * [SciPy](https://scipy.org/)
             * [Prophet | Forecasting at scale](https://facebook.github.io/prophet/)
             * [Altair](https://altair-viz.github.io/)
-            
             """
             )
+
+    st.markdown(
+        """
+        <br />
+        
+        ----
+    
+        Crédit image : Artiste inconnu, [CC-BY-SA 4.0 ??](https://creativecommons.org/licenses/by-sa/4.0),
+        via [Be Artist Be Art](https://beartistbeart.wordpress.com/2016/04/24/sad-earth-think-about/).
+         """,
+         unsafe_allow_html=True
+         )
             
             
             

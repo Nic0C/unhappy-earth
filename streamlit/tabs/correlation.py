@@ -192,20 +192,28 @@ def run():
     
     if degree == 1 :
         
+        #st.markdown("Il s'agit d'une régression linéaire simple.")
+        
+        # Entraînement de la régression :
+        
         lr = LinearRegression()
         lr.fit(x, y)
+        y_pred = lr.predict(x)
         
-        st.markdown(f"Valeur de l'intercept (= valeur de Y lorsque X = 0) : **{lr.intercept_}**")
-        st.markdown(f"Valeur du coefficient (= 'pente' de la régression) : **{lr.coef_[0]}**")
+        #st.markdown(f"Intercept (valeur de Y lorsque X = 0) : **{lr.intercept_}**")
+        #st.markdown(f"Coefficient ('pente' de la régression) : **{lr.coef_[0]}**")
         
-        st.markdown("Le modèle s'interprète donc ainsi :")
-        st.markdown("$Température \ (°C) = 7.990 + 0.038 * émissions \ de \ CO_2 \ (Gt)$.")
+        st.markdown(
+            """
+            Il s'agit d'une régression linéaire simple, qui peut s'interprêter ainsi :
+                
+            $Température \ (°C) = 7.990 + 0.038 * émissions \ de \ CO_2 \ (Gt)$.
+            """
+            )
     
-        # Affichage scatter + droite régression
+        # Affichage scatter + droite régression :
     
         st.markdown("Visualisons le résultat de la régression linéaire en l'affichant sur le nuage de points :")
-        
-        y_pred = lr.predict(x)
         
         fig, ax1 = plt.subplots(figsize=(18,10))
         plt.grid(color='grey', alpha=0.5, linewidth=2)
@@ -235,7 +243,11 @@ def run():
         st.markdown(f"Score obtenu : **{score}**")
     
     
+    # Régression polynomiale :
+    
     if degree > 1 :
+        
+        # Entraînement de la régression :
         
         poly_feats = PolynomialFeatures(degree=degree)
         x_poly = poly_feats.fit_transform(x)
@@ -243,9 +255,11 @@ def run():
         lr = LinearRegression()
         lr.fit(x_poly, y)
         
-        st.markdown(f"Visualisons le résultat de la régression polynomiale de degré {degree} en l'affichant sur le nuage de points :")
-        
         y_poly_pred = lr.predict(x_poly)
+        
+        # Affichage scatter + droite régression :
+        
+        st.markdown(f"Visualisons le résultat de la régression polynomiale de degré {degree} en l'affichant sur le nuage de points :")
         
         fig, ax1 = plt.subplots(figsize=(18,10))
         plt.grid(color='grey', alpha=0.5, linewidth=2)
@@ -266,6 +280,8 @@ def run():
         plt.ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
         plt.legend(loc='upper left', bbox_to_anchor=(0.05, 0.9))
         st.pyplot(fig)
+        
+        # Evaluation de la régression :
         
         st.markdown("Afin d'évaluer notre régression, nous utilisons comme métrique le score $R^2$.")
     
@@ -294,15 +310,20 @@ def run():
         
         **Attention cependant** : dans le cadre d'une étude statistique comme la nôtre, **corrélation ou linéarité ne signifient pas
         nécessairement causalité**.
+        
+        
         """
         )
 
     st.markdown(
         """
-                
+        <br />
+        
         ----
     
         Crédit image : Vasily Iakovlev, [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0),
         via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Reftinsky_reservoir_of_Sverdlovsk_region.jpg).
-         """
+         """,
+         unsafe_allow_html=True
          )
+    
