@@ -72,6 +72,7 @@ def run():
     st.markdown("Nous pouvons comparer l’évolution de ces 4 variables dans le graphique suivant :")
     
     fig, ax1 = plt.subplots(figsize=(18,10))
+    ax1.grid(color='grey', alpha=0.3, linewidth=1)
     ax1.plot(co2_temps['year'], co2_temps['Land use emissions (GtCO2)'],
          label = "Emissions de CO2 dues à l'utilisation des sols")
     ax1.plot(co2_temps['year'], co2_temps['Fossil fuel and industry emissions (GtCO2)'],
@@ -81,6 +82,7 @@ def run():
     ax1.set_xlabel("Year")
     ax1.set_ylabel("$CO_2$ émis / Gigatonnes")
     ax2 = ax1.twinx()
+    ax2.grid(color='grey', alpha=0, linewidth=2)
     ax2.plot(co2_temps['year'], co2_temps['abs_10y_mov_avg'], c='r', linestyle='--',
          label = "Températures absolues : moyennes glissantes s/ 10 ans")
     ax2.set_ylabel("Température absolue / °C")
