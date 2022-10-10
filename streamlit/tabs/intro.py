@@ -42,6 +42,16 @@ def run():
         celles données par les experts en climatologie. Nous voulons mettre à disposition du public un moyen simple et 
         vérifiable, au travers de sources factuelles et ouvertes, de constater le réchauffement climatique. 
                 """)
+                
+                
+    st.header("Qu'est-ce que le réchauffement climatique?")
+
+    st.markdown(
+        """
+Le réchauffement climatique est un phénomène de changement climatique caractérisé par une augmentation générale 
+des températures moyennes à la surface de la Terre, qui modifie l'équilibre climatique et les écosystèmes.
+        """
+    )
         
     st.subheader("Objectifs")
     
