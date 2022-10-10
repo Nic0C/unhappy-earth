@@ -1,6 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 
 
 title = "Confirmation du phénomène"
@@ -100,25 +101,15 @@ def run():
     st.title(title)
 
     temps_globales, temps_hemis, temps_countries = read_temps()
-    temps_countries_10y = pd.concat(
-        [temps_countries['year'], temps_countries.iloc[:, 2:].rolling(120).mean()], axis=1)
-    temps_globales['uncert_abs'] = temps_globales['abs'] + temps_globales['uncert']
+#        [temps_countries['year'], temps_countries.iloc[:, 2:].rolling(120).mean()], axis=1)
+#    temps_globales['uncert_abs'] = temps_globales['abs'] + temps_globales['uncert']
     temps_globales['uncert_mov_average'] = temps_globales['mov_average'] + temps_globales['uncert']
-    temps_globales_10y = pd.concat(
-        [temps_globales['year'], temps_globales.iloc[:, 3:].rolling(120).mean()], axis=1)
+#    temps_globales_10y = pd.concat(
+#        [temps_globales['year'], temps_globales.iloc[:, 3:].rolling(120).mean()], axis=1)
 
     co2_global, co2_countries = read_co2()
-    co2_countries_10y = pd.concat(
-        [co2_countries['year'], co2_countries.iloc[:, 2:].rolling(120).mean()], axis=1)
-
-    st.header("Qu'est-ce que le réchauffement climatique?")
-
-    st.markdown(
-        """
-Le réchauffement climatique est un phénomène de changement climatique caractérisé par une augmentation générale 
-des températures moyennes à la surface de la Terre, qui modifie l'équilibre climatique et les écosystèmes.
-        """
-    )
+#    co2_countries_10y = pd.concat(
+#        [co2_countries['year'], co2_countries.iloc[:, 2:].rolling(120).mean()], axis=1)
 
     st.header('Pouvons-nous confirmer le phénomène de changement climatique ?')
 
@@ -173,12 +164,8 @@ La tendance est encore plus visible sur la moyenne annuelle glissante : si jusqu
 de 8 °C, elle remonte sur les dernières décennies autour de 10 °C. Nous pouvons identifier une augmentation 
 approximative de 2 °C en à peine plus d'un siècle. 
 
-Bien que cette valeur puisse paraître relativement petite (au vu, par exemple, des oscillations de la température 
-                                                           entre jour et nuit, ou même été et hiver), les conséquences 
-sur l'équilibre global sont énormes.
-
-Afin de mieux se rendre compte de cette tendance, et pour lisser un peu les variations annuelles que l'on peut observer, 
-nous calculons et présentons sur le graphique suivant une moyenne glissante sur 10 ans:
+Afin de mieux nous rendre compte de cette tendance, et pour lisser un peu les variations annuelles que l'on peut observer, 
+nous calculons et viualisons la moyenne glissante sur 10 ans:
         """
     )
 
@@ -194,9 +181,133 @@ Donc, **oui, le réchauffement climatique est bel et bien une réalité** !
 
         """
     )
+        
+    st.header('Le réchauffement commence-t-il au même moment sur l’ensemble du globe ?')
+    
+    st.markdown(
+        """
+Après l'observation des deux graphiques précédents, il n'est pas possible d'établir précisément le début du 
+réchauffement climatique. Il s'agit même d'un sujet de désaccord entre experts, qui depuis des années ne 
+parviennent pas à une réponse unique. Certaines recherches le corrèlent avec la révolution industrielle 
+occidentale, telles que les travaux de Abram et. al. ou ceux du groupe PAGES. D'autres études indiquent 
+un début plus précoce.
+
+Le réchauffement climatique est très graduel, et subit des variations cycliques qui rendent difficile une 
+datation précise.
+
+Néanmoins, en étudiant à nouveau le graphique, nous pouvons observer une tendance beaucoup plus explicite, 
+forte et continue à partir des années 1975. De plus, dans les décennies précédent les années 1970, les 
+températures moyennes mondiales semblent être assez stables, ce qui a suscité de [vives controverses](https://www.lemonde.fr/cop21/article/2015/10/22/hoax-climatique-3-dans-les-annees-1970-les-scientifiques-prevoyaient-un-refroidissement_4794858_4527432.html)
+à l'époque.
+        """
+    )
+    
+    # Moyenne glissante sur 10 ans.
+    hems_mov_average_10y_na = []
+    hems_mov_average_10y_nu = []
+    hems_mov_average_10y_sa = []
+    hems_mov_average_10y_su = []
+    for i in np.arange(120, temps_hemis.shape[0]):
+        i_prec = i - 120
+        hems_mov_average_10y_na.append(temps_hemis.iloc[i_prec:i, 4].mean())
+        hems_mov_average_10y_nu.append(temps_hemis.iloc[i_prec:i, 5].mean())
+        hems_mov_average_10y_sa.append(temps_hemis.iloc[i_prec:i, 8].mean())
+        hems_mov_average_10y_su.append(temps_hemis.iloc[i_prec:i, 9].mean())
+
+    hems_mov_average_10y = pd.DataFrame({'north_abs': hems_mov_average_10y_na, 
+                                         'north_uncert': hems_mov_average_10y_nu, 
+                                         'south_abs': hems_mov_average_10y_sa, 
+                                         'south_uncert': hems_mov_average_10y_su
+                                         }, index=temps_hemis['date'][120:])
+    
+    hems_mov_average_10y['north_abs_10y_centered'] = hems_mov_average_10y['north_abs'] - hems_mov_average_10y['north_abs'].mean()
+    hems_mov_average_10y['north_uncert_10y_centered'] = hems_mov_average_10y['north_uncert'] - hems_mov_average_10y['north_uncert'].mean()
+    hems_mov_average_10y['south_abs_10y_centered'] = hems_mov_average_10y['south_abs'] - hems_mov_average_10y['south_abs'].mean()
+    hems_mov_average_10y['south_uncert_10y_centered'] = hems_mov_average_10y['south_uncert'] - hems_mov_average_10y['south_uncert'].mean()
+    
+    fig, ax1 = plt.subplots(figsize=(18, 8))
+    hems_mov_average_10y['north_abs_10y_centered'].plot(label='Hémisphère Nord')
+    hems_mov_average_10y['south_abs_10y_centered'].plot(label='Hémisphère Sud')
+    plt.title('Température par hémisphère terrestre - moyenne glissante sur 10 ans, centrée')
+    plt.legend()
+    plt.grid()
+    st.pyplot(fig)
+    
+    st.markdown(
+        """
+De la même manière que pour les températures globales, dans ce graphique par hémisphère nous ne pouvons identifier 
+avec précision un point de départ du réchauffement climatique. Les deux hémisphères montrent une tendance croissante, 
+mais il est intéressant de remarquer que leur comportement est différent entre l'un et l'autre. La hausse de température 
+dans l'hémisphère Sud est graduelle et constante, tandis que dans l'hémisphère Nord d'importantes variations apparaissent.
+
+Sur cette dernière période (1970 - 2021), dans l'hémisphère Sud la température moyenne passe de 16,9 °C à 18 °C, soit une 
+augmentation de 1,1 °C, tandis que dans l'hémisphère Nord la température passe de 10 °C à 11,8 °C, soit 1,8 °C d'augmentation 
+sur la même periode.
+
+A cause de ces variations, il est difficile d'établir si le réchauffement a débuté plus tôt dans un hémisphère que dans 
+l'autre, mais nous pouvons observer globalement **un réchauffement plus rapide de l'hémisphère Nord**. 
+
+Afin de valider cette interprétation, nous allons étudier plus en détail l'évolution des températures dans les différents pays et continents.
+        """
+    )
+    
+    
+
+    # Compute yearly average
+    temps_countries_year = pd.DataFrame(columns=temps_countries.iloc[:,2:].columns)
+    #display(temps_countries)
+    temps_countries_year = temps_countries.groupby(by='year').agg('mean')
+    temps_countries_year = temps_countries_year.reset_index()
+    
+    #display(temps_countries_year)
+    for c in temps_countries_year.columns[1:]:
+      temps_countries_year[c] = temps_countries_year[c].rolling(10).mean()
+    
+    temps_countries_year_centered = temps_countries_year.copy()
+    for c in temps_countries_year.columns:
+      temps_countries_year_centered[c] = temps_countries_year[c] - temps_countries_year[c].mean()
+    
+    selected_countries_n = ['sudan', 'united-states-of-america', 
+                          'greenland', 'russia', 'china']
+    selected_countries_s = ['brazil', 'australia', 'antarctica']
+    
+    countries1 = st.multiselect("Pays groupe 1", 
+                               temps_countries_year_centered.columns[1:],
+                               default=selected_countries_n,
+                               key='countries_1')
+    countries2 = st.multiselect("Pays groupe 2", 
+                               temps_countries_year_centered.columns[1:],
+                               default=selected_countries_s,
+                               key='countries_2')
+
+
+    if len(countries1) == 0 or len(countries2) == 0: 
+        st.markdown("Attention : Selectionner au moins un pays pour chaque groupe.")
+    else :
+        fig, ax1 = plt.subplots(figsize=(18, 8))
+        #plt.ylim(-.5, 2)
+        for c in countries1:
+            plt.plot(temps_countries_year['year'], temps_countries_year_centered[c], alpha=.5, label=c, linestyle='-')
+        for c in countries2:
+            plt.plot(temps_countries_year['year'], temps_countries_year_centered[c], alpha=.7, label=c, linestyle=':')
+        plt.legend()
+        plt.grid()
+        st.pyplot(fig)
+
+
+    st.markdown(
+        """
+Nous retrouvons sur ce graphique les éléments observés précédemment : le réchauffement est plus rapide dans 
+l'hémisphère nord (courbes en trait plein) que dans l'hémisphère sud (courbes en trait pointillé). Sur 
+l'ensemble des pays sélectionnés, on peut même observer que plus les pays sont situés au Nord, plus la différence 
+de température est visible.
+        """
+    )
 
     st.header('Evolution géographique')
 
+    st.subheader('Température mondiale')
+    
     st.markdown(
         """
 Afin de mieux appréhender les différences de température au niveau mondial et à l'aide de l’outil geopandas (projet 
@@ -207,25 +318,6 @@ accessibles jusqu'en 2020). Nous utilisons la même échelle de couleur pour per
         """
     )
     
-    
-    
-
-    # Compute yearly average
-    temps_countries_year = pd.DataFrame(columns=temps_countries.iloc[:,2:].columns)
-    #display(temps_countries)
-    temps_countries_year = temps_countries.groupby(by='year').agg('mean')
-#    for c in temps_countries.iloc[:,2:]:
-#      temps_countries_year[c] = temps_countries.groupby(by='year').agg({c: 'mean'})
-    temps_countries_year = temps_countries_year.reset_index()
-    
-    #display(temps_countries_year)
-    for c in temps_countries_year.columns[1:]:
-      temps_countries_year[c] = temps_countries_year[c].rolling(10).mean()
-    
-    temps_countries_year_centered = temps_countries_year.copy()
-    for c in temps_countries_year.columns:
-      temps_countries_year_centered[c] = temps_countries_year[c] - temps_countries_year[c].mean()
-
         
     import geopandas as gpd
     
@@ -284,7 +376,10 @@ accessibles jusqu'en 2020). Nous utilisons la même échelle de couleur pour per
     from mapclassify import UserDefined
     
     temps_countries_from, temps_countries_to = int(temps_countries.iloc[0, 1]), int(temps_countries.iloc[-1, 1])
-    annee = st.slider("Choisir l'année", temps_countries_from, temps_countries_to, 1900)
+    annee = st.slider("Choisir l'année", 
+                      temps_countries_from, 
+                      temps_countries_to, 
+                      1900, key='temps_annee')
     
     
     bins = UserDefined(merge[annee], bins=[0,3,5,7,9,11,13,15,17,19,21,23,25,27]).bins
@@ -296,5 +391,55 @@ accessibles jusqu'en 2020). Nous utilisons la même échelle de couleur pour per
                edgecolor='darkgrey', linewidth=1, legend_kwds={'loc': 'lower left'},
                scheme='userdefined', classification_kwds={'bins':bins}, norm=Normalize(0, len(bins)), vmin=-20, vmax=23)
     ax1.set_title('Températures des terres', fontsize=25)
-    
     st.pyplot(fig)
+
+    st.markdown(
+        """
+L'augmentation est visible ; beaucoup de pays ont une couleur plus prononcée en 2010 -- la quasi-totalité des 
+pays a pris au moins une teinte de couleur plus sombre, et l'algorithme a même dû ajouter une catégorie de 
+température (> 28.58°C).
+
+        """
+    )
+
+    st.subheader('Différence sur un siècle')
+
+    st.markdown(
+        """
+Nous voulons identifier l'augmentation de température sur l'ensemble des pays, en prenant comme référence les 
+températures observées au début du siècle précédent (1900) et en les comparant aux températures observées à 
+une date choisie).
+
+        """
+    )
+
+    
+    annee = st.slider("Choisir l'année", 
+                      1900, 
+                      temps_countries_to, 2014, key='temps_annee_diff')
+    merge['diff'] = merge[annee] - merge[1900]
+
+    # plot world map 
+    fig, ax1 = plt.subplots(figsize=(14, 12))
+    merge.plot(ax=ax1, column='diff', 
+               legend=True, cmap='YlOrRd',
+               missing_kwds= dict(color="lightgrey",), 
+               edgecolor='darkgrey', linewidth=1, legend_kwds={'loc': 'lower left'},
+               scheme='NaturalBreaks')
+    plt.title('Différence de températures', fontsize=25)
+    st.pyplot(fig)
+    plt.show()
+
+    st.markdown(
+        """
+On retrouve les observations précédentes : l'augmentation de température est en moyenne plus importante dans 
+l'hémisphère nord, et croît globalement en remontant vers le Nord. Cela n'est pas uniforme, cependant, et d'autres 
+paramètres doivent entrer en compte. Nous savons que la climatologie est une science complexe, et des paramètres 
+locaux (type environnement local, ou régulations de certains pays) autant que systémique par les effets globaux 
+du climat, tels que les modifications des courants océaniques et atmosphériques.
+
+
+        """
+    )
+
+

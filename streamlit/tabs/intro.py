@@ -7,17 +7,16 @@ sidebar_name = "Introduction"
 
 def run():
 
-    # TODO: choose between one of these GIFs
     st.image("streamlit/assets/starving_polar_bear.jpg")
-    # st.image("https://dst-studio-template.s3.eu-west-3.amazonaws.com/2.gif")
-    # st.image("https://dst-studio-template.s3.eu-west-3.amazonaws.com/3.gif")
-    
+
     st.title(title)
 
     st.markdown("---")
     
     st.header("Analyse du réchauffement climatique")
     
+# Contexte :
+
     st.subheader("Contexte")
     
     st.markdown(
@@ -33,16 +32,12 @@ def run():
         météorologiques et les écosystèmes.**
         
         Par ailleurs, d'après la grande majorité des experts en climatologie, les émissions de $CO_2$ dans l'atmosphère seraient, parmi
-        l’ensemble des gaz à effet de serre, la principale cause du réchauffement de la planète.
-        
-        Un rapport des Nations Unies datant d'avril 2022 l'affirme : le réchauffement climatique est incroyablement coûteux :
-        humainement, socialement, géopolitiquement, financièrement et économiquement – voir
-        [l’article](https://www.nationalgeographic.fr/environnement/2017/09/le-veritable-cout-du-changement-climatique). Anticiper
-        et mieux comprendre ses conséquences, et donc son coût économique, devient une priorité pour beaucoup d’entreprises et
-        d’organisations.
-
+        l’ensemble des gaz à effet de serre, la principale cause du réchauffement de la planète. Anticiper et mieux comprendre ses
+        conséquences, et donc son coût économique, devient une priorité pour beaucoup d’entreprises et d’organisations.
         """
         )
+
+# Objectifs :
         
     st.subheader("Objectifs")
     
@@ -61,6 +56,8 @@ def run():
         """
         )
     
+# Classification
+        
     st.subheader("Classification du problème") 
     
     st.markdown(
@@ -76,8 +73,6 @@ def run():
         3. Grâce au machine learning, nous construirons un modèle prédictif d’évolution des températures.
         
         Enfin, c’est par un travail de recherche que nous pourrons nous assurer de l’adéquation de nos résultats avec les recherches courantes. 
-        
-        
         """
         )
 
