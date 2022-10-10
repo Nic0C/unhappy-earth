@@ -7,3 +7,7 @@ scipy
 streamlit
 Prophet
 sklearn
+geopandas
+geoplot
+mapclassify
+pycountry
