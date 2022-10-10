@@ -17,7 +17,7 @@ def run():
     
 # Contexte :
 
-    st.subheader("Contexte")
+    st.subheader("Contexte / Définition")
     
     st.markdown(
         """
