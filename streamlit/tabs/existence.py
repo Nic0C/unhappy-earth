@@ -213,12 +213,13 @@ accessibles jusqu'en 2020). Nous utilisons la même échelle de couleur pour per
     # Compute yearly average
     temps_countries_year = pd.DataFrame(columns=temps_countries.iloc[:,2:].columns)
     #display(temps_countries)
-    for c in temps_countries.iloc[:,2:]:
-      temps_countries_year[c] = temps_countries.groupby(by='year').agg({c: 'mean'})
+    temps_countries_year = temps_countries.groupby(by='year').agg('mean')
+#    for c in temps_countries.iloc[:,2:]:
+#      temps_countries_year[c] = temps_countries.groupby(by='year').agg({c: 'mean'})
     temps_countries_year = temps_countries_year.reset_index()
     
     #display(temps_countries_year)
-    for c in temps_countries_year.iloc[:,1:]:
+    for c in temps_countries_year.columns[1:]:
       temps_countries_year[c] = temps_countries_year[c].rolling(10).mean()
     
     temps_countries_year_centered = temps_countries_year.copy()
@@ -261,6 +262,7 @@ accessibles jusqu'en 2020). Nous utilisons la même échelle de couleur pour per
         'reunion': 'Réunion',
         'new-zealand': 'New Zealand',
         })
+
     
     # convert countries to 3-letter code
     import pycountry
@@ -276,29 +278,23 @@ accessibles jusqu'en 2020). Nous utilisons la même échelle de couleur pour per
     
     # then merge with our data 
     merge = pd.merge(world, df_geo, on='CODE', how='outer')
-    display(merge)
     
     
     from matplotlib.colors import Normalize
     from mapclassify import UserDefined
     
-    bins = UserDefined(merge[1960], bins=[0,3,5,7,9,11,13,15,17,19,21,23,25,27]).bins
+    temps_countries_from, temps_countries_to = int(temps_countries.iloc[0, 1]), int(temps_countries.iloc[-1, 1])
+    annee = st.slider("Choisir l'année", temps_countries_from, temps_countries_to, 1900)
     
-    fig, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True, figsize=(28, 24))
+    
+    bins = UserDefined(merge[annee], bins=[0,3,5,7,9,11,13,15,17,19,21,23,25,27]).bins
+    fig, ax1 = plt.subplots(figsize=(14, 12))
     # plot world map 
-    merge.plot(ax=ax1, column=1900, 
+    merge.plot(ax=ax1, column=annee,
                legend=True, cmap='YlOrRd',
                missing_kwds= dict(color="lightgrey",), 
                edgecolor='darkgrey', linewidth=1, legend_kwds={'loc': 'lower left'},
                scheme='userdefined', classification_kwds={'bins':bins}, norm=Normalize(0, len(bins)), vmin=-20, vmax=23)
-    ax1.set_title('1900 World temperatures', fontsize=25)
-    
-    # plot world map 
-    merge.plot(ax=ax2, column=2010, 
-               legend=True, cmap='YlOrRd',
-               missing_kwds= dict(color="lightgrey",), 
-               edgecolor='darkgrey', linewidth=1, legend_kwds={'loc': 'lower left'},
-               scheme='userdefined', classification_kwds={'bins':bins}, norm=Normalize(0, len(bins)), vmin=0, vmax=23)
-    ax2.set_title('2010 World temperatures', fontsize=25)
+    ax1.set_title('Températures des terres', fontsize=25)
     
     st.pyplot(fig)
