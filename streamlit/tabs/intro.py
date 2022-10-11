@@ -49,8 +49,8 @@ def run():
         à l'aide de données fiables et librement accessibles, une analyse du réchauffement climatique.
         
         Nous répondrons aux problématiques suivantes :
-        1. PLes données disponibles permettent-elles de confirmer le phénomène de changement climatique ? Le réchauffement est-il
-            réellement observable ? Dans le temps et dans l'espace,, comment apparaît-il ?
+        1. Les données disponibles permettent-elles de confirmer le phénomène de changement climatique ? Le réchauffement est-il
+           réellement observable ? Dans le temps et dans l'espace, comment apparaît-il ?
         2. Quel degré de corrélation existe-t-il entre les émissions de $CO_2$ et l’évolution des températures ?
         3. Quelles sont nos prédictions de températures pour les prochaines décennies ?
         """
@@ -62,7 +62,7 @@ def run():
     
     st.markdown(
         """
-        Ces questions de recherche nous a amènerons à utiliser la plupart des compétences acquises au cours de notre formation :
+        Ces questions de recherche nous amèneront à utiliser la plupart des compétences acquises au cours de notre formation :
 
         1. Grâce aux outils de Data Analyse et de Dataviz, nous allons acquérir, explorer, nettoyer, fusionner, visualiser et 
             analyser nos données.
