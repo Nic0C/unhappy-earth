@@ -7,10 +7,11 @@ sidebar_name = "Conclusion"
 
 def run():
     
-    st.image("streamlit/assets/Unhappy_earth2.jpg", use_column_width=True)
+    st.image("streamlit/assets/Global_Warming.jpg", use_column_width=True)
     
     st.title(title)
 
+    st.markdown("---")
 # Bilan :
 
     st.header("Bilan")    
@@ -102,27 +103,9 @@ def run():
         <br />
         
         ----
-    
-        Crédit image : Artiste inconnu, [CC-BY-SA 4.0 ??](https://creativecommons.org/licenses/by-sa/4.0),
-        via [Be Artist Be Art](https://beartistbeart.wordpress.com/2016/04/24/sad-earth-think-about/).
-         """,
-         unsafe_allow_html=True
-         )
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        
+        Crédit image : Global Warming Representation, [CC-BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0),
+        via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Global_Warming_Representation,_NASA_Goddard_Photo_%26_Video.jpg#file).
+        """,
+        unsafe_allow_html=True
+        )
