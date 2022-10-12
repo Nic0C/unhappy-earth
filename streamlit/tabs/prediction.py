@@ -19,6 +19,8 @@ def run():
     
     st.title("Modélisation / prédiction de la température sur les prochaines années.")
     
+    st.markdown("---")
+    
     st.subheader("Pouvons-nous prédire les températures sur les prochaines décennies ?")
     
     st.markdown("Parmi différents modèles, nous avons choisi Facebook Prophet. Prophet permet la prédiction de données de séries temporelles. Nous avons testé le modèle multiplicatif et le modèle additif de Facebook Prophet et nous avons vu que le deuxième correspond mieux à nos données: aux tendances non-linéaires s'ajoute une composante liée à la saisonnalité. Cette librairie est donc particulièrement adaptée à notre étude.")
@@ -45,15 +47,15 @@ def run():
     x = mdates.date2num(new_column['ds'])
     z = np.polyfit(x, new_column['y'], 1)
     p = np.poly1d(z)
-      
+     
     ax1.plot(x,p(x),"r--", label="Tendance")
-    ax1.set_xlabel("Date (par annnée)")
-    ax1.set_ylabel("Température absolue en °C")
-    plt.title("Température absolue entre 1975 et 2022 (données mensuelles)")
+    ax1.set_xlabel("Date (par annnée)", fontsize=14)
+    ax1.set_ylabel("Température absolue en °C", fontsize=14)
+    plt.title("Température absolue entre 1975 et 2022 (données mensuelles)", fontsize=18)
     plt.grid(color='grey', alpha=0.2)
 
-    fig.legend(loc='upper center', bbox_to_anchor=(0.19, 0.90))
-
+    fig.legend(loc='upper center', bbox_to_anchor=(0.20, 0.91))
+    
     st.pyplot(fig)
 
 
@@ -77,17 +79,29 @@ def run():
     st.markdown("- les déviations saisonnières de cette tendance :")
     
     fig = m.plot_components(fcst, figsize=(18, 10))
-    fig.suptitle("Prediction de la tendance de la température absolue et de la variation saisonnière", y=1.02, fontsize=14)
+    fig.suptitle("Prediction de la tendance de la température absolue et de la variation saisonnière", y=1.02, fontsize=24)
     axes = fig.get_axes()
 
     axes[0].set_xlabel('Date (par annnée)')
     axes[0].set_ylabel('Température absolue en °C')
     axes[1].set_xlabel("Mois de l'année")
-    axes[1].set_ylabel('Var saisonnière de la temp par rapport à la tendance, en°C')
+    axes[1].set_ylabel('Var saisonnière temp / tendance, en°C')
     warnings.filterwarnings("ignore")
     
     st.pyplot(fig)
 
 #Conclusion
     st.markdown("Notre prévision repose sur le principe que la température globale absolue va suivre la même tendance que ces 46 dernières années, sans action climatique majeure. Dans ce cas, notre modèle prédit une croissance approximative de 1.9 °C dans 50 ans (10 °C en 2021, jusqu’à 11,9 °C en 2072) . En comparaison avec la multitude d'études prévisionnelles qui existent actuellement, notre résultat semble juste et raisonnable, mais bien peu optimiste.")
+    
+    st.markdown(
+        """
+        <br />
+        
+        ----
+        
+        Crédit image : Michal Osmenda, [CC-BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0),
+        via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Weather_station_on_Mount_Vesuvius_(2437693238).jpg).
+        """,
+        unsafe_allow_html=True
+        )    
     
