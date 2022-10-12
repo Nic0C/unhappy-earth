@@ -27,8 +27,25 @@ def run():
     
     st.markdown("Nous allons nous concentrer sur la période où la tendance croissante de la température est constante et forte, c'est-à-dire à partir de 1975.")
 
-    st.markdown("Dans le graphique suivant nous visualisons bien que pendant la période comprise entre 1975 et 2022 la tendance de la température absolue est explicite, croissante, constante et forte (augmentation de la tendance de 8,7 °C en 1975 jusqu’à 10 °C en 2022) :")
+    st.markdown("Dans le graphique suivant nous visualisons bien que pendant la période comprise entre 1975 et 2022 la tendance de la température absolue est explicite, croissante, constante et forte:")
 
+    col1, col2 = st.columns(2)
+    col1.metric("Temperature 1975", "8.7 °C")
+    col2.metric("Temperature 2022", "10 °C", "1.3 °C")
+
+    st.markdown('''
+    <style>
+    /*center metric label*/
+    [data-testid="stMetricLabel"] > div:nth-child(1) {
+    justify-content: center;
+    }
+
+    /*center metric value*/
+    [data-testid="stMetricValue"] > div:nth-child(1) {
+    justify-content: center;
+    }
+    </style>
+    ''', unsafe_allow_html=True)
 
 #Definition des donnes a traiter: 
     new_column = df.loc[(df['date'] >= '1975-01-15')] 
@@ -91,7 +108,26 @@ def run():
     st.pyplot(fig)
 
 #Conclusion
-    st.markdown("Notre prévision repose sur le principe que la température globale absolue va suivre la même tendance que ces 46 dernières années, sans action climatique majeure. Dans ce cas, notre modèle prédit une croissance approximative de 1.9 °C dans 50 ans (10 °C en 2021, jusqu’à 11,9 °C en 2072) . En comparaison avec la multitude d'études prévisionnelles qui existent actuellement, notre résultat semble juste et raisonnable, mais bien peu optimiste.")
+
+    col1, col2 = st.columns(2)
+    col1.metric("Temperature 2022", "10 °C")
+    col2.metric("Temperature 2072", "11.9 °C", "1.9 °C")
+
+    st.markdown('''
+    <style>
+    /*center metric label*/
+    [data-testid="stMetricLabel"] > div:nth-child(1) {
+    justify-content: center;
+    }
+
+    /*center metric value*/
+    [data-testid="stMetricValue"] > div:nth-child(1) {
+    justify-content: center;
+    }
+    </style>
+    ''', unsafe_allow_html=True)
+
+    st.markdown("Notre prévision repose sur le principe que la température globale absolue va suivre la même tendance que ces 46 dernières années, sans action climatique majeure. Dans ce cas, notre modèle prédit une croissance approximative de 1.9 °C dans 50 ans. En comparaison avec la multitude d'études prévisionnelles qui existent actuellement, notre résultat semble juste et raisonnable, mais bien peu optimiste.")
     
     st.markdown(
         """
