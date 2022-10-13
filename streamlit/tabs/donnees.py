@@ -38,7 +38,11 @@ def run():
 Nous avons identifié deux sources de données pour nos recherches : [Berkeley Earth](http://berkeleyearth.org/data/) 
 et [Our world in data](https://ourworldindata.org/). Toutes nos données sont publiquement téléchargeables, sous une 
 licence spécifique pour le premier et [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode) pour le second. 
-
+        """)
+        
+    with st.expander("En savoir plus sur les sources de données..."):
+        st.markdown(
+        """
 [Berkeley Earth](http://berkeleyearth.org/data/) est une organisation américaine indépendante qui fournit des données 
 de température historiques nettoyées et cross-vérifiées. Recoupant elle-même plusieurs sources, notamment l'analyse 
 [GISTEMP](https://data.giss.nasa.gov/gistemp/) réalisée sous l'égide de la NASA, elle fournit un ensemble de jeux de 
@@ -51,7 +55,7 @@ librement [téléchargeables sur GitHub](https://github.com/owid/), et sont nota
 et la recherche](https://ourworldindata.org/coverage) à travers le monde. Nous nous appuyons sur leurs données 
 d'émission de CO2 disponibles dans [leur référentiel GitHub](https://github.com/owid/co2-data).
         """
-    )
+        )
 
     st.header('Données de températures')
 
@@ -76,6 +80,35 @@ site de la NASA](https://data.giss.nasa.gov/gistemp/faq/abs_temp.html).
 L’**incertitude** est la dispersion liée à différents facteurs, notamment de sous-échantillonnage statistique et 
 spatial, influant in fine sur la qualité de la mesure. Elle représente l'intervalle de confiance à 95 %. **Ces 
 références nous permettent de calculer les températures en valeurs absolues.**
+        """
+    )
+
+    tab1, tab2, tab3, tab4 = st.tabs(["Complete_TAVG_complete.txt", 
+                                      "northern-hemisphere-TAVG-Trend.txt", 
+                                      "southern-hemisphere-TAVG-Trend.txt",
+                                      "Sets_by_country"])
+
+    with tab1:
+       st.dataframe(temps_globales.tail(10))
+    
+    with tab2:
+       st.header("A dog")
+       st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
+    
+    with tab3:
+       st.header("An owl")
+       st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
+   
+    st.markdown(
+        """
+| Nom |  Type  |  NaNs  |  Description  |  Exemple  |  Moyenne  |  Min  |  Max  |
+|---|---|---|---|---|---|---|---|
+| date |  datetime  |  0  |  Date au format yyyy-mm-dd.  |  1950-12-24  |  X  |  X  |  X  |
+| year |  int  |  0  |  L'année au format xxxx.  |  1950  |  X  |  X  |  X  |
+| month |  int  |  0  |  Le mois au format numérique.  |  120  |  X  |  X  |  X  |
+| ano |  float  |  1  |  Anomalie constatée (°C).  |  0.122  |  -0.265  |  -6.018  |  5.531  |
+| uncert |  float  |  3  |  Incertitude (°C).  |  0.041  |  0.903  |  0.022  |  6.521  |
+|  abs  |  float  |  1  |  Température absolue (°C).  |  13.124  |  8.329  |  -2.423  |  17.780  |
 
 Les données sont réparties sur 12 colonnes :
 * Les quatre premières colonnes fournissent les informations suivantes : l’année, le mois de l’année, l’anomalie
@@ -164,6 +197,16 @@ certains cas elles peuvent aussi en consommer, et nous pouvons avoir des valeurs
 Les données de température sont fournies sous forme de fichiers txt, et doivent être pré-traitées afin d’en extraire les mesures de 
 références et calculer les valeurs de température absolues. Nous avons écrit une fonction Python qui prend soin de lire les fichiers 
 et retourne des datasets Pandas formatés de la même manière, incluant les valeurs d’anomalie et de température absolue.
+
+|     Nom    |  Type  |  NaNs |                                        Description                                       |   Exemple   |  Moyenne  |    Min    |    Max    |
+|:----------:|:------:|:-----:|:----------------------------------------------------------------------------------------:|:-----------:|:---------:|:---------:|:---------:|
+| year       | int    | 0     | L'année au format xxxx.                                                                  | 1950        | X         | X         | X         |
+| ico_code   | object | 4029  | Code ISO du pays.                                                                        | AFG         | X         | X         | X         |
+| country    | object | 0     | Dénomination usuelle du pays.                                                            | Afghanistan | X         | X         | X         |
+| co2        | float  | 1319  | Quantité de CO2 émise (millions de tonnes)                                               | 5.333       | 326.658   | 0         | 36702.503 |
+| gpd        | float  | 12520 | Produit Intérieur Brut ($).                                                              | 3.045e+10   | 2.89e+11  | 5.543e+07 | 1.136e+14 |
+| population | float  | 3097  | Population du pays.                                                                      | 4.87e+06    | 7.068e+07 | 1490      | 7.795e+09 |
+| total_ghg  | float  | 20338 | Quantité totale de gaz à effet de serre émise, en équivalent deCO2 (millions de tonnes). | 33.9        | 420.52    | -178.71   | 48939.71  |
         """
     )
 
