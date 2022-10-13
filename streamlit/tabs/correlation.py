@@ -72,6 +72,7 @@ def run():
     st.markdown("Nous pouvons comparer l’évolution de ces 4 variables dans le graphique suivant :")
     
     fig, ax1 = plt.subplots(figsize=(18,10))
+    
     ax1.grid(color='grey', alpha=0.3, linewidth=1)
     ax1.plot(co2_temps['year'], co2_temps['Land use emissions (GtCO2)'],
          label = "Emissions de CO2 dues à l'utilisation des sols")
@@ -79,14 +80,17 @@ def run():
          label = "Emissions de CO2 des combustibles fossiles et de l'industrie")
     ax1.plot(co2_temps['year'], co2_temps['Total emissions (GtCO2)'],
          label="Emissions totales")
-    ax1.set_xlabel("Year")
-    ax1.set_ylabel("$CO_2$ émis / Gigatonnes")
+    ax1.set_xlabel("Year", fontsize=14)
+    ax1.set_ylabel("$CO_2$ émis / Gigatonnes", fontsize=14)
+    
     ax2 = ax1.twinx()
     ax2.grid(color='grey', alpha=0, linewidth=2)
     ax2.plot(co2_temps['year'], co2_temps['abs_10y_mov_avg'], c='r', linestyle='--',
          label = "Températures absolues : moyennes glissantes s/ 10 ans")
-    ax2.set_ylabel("Température absolue / °C")
-    fig.legend(loc='upper center', bbox_to_anchor=(0.28, 0.85))
+    ax2.set_ylabel("Température absolue / °C", fontsize=14)
+    
+    ax1.set_title("Evolution des températures absolues et des émissions de $CO^2$", fontsize=14)
+    fig.legend(loc='upper center', bbox_to_anchor=(0.30, 0.85), fontsize=14, frameon=True)
     st.pyplot(fig)
     
     # Commentaire graphique :
@@ -139,8 +143,8 @@ def run():
     st.markdown(
         """
         Les résultats de ces tests nous confirment que :
-        - Les émissions totales de CO2 et les températures moyennes sur 10 ans présentent chacune une forte corrélation aux années :
-            coefs > 0.90. Les années passant, les émissions de CO2 et les températures augmentent.
+        - Les émissions totales de $CO_2$ et les températures moyennes sur 10 ans présentent chacune une forte corrélation aux années :
+            coefs > 0.90. Les années passant, les émissions de $CO_2$ et les températures augmentent.
         - Les températures moyennes sur 10 ans et les émissions totales le sont encore plus entre elles : coef > 0.95. Au-delà de la
             tendance générale à la hausse de ces 2 variables, cela confirme que globalement, les variations de l'une suit les variations
             de l'autre.
@@ -164,35 +168,40 @@ def run():
     fig, ax = plt.subplots(figsize=(18,10))
     plt.grid(color='grey', alpha=0.5, linewidth=2)
     ax.scatter(co2_temps['Total emissions (GtCO2)'], co2_temps['abs_10y_mov_avg'], 
-                c=co2_temps['abs_10y_mov_avg'], cmap='jet', s=20)
-    ax.set_xlabel('$CO^2$ émis / Gigatonnes')
-    ax.set_ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
-    ax.set_title("Evolution des températures absolues en fonction des émissions de $CO^2$")
+                c=co2_temps['abs_10y_mov_avg'], cmap='jet', s=20,
+                label="Températures absolues : moyennes glissantes s/ 10 ans")
+    ax.set_xlabel('$CO^2$ émis / Gigatonnes',  fontsize=14)
+    ax.set_ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans', fontsize=14)
+    ax.set_title("Evolution des températures absolues en fonction des émissions de $CO^2$", fontsize=14)
+    fig.legend(loc='upper center', bbox_to_anchor=(0.30, 0.85), fontsize=14, frameon=True)
     st.pyplot(fig)
     
     # Commentaire graphique :
         
     st.markdown(
         """
-        Nous avons vu grâce aux tests statistiques que ces 2 variables sont fortement corrélées, il n'est pas surprenant d'observer
-        une certaine linéarité dans cette représentation graphique. Une régression polynomaiale a pour objectif d’expliquer une
-        variable Y par le moyen d’une autre variable X. Notons qu'une régression polynomiale de degré 1 est une régression linéaire
-        simple.
+        Nous avons vu grâce aux tests statistiques que ces 2 variables sont fortement corrélées, ce que nous pouvons observer dans cette
+        représentation graphique.
+        
+        L'objectif d'une régression est d’expliquer une variable Y par le moyen d’une autre variable X.
+        Avec une régression polynomiale, la relation entre la variable explicative et la variable expliquée est modélisée comme un polynôme
+        à **$n$** degrés.
+        Notons qu'une régression polynomiale de degré 1 est une régression linéaire simple.
         
         Nous modélisons le lien entre nos deux variables grâce aux fonctions LinearRegression et PolynomialFeatures de Scikit-Learn :
         """
         )
     
+    # Regression linéraire :    
+        
     x = co2_temps[['Total emissions (GtCO2)']]
     y = co2_temps['abs_10y_mov_avg']
     
-    degree = st.slider('Sélectionnez le degré de la régression :', 1,5)
-    
-    # Regression linéraire :
+    col1, col2 = st.columns(2)
+    with col1 :
+        degree = st.slider('Sélectionnez le degré de la régression :', 1,5)
     
     if degree == 1 :
-        
-        #st.markdown("Il s'agit d'une régression linéaire simple.")
         
         # Entraînement de la régression :
         
@@ -200,20 +209,23 @@ def run():
         lr.fit(x, y)
         y_pred = lr.predict(x)
         
-        #st.markdown(f"Intercept (valeur de Y lorsque X = 0) : **{lr.intercept_}**")
-        #st.markdown(f"Coefficient ('pente' de la régression) : **{lr.coef_[0]}**")
-        
         st.markdown(
-            """
-            Il s'agit d'une régression linéaire simple, qui peut s'interprêter ainsi :
+            f"""
+            Intercept (valeur de Y lorsque X = 0) : **{lr.intercept_}**
+            
+            Coefficient ('pente' de la régression) : **{lr.coef_[0]}**
+
+            Il s'agit d'une régression linéaire simple, qui peut s'interpréter ainsi :
                 
-            $Température \ (°C) = 7.990 + 0.038 * émissions \ de \ CO_2 \ (Gt)$.
+            $Température \ (°C) = {round(lr.intercept_, 3)} + {round(lr.coef_[0], 3)} * émissions \ de \ CO_2 \ (Gt)$.
+            
+            Visualisons le résultat de la régression linéaire en l'affichant sur le nuage de points :
             """
             )
-    
+            
         # Affichage scatter + droite régression :
     
-        st.markdown("Visualisons le résultat de la régression linéaire en l'affichant sur le nuage de points :")
+        #st.markdown("Visualisons le résultat de la régression linéaire en l'affichant sur le nuage de points :")
         
         fig, ax1 = plt.subplots(figsize=(18,10))
         plt.grid(color='grey', alpha=0.5, linewidth=2)
@@ -230,9 +242,10 @@ def run():
                  'r--',
                  label='Régression linéaire')
         
-        plt.xlabel('$CO_2$ émis / Gigatonnes')
-        plt.ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
-        plt.legend(loc='upper left', bbox_to_anchor=(0.05, 0.9))
+        ax1.set_title("Evolution des températures absolues en fonction des émissions de $CO^2$ : Scatterplot & Droite de régression", fontsize=14)
+        plt.xlabel('$CO_2$ émis / Gigatonnes', fontsize=14)
+        plt.ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans', fontsize=14)
+        plt.legend(loc='upper left', bbox_to_anchor=(0.05, 0.9), fontsize=14, frameon=True)
         st.pyplot(fig)
     
         # Evaluation de la régression :
@@ -249,17 +262,33 @@ def run():
         
         # Entraînement de la régression :
         
-        poly_feats = PolynomialFeatures(degree=degree)
+        poly_feats = PolynomialFeatures(degree=degree, include_bias=False)
         x_poly = poly_feats.fit_transform(x)
         
-        lr = LinearRegression()
-        lr.fit(x_poly, y)
+        plr = LinearRegression()
+        plr.fit(x_poly, y)
         
-        y_poly_pred = lr.predict(x_poly)
+        y_poly_pred = plr.predict(x_poly)
+        
+        coeffs = []
+        for i in plr.coef_ :
+            coeffs.append(i)
+        
+        st.markdown(
+            f"""
+            Intercept (valeur de Y lorsque X = 0) : **{round(plr.intercept_,5)}**
+            
+            Coefficients ('pentes' des courbes la régression) : **{coeffs}**
+
+            Il s'agit d'une régression polynomiale de degré ${degree}$, pour laquelle :
+            
+            $Température \ (°C) = {round(plr.intercept_,5)} + \sum_1^{degree} coef_{degree} * (polynôme \ de \ (émissions \ de \ CO_2 \ (Gt))_{degree}$.
+            
+            Visualisons le résultat de la régression linéaire en l'affichant sur le nuage de points :
+            """
+            )
         
         # Affichage scatter + droite régression :
-        
-        st.markdown(f"Visualisons le résultat de la régression polynomiale de degré {degree} en l'affichant sur le nuage de points :")
         
         fig, ax1 = plt.subplots(figsize=(18,10))
         plt.grid(color='grey', alpha=0.5, linewidth=2)
@@ -274,11 +303,13 @@ def run():
         ax2.plot(x,
                  y_poly_pred,
                  'r--',
-                 label='Régression polynomiale')
+                 label=f'Régression polynomiale de degré {degree}')
         
-        plt.xlabel('$CO_2$ émis / Gigatonnes')
-        plt.ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans')
-        plt.legend(loc='upper left', bbox_to_anchor=(0.05, 0.9))
+        ax1.set_title(f"Evolution des températures absolues en fonction des émissions de $CO^2$ : Scatterplot & Courbe de régression de degré {degree}",
+                      fontsize=14)
+        plt.xlabel('$CO_2$ émis / Gigatonnes', fontsize=14)
+        plt.ylabel('Température absolue / °C / Moyennes glissantes sur 10 ans', fontsize=14)
+        plt.legend(loc='upper left', bbox_to_anchor=(0.05, 0.9), fontsize=14, frameon=True)
         st.pyplot(fig)
         
         # Evaluation de la régression :
