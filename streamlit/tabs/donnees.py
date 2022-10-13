@@ -53,7 +53,7 @@ stations météo.
 données sur un ensemble de sujets d'actualité tels que la pollution, la santé ou la population. Leurs données sont 
 librement [téléchargeables sur GitHub](https://github.com/owid/), et sont notamment utilisées pour [l'enseignement 
 et la recherche](https://ourworldindata.org/coverage) à travers le monde. Nous nous appuyons sur leurs données 
-d'émission de CO2 disponibles dans [leur référentiel GitHub](https://github.com/owid/co2-data).
+d'émission de $CO_2$ disponibles dans [leur référentiel GitHub](https://github.com/owid/co2-data).
         """
         )
 
@@ -83,50 +83,32 @@ références nous permettent de calculer les températures en valeurs absolues.*
         """
     )
 
-    tab1, tab2, tab3, tab4 = st.tabs(["Complete_TAVG_complete.txt", 
-                                      "northern-hemisphere-TAVG-Trend.txt", 
-                                      "southern-hemisphere-TAVG-Trend.txt",
-                                      "Sets_by_country"])
-
-    with tab1:
-       st.dataframe(temps_globales.tail(10))
-    
-    with tab2:
-       st.header("A dog")
-       st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
-    
-    with tab3:
-       st.header("An owl")
-       st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
+    with st.expander("En savoir plus sur les datasets..."):
+        tab1, tab2, tab3 = st.tabs(["Températures globales", 
+                                    "Température par hemisphère", 
+                                    "Températures par pays"])
+        with tab1:
+            st.dataframe(temps_globales.tail(10))
+        with tab2:
+            st.dataframe(temps_hemis.tail(10))
+        with tab3:
+            st.dataframe(temps_countries.tail(10))
    
-    st.markdown(
+        st.markdown(
         """
-| Nom |  Type  |  NaNs  |  Description  |  Exemple  |  Moyenne  |  Min  |  Max  |
-|---|---|---|---|---|---|---|---|
-| date |  datetime  |  0  |  Date au format yyyy-mm-dd.  |  1950-12-24  |  X  |  X  |  X  |
-| year |  int  |  0  |  L'année au format xxxx.  |  1950  |  X  |  X  |  X  |
-| month |  int  |  0  |  Le mois au format numérique.  |  120  |  X  |  X  |  X  |
-| ano |  float  |  1  |  Anomalie constatée (°C).  |  0.122  |  -0.265  |  -6.018  |  5.531  |
-| uncert |  float  |  3  |  Incertitude (°C).  |  0.041  |  0.903  |  0.022  |  6.521  |
-|  abs  |  float  |  1  |  Température absolue (°C).  |  13.124  |  8.329  |  -2.423  |  17.780  |
-
 Les données sont réparties sur 12 colonnes :
 * Les quatre premières colonnes fournissent les informations suivantes : l’année, le mois de l’année, l’anomalie
   de température moyenne estimée pour ce mois et son incertitude.
 * Les huit dernières colonnes rapportent les anomalies et incertitudes sous la forme de moyennes glissantes 
   annuelles, quinquennales, décennales et vicennales, centrées sur le mois considéré. Par exemple, la moyenne 
   annuelle de janvier à décembre 1950 est rapportée à juin 1950, ce qui explique la présence de « NaNs » en début et 
-  fin de ces colonnes dans les Data Sets.
+  fin de ces colonnes dans les data sets.
+        """
+        )
 
-Les fichiers que nous utilisons pour nos analyses ont tous été récupérés sur le site de Berkeley Earth, et sont les 
-suivants :
-* Températures globales :
-  - `Complete_TAVG_complete.txt` : liste des températures globales moyennes sur terre.
-* Températures par hémisphères :
-  - `northern-hemisphere-TAVG-Trend.txt` : liste des températures moyennes par hémisphère (nord)
-  - `southern-hemisphere-TAVG-Trend.txt` : liste des températures moyennes par hémisphère (sud)
-* Températures par pays :
-  - `Sets_by_country` : liste des températures moyennes par pays.
+    st.markdown(
+        """
+Nous pouvons visualiser l'évolution des températures par pays. Sélectionner d'autres pays dans la liste pour les afficher.
         """
     )
       
@@ -153,12 +135,18 @@ suivants :
 
     st.markdown(
         """
-Nous identifions deux jeux de données pour le CO2 : le premier est la quantité totale produite par pays et par an, 
+Nous identifions deux jeux de données pour le $CO_2$ : le premier est la quantité totale produite par pays et par an, 
 l'autre détaille les émissions dues à la production industrielle et à l'utilisation des sols, tous pays confondus 
 et par an.
 
 Les pays sont identifiés par leur trigramme ISO 3166 - alpha-3, et comme pour les températures, les données peuvent 
 manquer en fonction des années et des pays. 
+        """
+    )
+
+    st.markdown(
+        """
+Nous pouvons visualiser l'évolution des productions de $CO_2$ par pays. Sélectionner d'autres pays dans la liste pour les afficher ; OWID_WRL permet d'afficher les productions au niveau mondial.
         """
     )
     
@@ -177,40 +165,35 @@ manquer en fonction des années et des pays.
         ax.set_ylim(bottom=0)
         ax.grid(visible=True, alpha=0.5)
         ax.legend(loc='lower left')
-        ax.set_title("Production de CO2 par pays, par an")
+        ax.set_title("Production de $CO_2$ par pays, par an")
         st.pyplot(fig=fig)
         
     st.markdown(
         """
-Les **données de CO2 globales** nous fournissent une autre information : la quantité de CO2 émise par l’utilisation 
-des terres, en plus de la génération de CO2 liée à la production d'énergie et industrielle. Les terres, en fonction 
-de leur utilisation, produisent une certaine quantité de CO2 qui vient s’ajouter à la production industrielle ; dans 
-certains cas elles peuvent aussi en consommer, et nous pouvons avoir des valeurs négatives sur cette mesure.
+Les **données de $CO_2$ globales** nous fournissent une autre information : la quantité de $CO_2$ émise par l’utilisation 
+des terres, en plus de la génération de $CO_2$ liée à la production d'énergie et industrielle. Les terres, en fonction 
+de leur utilisation, produisent une certaine quantité de $CO_2$ qui vient s’ajouter à la production industrielle ; dans 
+certains cas elles peuvent aussi en consommer, et nous pouvons avoir des valeurs négatives sur cette mesure. 
+
+Visualisons l'évolution des ces deux valeurs (exprimées en Gigatonnes) sur la période de mesure.
         """
     )
+    
+    # Add country selection
+    fig, ax = plt.subplots(figsize=(10,6))
+    ax.plot(co2_global['Year'], co2_global['Land use emissions (GtCO2)'], label='Land use emissions (GtCO2)')
+    ax.plot(co2_global['Year'], co2_global['Fossil fuel and industry emissions (GtCO2)'], label='Fossil fuel and industry emissions (GtCO2)')
+#    ax.plot(co2_countries['year'], co2_countries['OWID_WRL'], label='Total global')
+    ax.set_ylim(bottom=0)
+    ax.grid(visible=True, alpha=0.5)
+    ax.legend(loc='upper left')
+    ax.set_title("Production de $CO_2$ globale, par an")
+    st.pyplot(fig=fig)
+        
 
     st.header('Lecture et pré-traitement des données')
 
-    st.markdown(
-        """
-
-Les données de température sont fournies sous forme de fichiers txt, et doivent être pré-traitées afin d’en extraire les mesures de 
-références et calculer les valeurs de température absolues. Nous avons écrit une fonction Python qui prend soin de lire les fichiers 
-et retourne des datasets Pandas formatés de la même manière, incluant les valeurs d’anomalie et de température absolue.
-
-|     Nom    |  Type  |  NaNs |                                        Description                                       |   Exemple   |  Moyenne  |    Min    |    Max    |
-|:----------:|:------:|:-----:|:----------------------------------------------------------------------------------------:|:-----------:|:---------:|:---------:|:---------:|
-| year       | int    | 0     | L'année au format xxxx.                                                                  | 1950        | X         | X         | X         |
-| ico_code   | object | 4029  | Code ISO du pays.                                                                        | AFG         | X         | X         | X         |
-| country    | object | 0     | Dénomination usuelle du pays.                                                            | Afghanistan | X         | X         | X         |
-| co2        | float  | 1319  | Quantité de CO2 émise (millions de tonnes)                                               | 5.333       | 326.658   | 0         | 36702.503 |
-| gpd        | float  | 12520 | Produit Intérieur Brut ($).                                                              | 3.045e+10   | 2.89e+11  | 5.543e+07 | 1.136e+14 |
-| population | float  | 3097  | Population du pays.                                                                      | 4.87e+06    | 7.068e+07 | 1490      | 7.795e+09 |
-| total_ghg  | float  | 20338 | Quantité totale de gaz à effet de serre émise, en équivalent deCO2 (millions de tonnes). | 33.9        | 420.52    | -178.71   | 48939.71  |
-        """
-    )
-
-    st.subheader('Lecture et pré-traitement des données')
+    st.subheader('Lecture')
 
     st.markdown(
         """
@@ -231,7 +214,7 @@ de leur remplacement au cas par cas.
   autarcie d’un pays. Nous ne pouvons donc utiliser d’interpolation pour les remplacer et décidons de les conserver 
   tels quels. 
 
-Les **informations de CO2 par pays** sont disponibles en format CSV ; comme pour le dataset précédent des 
+Les **informations de $CO_2$ par pays** sont disponibles en format CSV ; comme pour le dataset précédent des 
 températures par pays, les valeurs manquantes sont liées à des périodes où le pays, pour quelque raison que ce soit, 
 n'a pas pu collecter les données. Ces trous représentent des plages de temps importantes, et nous les laisserons 
 tels quels pour ne pas compromettre l'intégrité statistique des données.

@@ -146,36 +146,38 @@ rendant plus visible la tendance générale :
 
     st.markdown(
         """
-Nous pouvons observer des variations saisonnières correspondant à chaque année, matérialisées par les bandes de 
-couleurs pour chaque variation annuelle de température. Également, une tendance croissante est visible en suivant 
-les points d'une même couleur (i.e. les valeurs saisonnières augmentent globalement).  
+Nous pouvons observer, malgré les variations locales, une tendance croissante visible. Entre les années 1850, l'augmentation de moyenne visible est comprise entre 1.5 et 2 °C.
 
-Approximativement, jusqu'à la moitié du graphique (année 1880) la dispersion des bandes de couleurs est beaucoup 
-plus importante, qui s'accompagne d'une plus grande incertitude. Les données collectées à cette époque sont moins 
+Jusqu'à la moitié du graphique (année 1880) la variabilité des températures est beaucoup plus importante, et elle
+s'accompagne d'une plus grande incertitude : les données collectées à cette époque sont moins 
 fiables, à cause des capteurs utilisés et d'un nombre de stations météorologiques restreint. Cette incertitude 
-est clairement représentée dans le graphique suivant, obtenu à partir du même data set : 
+et sa corrélation aux fluctuations lors des premières décennies est clairement représentée sur le graphe 
+(en cliquant sur l'option).
 
+        """
+    )
+    
+    st.markdown(
+        """
+Il n'est pas possible d'établir précisément le début du 
+réchauffement climatique. Il s'agit même d'un sujet de désaccord entre experts : certaines recherches le 
+corrèlent avec la révolution industrielle occidentale, tels que les travaux de Abram et. al. ou ceux du groupe 
+PAGES. D'autres études indiquent un début plus précoce. 
+
+Le réchauffement climatique est très graduel, et subit des variations cycliques qui rendent difficile une 
+datation précise. Néanmoins, en étudiant à nouveau le graphique, nous pouvons observer une tendance beaucoup 
+plus explicite, forte et continue à partir des années 1975. Dans les décennies précédant les années 1970, les 
+températures moyennes mondiales semblent même être assez stables, ce qui a suscité de [vives controverses](https://www.lemonde.fr/cop21/article/2015/10/22/hoax-climatique-3-dans-les-annees-1970-les-scientifiques-prevoyaient-un-refroidissement_4794858_4527432.html)
+à l'époque.
         """
     )
 
     st.markdown(
         """
-La tendance est encore plus visible sur la moyenne annuelle glissante : si jusqu'en 1880 la moyenne oscillait autour 
-de 8 °C, elle remonte sur les dernières décennies autour de 10 °C. Nous pouvons identifier une augmentation 
-approximative de 2 °C en à peine plus d'un siècle. 
-
-Afin de mieux nous rendre compte de cette tendance, et pour lisser un peu les variations annuelles que l'on peut observer, 
-nous calculons et viualisons la moyenne glissante sur 10 ans:
-        """
-    )
-
-    st.markdown(
-        """
-Les premières années sont assez chaotiques, cela étant directement lié à l'incertitude que nous avons déjà observée. À 
-partir de ces observations, nous sélectionnons une période plus stable, par exemple à partir des années 1850, et calculons 
-les différences avec les 10 dernières années :
-    • La différence de température moyenne sur 10 ans entre 1850 et 2022 est de 1.943°C.
-    • La différence de température moyenne sur 10 ans entre 1900 et 2022 est de 1.63°C.
+Pour rendre les choses plus identifiables, nous sélectionnons une période plus stable, par exemple à partir des années 1850, et 
+calculons les différences avec les dernières années :
+* La différence de température moyenne sur 10 ans entre 1850 et 2022 est de 1.943°C.
+* La différence de température moyenne sur 10 ans entre 1900 et 2022 est de 1.63°C.
 
 Donc, **oui, le réchauffement climatique est bel et bien une réalité** !
 
@@ -186,22 +188,10 @@ Donc, **oui, le réchauffement climatique est bel et bien une réalité** !
     
     st.markdown(
         """
-Après l'observation des deux graphiques précédents, il n'est pas possible d'établir précisément le début du 
-réchauffement climatique. Il s'agit même d'un sujet de désaccord entre experts, qui depuis des années ne 
-parviennent pas à une réponse unique. Certaines recherches le corrèlent avec la révolution industrielle 
-occidentale, telles que les travaux de Abram et. al. ou ceux du groupe PAGES. D'autres études indiquent 
-un début plus précoce.
-
-Le réchauffement climatique est très graduel, et subit des variations cycliques qui rendent difficile une 
-datation précise.
-
-Néanmoins, en étudiant à nouveau le graphique, nous pouvons observer une tendance beaucoup plus explicite, 
-forte et continue à partir des années 1975. De plus, dans les décennies précédent les années 1970, les 
-températures moyennes mondiales semblent être assez stables, ce qui a suscité de [vives controverses](https://www.lemonde.fr/cop21/article/2015/10/22/hoax-climatique-3-dans-les-annees-1970-les-scientifiques-prevoyaient-un-refroidissement_4794858_4527432.html)
-à l'époque.
+Visualisons l'évolution de la température dans différentes parties du monde, en commençant par les hémisphères Nord et Sud.
         """
     )
-    
+        
     # Moyenne glissante sur 10 ans.
     hems_mov_average_10y_na = []
     hems_mov_average_10y_nu = []
@@ -235,7 +225,7 @@ températures moyennes mondiales semblent être assez stables, ce qui a suscité
     
     st.markdown(
         """
-De la même manière que pour les températures globales, dans ce graphique par hémisphère nous ne pouvons identifier 
+De la même manière que pour les températures globales, dans ce graphique par hémisphère nous ne pouvons pas identifier 
 avec précision un point de départ du réchauffement climatique. Les deux hémisphères montrent une tendance croissante, 
 mais il est intéressant de remarquer que leur comportement est différent entre l'un et l'autre. La hausse de température 
 dans l'hémisphère Sud est graduelle et constante, tandis que dans l'hémisphère Nord d'importantes variations apparaissent.
@@ -310,10 +300,9 @@ de température est visible.
     
     st.markdown(
         """
-Afin de mieux appréhender les différences de température au niveau mondial et à l'aide de l’outil geopandas (projet 
-source intégré à la librairie pandas), nous visualisons les températures dans l'ensemble des pays du monde (pour lesquels 
-nous avons des données dans le data set “temp_countries”) au début du siècle dernier, en 1900, et aujourd'hui (données 
-accessibles jusqu'en 2020). Nous utilisons la même échelle de couleur pour permettre une bonne comparaison :
+Visualisons l'évolution des températures dans l'ensemble des pays du monde pour lesquels les données ont pu être 
+collectées. Le graphique suivant permet de naviguer dans le temps, des premières mesures (1743) aux plus récentes 
+(2020). Les données manquantes sont affichées en gris, et l'échelle de couleurs ne varie pas pour permettre une meilleure comparaison.
 
         """
     )
@@ -396,8 +385,7 @@ accessibles jusqu'en 2020). Nous utilisons la même échelle de couleur pour per
     st.markdown(
         """
 L'augmentation est visible ; beaucoup de pays ont une couleur plus prononcée en 2010 -- la quasi-totalité des 
-pays a pris au moins une teinte de couleur plus sombre, et l'algorithme a même dû ajouter une catégorie de 
-température (> 28.58°C).
+pays a pris au moins une teinte de couleur plus sombre.
 
         """
     )
@@ -437,8 +425,6 @@ l'hémisphère nord, et croît globalement en remontant vers le Nord. Cela n'est
 paramètres doivent entrer en compte. Nous savons que la climatologie est une science complexe, et des paramètres 
 locaux (type environnement local, ou régulations de certains pays) autant que systémique par les effets globaux 
 du climat, tels que les modifications des courants océaniques et atmosphériques.
-
-
         """
     )
 
