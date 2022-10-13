@@ -36,14 +36,12 @@ TABS = OrderedDict(
 
 
 def run():
-    # st.sidebar.image(
-    #     "https://dst-studio-template.s3.eu-west-3.amazonaws.com/logo-datascientest.png",
-    #     width=200,
-    # )
+    
     st.sidebar.image(
         "streamlit/assets/Unhappy_earth.png",
         width=250,
-    )
+        )
+    
     tab_name = st.sidebar.radio("", list(TABS.keys()), 0)
     st.sidebar.markdown("---")
     st.sidebar.markdown(f"## {config.PROMOTION}")
@@ -52,6 +50,16 @@ def run():
     for member in config.TEAM_MEMBERS:
         st.sidebar.markdown(member.sidebar_markdown(), unsafe_allow_html=True)
 
+    st.sidebar.markdown(
+        """
+        ----
+        
+        Crédit image :
+        earth PNG Designed By IMZOMBIEASU from [Pngtree.com](https://pngtree.com/freepng/waste-water-and-exhaust-gas-and-unhappy-earth-clipart_6072655.html)
+        """,
+        unsafe_allow_html=True
+        )
+    
     tab = TABS[tab_name]
 
     tab.run()
