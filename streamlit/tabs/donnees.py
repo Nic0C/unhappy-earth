@@ -108,7 +108,8 @@ Les données sont réparties sur 12 colonnes :
 
     st.markdown(
         """
-Nous pouvons visualiser l'évolution des températures par pays. Sélectionner d'autres pays dans la liste pour les afficher.
+Nous pouvons visualiser l'évolution des températures par pays -- 188 pays sont renseignés. Vous pouvez sélectionner d'autres 
+pays dans la liste pour les afficher.
         """
     )
       
@@ -138,7 +139,19 @@ Nous pouvons visualiser l'évolution des températures par pays. Sélectionner d
 Nous identifions deux jeux de données pour le $CO_2$ : le premier est la quantité totale produite par pays et par an, 
 l'autre détaille les émissions dues à la production industrielle et à l'utilisation des sols, tous pays confondus 
 et par an.
+        """
+        )
 
+    with st.expander("En savoir plus sur les datasets..."):
+        tab1, tab2 = st.tabs(["Production CO2 globales", 
+                              "Production CO2 par pays"])
+        with tab1:
+            st.dataframe(co2_global.tail(10))
+        with tab2:
+            st.dataframe(co2_countries.tail(10))
+
+    st.markdown(
+        """
 Les pays sont identifiés par leur trigramme ISO 3166 - alpha-3, et comme pour les températures, les données peuvent 
 manquer en fonction des années et des pays. 
         """
@@ -225,11 +238,22 @@ tels quels pour ne pas compromettre l'intégrité statistique des données.
 
     st.markdown(
         """
-Les informations par hémisphère et par pays sont fournies dans des fichiers distincts (par hémisphère dans le premier cas, et par pays dans le second). Nous souhaitons les rassembler afin d’obtenir les données semblables (par hémisphère, par pays) en un jeu de données unique, plus facile à manipuler, analyser et visualiser. 
+Nous souhaitons mettre à disposition de nos utilisateurs les jeux de données nettoyés afin qu'ils puissent les utiliser facilement.
+Nous utiliserons pour cela le format CSV, qui peut être aisément importé dans d'autres outils (e.g. Excel) et est plus 
+facile à manipuler que les fichier texte originaux. 
 
-Les **températures par hémisphère** contiennent à la fois les données sud et nord sur la plus grande période possible (i.e. à partir de 1840). Cela introduit un grand nombre de NaNs pour les 40 premières années, les mesures ayant commencé plus tard dans l’hémisphère sud. Comme cela représente une grande plage de temps, nous ne pouvons les remplacer sans introduire de biais et décidons donc de les conserver telles quelles. 
+Egalement, les informations par hémisphère et par pays sont fournies dans des fichiers distincts (par hémisphère dans le premier 
+cas, et par pays dans le second). Afin de faciliter leur lecture, analyse et ré-utilisation, nous les rassemblons pour
+obtenir des jeux de données unifiés et cohérents (i.e. un fichier pour les hémisphères, et un fichier pour tous les 
+pays). 
 
-Les températures par pays rassemblent les données de température de 188 pays, sur la même période de temps (de 1740 pour les premières mesures à 2020). Comme on peut s’y attendre, cela introduit un grand nombre de NaNs pour les pays qui ont commencé la collecte après la date de début du jeu. Les pays les plus complets sont ceux d’où est partie l’initiative de mesure et sont principalement européens. A l’inverse, les pays en voie de développement, non-habités ou non-vivables (e.g. l’antartique) ont beaucoup moins de mesures disponibles.
+Les fichiers générés sont disponibles ci-après :
+* [temperatures_globales.csv](data/unhappy_earth/temperatures_globales.csv) fournit les températures globales,
+* [temperatures_hemispheres.csv](data/unhappy_earth/temperatures_hemispheres.csv) fournit les températures par 
+  hémisphère, et
+* [temperatures_countries.csv](data/unhappy_earth/temperatures_countries.csv) fournit les températures par pays,
+* [co2_global.csv](data/unhappy_earth/co2_global.csv) fournit le production de CO2 globale,
+* [co2_countries.csv](data/unhappy_earth/co2_countries.csv) fournit la production de CO2 par pays.
 
 
         """

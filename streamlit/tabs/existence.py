@@ -188,7 +188,7 @@ Donc, **oui, le réchauffement climatique est bel et bien une réalité** !
     
     st.markdown(
         """
-Visualisons l'évolution de la température dans différentes parties du monde, en commençant par les hémisphères Nord et Sud.
+Visualisons l'évolution de la température dans différentes parties du monde, en commençant par les hémisphères Nord et Sud. Afin d'obtenir une courbe plus lisse, et des mesures plus lisibles, nous calculons une moyenne glissante sur 10 ans :
         """
     )
         
@@ -237,7 +237,11 @@ sur la même periode.
 A cause de ces variations, il est difficile d'établir si le réchauffement a débuté plus tôt dans un hémisphère que dans 
 l'autre, mais nous pouvons observer globalement **un réchauffement plus rapide de l'hémisphère Nord**. 
 
-Afin de valider cette interprétation, nous allons étudier plus en détail l'évolution des températures dans les différents pays et continents.
+Afin de valider cette interprétation, nous allons étudier plus en détail l'évolution des températures dans les différents pays et 
+continents. Dans le graphique suivant, nous définissons deux groupes de pays, que nous visualisons avec des traits différents. Cela 
+permet de visualiser, et d'identifier, des évolutions similaires par région -- dans notre cas, par hémisphère. 
+
+Vous pouvez choisir d'autres ensembles de pays pour visualiser d'autres comparaisons géographiques (e.g. entre continents).
         """
     )
     
