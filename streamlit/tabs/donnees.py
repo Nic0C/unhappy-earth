@@ -248,12 +248,12 @@ obtenir des jeux de données unifiés et cohérents (i.e. un fichier pour les h�
 pays). 
 
 Les fichiers générés sont disponibles ci-après :
-* [temperatures_globales.csv](data/unhappy_earth/temperatures_globales.csv) fournit les températures globales,
-* [temperatures_hemispheres.csv](data/unhappy_earth/temperatures_hemispheres.csv) fournit les températures par 
+* [temperatures_globales.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/temperatures_globales.csv) fournit les températures globales,
+* [temperatures_hemispheres.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/temperatures_hemispheres.csv) fournit les températures par 
   hémisphère, et
-* [temperatures_countries.csv](data/unhappy_earth/temperatures_countries.csv) fournit les températures par pays,
-* [co2_global.csv](data/unhappy_earth/co2_global.csv) fournit le production de CO2 globale,
-* [co2_countries.csv](data/unhappy_earth/co2_countries.csv) fournit la production de CO2 par pays.
+* [temperatures_countries.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/temperatures_countries.csv) fournit les températures par pays,
+* [co2_global.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/co2_global.csv) fournit le production de CO2 globale,
+* [co2_countries.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/co2_countries.csv) fournit la production de CO2 par pays.
 
 
         """
