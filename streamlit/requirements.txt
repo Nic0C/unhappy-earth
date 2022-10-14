@@ -1,4 +1,3 @@
-altair
 matplotlib
 numpy
 pandas
@@ -11,3 +10,4 @@ geopandas
 geoplot
 mapclassify
 pycountry
+seaborn

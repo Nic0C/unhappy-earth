@@ -18,20 +18,21 @@ def run():
 
     st.markdown(
         """
-        Ce sujet est déjà connu, largement étudié et débattu par des experts hautement qualifiés. Nous souhaitions principalement
-        savoir si la Data Analyse nous permettrait d’atteindre des résultats concordants.
+        Ce sujet est déjà connu, largement étudié et débattu par des experts hautement qualifiés. **Nous souhaitions principalement
+        savoir si la Data Analyse nous permettrait d’atteindre des résultats concordants**.
         
         Grâce à l'analyse statistique de données fiables et concrètes, nous avons pu répondre aux problématiques posées en début de
         projet :
-        1. Nous avons pu confirmer et quantifier le réchauffement climatique : c'est une réalité indiscutable. Le phénomène est graduel
-            depuis la révolution industrielle de 1880, et s'accélère à partir de 1975, de manière plus forte encore dans l'hémisphère nord.
-        2. Les émissions de CO2 ont une forte influence (corrélation / linéarité) sur la hausse des températures.
-        3. Nos prédictions ne sont pas optimistes. D'après notre modèle Prophet, la température moyenne globale augmentera de près de
-            2°C dans les 50 prochaines années. Ces résultats rejoignent ceux de la majorité des études disponibles sur le changement
-            climatique.
+        1. **Nous avons pu confirmer et quantifier le réchauffement climatique : c'est une réalité indiscutable**. Le phénomène est
+            graduel depuis la révolution industrielle de 1880, et s'accélère à partir de 1975, de manière plus forte encore dans
+            l'hémisphère nord.
+        2. **Les émissions de CO2 ont une forte influence (corrélation / linéarité) sur la hausse des températures.**
+        3. Nos prédictions ne sont pas optimistes. **D'après notre modèle Prophet, la température moyenne globale augmentera de près
+            de 2°C dans les 50 prochaines années**. Ces résultats rejoignent ceux de la majorité des études disponibles sur le
+            changemen climatique.
             
-        Malheureusement, nos conclusions, et a fortiori celles des experts en climatologie, ne sont positives ni pour notre planète Terre (UnhapPy
-        Earth), ni pour l'humanité.
+        Malheureusement, nos conclusions, et a fortiori celles des experts en climatologie, ne sont positives ni pour notre planète
+        Terre (**UnhapPy Earth**), ni pour l'humanité.
         """
         )
         
@@ -42,10 +43,10 @@ def run():
     st. markdown(
         """
         Afin de compléter notre étude, de nombreux autres causes et conséquencs pourraient être analysés, notamment :
-        * Émissions de Gaz à Effet de Serre autre que le CO2 (méthane, etc.) ;
-        * Évolution de la répartition entre sols naturels et sols exploités par et pour l'activité humaine ;
-        * Augmentation du niveau des mers et des océans ;
-        * Augmentation de la fréquence et de l'intensité des catastrophes dites naturelles.
+        * **Émissions de Gaz à Effet de Serre autres que le CO2** (méthane, etc.) ;
+        * **Évolution de la répartition entre sols naturels et sols exploités** par et pour l'activité humaine ;
+        * **Augmentation du niveau des mers et des océans** ;
+        * **Augmentation de la fréquence et de l'intensité des catastrophes dites naturelles**.
         """
         )
 
@@ -89,12 +90,12 @@ def run():
             * [NumPy](https://numpy.org/)
             * [pandas](https://pandas.pydata.org/)
             * [Matplotlib](https://matplotlib.org/)
+            * [seaborn](https://seaborn.pydata.org/index.html)
             * [GeoPandas](https://geopandas.org/en/stable/)
             * [Pillow](https://pypi.org/project/Pillow/)
             * [scikit-learn](https://scikit-learn.org/)
             * [SciPy](https://scipy.org/)
             * [Prophet | Forecasting at scale](https://facebook.github.io/prophet/)
-            * [Altair](https://altair-viz.github.io/)
             """
             )
 

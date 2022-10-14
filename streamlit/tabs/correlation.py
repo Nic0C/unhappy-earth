@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 from scipy.stats import pearsonr
 from sklearn.linear_model import LinearRegression
@@ -15,15 +16,19 @@ def run():
     
     st.image("streamlit/assets/Reftinsky_reservoir_of_Sverdlovsk_region.jpg", use_column_width=True)   
     st.title(title)
-
+    
+    
 # Création du DataFrame "co2_temps" :
         
     st.markdown(
         """
-        Afin d'analyser la relation entre ces deux variables, nous créons, à partir de nos datasets 'temperatures_globales.csv' et
-        'co2_global.csv', le DataFrame 'co2_temps'. Nous calculons la moyenne glissante sur 10 ans des températures globales, la somme
-        des émissions de $CO_2$ dues à l’utilisation des sols et de celles liés à la combustion d’énergie fossiles. Enfin, nous le
-        réduisons à la période 1860 - 2020.
+        L'objectif de cette section est d'**analyser la relation entre ces 2 variables**, et la **modéliser** afin d'en mesurer la
+        pertinence.
+        
+        
+        A cet effet, nous créons, à partir de nos datasets 'temperatures_globales.csv' et 'co2_global.csv', le DataFrame 'co2_temps'.
+        Nous calculons la moyenne glissante sur 10 ans des températures globales, la somme des émissions de $CO_2$ dues à
+        l’utilisation des sols et de celles liés à la combustion d’énergie fossiles. Enfin, nous le réduisons à la période 1860 - 2020.
         """
         )
     
@@ -69,7 +74,7 @@ def run():
     
     # Affichage graphe températures / émissions CO2 :
         
-    st.markdown("Nous pouvons comparer l’évolution de ces 4 variables dans le graphique suivant :")
+    st.markdown("**Nous pouvons comparer l’évolution de ces 4 variables dans le graphique suivant :**")
     
     fig, ax1 = plt.subplots(figsize=(18,10))
     
@@ -97,8 +102,9 @@ def run():
         
     st.markdown(
         """
-        La hausse des températures semble suivre celle des émissions totales de $CO_2$, bien que de manière moins linéaire. Nous constatons
-        également une nette baisse des émissions de $CO_2$ en 2020, liée à la baisse globale d'activité pendant la crise Covid.
+        **La hausse des températures semble suivre celle des émissions totales de $CO_2$**, bien que de manière moins linéaire. Nous
+        constatons également une nette baisse des émissions de $CO_2$ en 2020, liée à la baisse globale d'activité pendant la crise
+        Covid.
         Malheureusement, cette baisse ponctuelle n’aura  aucun effet sur le climat, face à l’accumulation des rejets de $CO_2$ dans
         l’atmosphère depuis plusieurs décennies (article [ici](https://www.cairn.info/magazine-pour-la-science-2020-7-page-7.htm)).
         """
@@ -107,9 +113,30 @@ def run():
     
 # Tests de corrélation :
     
-    st.header("Corrélation")
+    st.header("Corrélations")
     
-    st.markdown("Mesurons la corrélation entre 2 variables de notre DataFrame :")
+    # Affichage optionnel de la heatmap :
+    
+    st.markdown(
+        """
+        Nous allons maintenant  déterminer les **coefficents de corrélation** entre nos variables, à l'aide du **test statistique de
+        Pearson**.
+        """
+        )    
+    
+    show_heatmap = st.checkbox("Afficher la 'heatmap' du DataFrame 'co2_temps'")
+    if show_heatmap :
+        fig, ax = plt.subplots()
+        sns.heatmap(co2_temps.drop('abs', axis=1).corr(method="pearson"), annot=True, ax=ax)
+        st.pyplot(fig)
+    
+    
+    
+    
+    
+    
+    
+    st.markdown("Mesurons la **corrélation entre 2 variables au choix** de notre DataFrame :")
     
     cols = {"year" : "Année",
             "abs_10y_mov_avg" : "Températures moyennes",
@@ -124,32 +151,32 @@ def run():
                              format_func=cols.get)
     
     if len(options) == 0 : 
-        st.markdown("Attention : Selectionnez 2 variables !")
+        st.markdown("**Attention** : Selectionnez 2 variables !")
     elif len(options) == 1 :
-        st.markdown("Attention : Sélectionnez une 2nde variable !")
+        st.markdown("**Attention** : Sélectionnez une 2nde variable !")
     elif len(options) > 2 :
-        st.markdown("Attention : Merci de ne selectionnez que 2 variables !")
+        st.markdown("**Attention** : Merci de ne selectionnez que 2 variables !")
     else :
         pearson_coef = round(pearsonr(co2_temps[options[0]], co2_temps[options[1]])[0], 5)
         st.markdown(f"Le coefficient de corrélation selon le test de Pearson est : **{pearson_coef}**")
           
         if pearson_coef >= 0.90 :
-            st.markdown("La corrélation entre ces 2 variables est FORTE !")
+            st.markdown("La corrélation entre ces 2 variables est **FORTE** !")
         elif pearson_coef < 0.90 and pearson_coef >= 0.50 :
-            st.markdown("La corrélation entre ces 2 variables est MOYENNE.")
+            st.markdown("La corrélation entre ces 2 variables est **MOYENNE**.")
         else :
-            st.markdown("La corrélation entre ces 2 variables est FAIBLE.")
+            st.markdown("La corrélation entre ces 2 variables est **FAIBLE**.")
             
     st.markdown(
         """
         Les résultats de ces tests nous confirment que :
         - Les émissions totales de $CO_2$ et les températures moyennes sur 10 ans présentent chacune une forte corrélation aux années :
-            coefs > 0.90. Les années passant, les émissions de $CO_2$ et les températures augmentent.
-        - Les températures moyennes sur 10 ans et les émissions totales le sont encore plus entre elles : coef > 0.95. Au-delà de la
-            tendance générale à la hausse de ces 2 variables, cela confirme que globalement, les variations de l'une suit les variations
-            de l'autre.
-        - Les émissions dues à l'utilisation des sols ne sont que moyennement corrélées aux années : coef = 0.55. Sur le graphique, nous
-            observons en effet une baisse de celles-ci sur le dernier tiers de la période étudiée (1960 - 2020).
+            coefs > 0.90. **Les années passant, les émissions de $CO_2$ et les températures augmentent**.
+        - Les **températures moyennes** sur 10 ans et les **émissions totales** le sont encore plus entre elles : coef > 0.95. Au-delà
+            de la tendance générale à la hausse de ces 2 variables, cela confirme que globalement, **les variations de l'une suivent
+            les variations de l'autre**.
+        - Les émissions dues à l'utilisation des sols ne sont que moyennement corrélées aux années : coef = 0.55. Sur le graphique,
+        nous observons en effet une baisse de celles-ci sur le dernier tiers de la période étudiée (1960 - 2020).
         """
         )
  
@@ -160,8 +187,8 @@ def run():
     
     st.markdown(
         """
-        Intéressons nous de plus près à la relation qu'entretiennent émissions de $CO_2$ et températures. Nous pouvons la visualiser
-        à l'aide d'un **scatterplot** (nuage de points) :
+        **Intéressons nous de plus près à la relation qu'entretiennent émissions de $CO_2$ et températures.** Nous pouvons la
+        visualiser à l'aide d'un **scatterplot** (nuage de points) :
         """
         )
     
@@ -180,15 +207,15 @@ def run():
         
     st.markdown(
         """
-        Nous avons vu grâce aux tests statistiques que ces 2 variables sont fortement corrélées, ce que nous pouvons observer dans cette
-        représentation graphique.
+        Nous avons vu grâce aux tests statistiques que ces 2 variables sont fortement corrélées, ce que nous pouvons observer dans
+        cette représentation graphique.
         
-        L'objectif d'une régression est d’expliquer une variable Y par le moyen d’une autre variable X.
+        **L'objectif d'une régression est d’expliquer une variable Y par le moyen d’une autre variable X.**
         Avec une régression polynomiale, la relation entre la variable explicative et la variable expliquée est modélisée comme un polynôme
-        à **$n$** degrés.
-        Notons qu'une régression polynomiale de degré 1 est une régression linéaire simple.
+        à $n$ degrés.
         
-        Nous modélisons le lien entre nos deux variables grâce aux fonctions LinearRegression et PolynomialFeatures de Scikit-Learn :
+        Nous **modélisons le lien entre nos deux variables** grâce aux fonctions **LinearRegression** et **PolynomialFeatures** de
+        Scikit-Learn :
         """
         )
     
@@ -211,13 +238,13 @@ def run():
         
         st.markdown(
             f"""
-            Intercept (valeur de Y lorsque X = 0) : **{lr.intercept_}**
+            Intercept (valeur de Y lorsque X = 0) : **${lr.intercept_}$**
             
-            Coefficient ('pente' de la régression) : **{lr.coef_[0]}**
+            Coefficient ('pente' de la régression) : **${lr.coef_[0]}$**
 
-            Il s'agit d'une régression linéaire simple, qui peut s'interpréter ainsi :
+            Une régression polynomiale de degré $1$ est une régression linéaire simple, qui peut s'interpréter ainsi :
                 
-            $Température \ (°C) = {round(lr.intercept_, 3)} + {round(lr.coef_[0], 3)} * émissions \ de \ CO_2 \ (Gt)$.
+            $Température \ (°C) = {round(lr.intercept_, 3)} + {round(lr.coef_[0], 3)} * émissions \ de \ CO_2 \ (Gt)$
             
             Visualisons le résultat de la régression linéaire en l'affichant sur le nuage de points :
             """
@@ -250,10 +277,10 @@ def run():
     
         # Evaluation de la régression :
         
-        st.markdown("Afin d'évaluer notre régression, nous utilisons comme métrique le score $R^2$.")
+        st.markdown("Afin d'**évaluer notre régression**, nous utilisons comme métrique le **score $R^2$**.")
     
         score = round(r2_score(y, y_pred), 5)
-        st.markdown(f"Score obtenu : **{score}**")
+        st.markdown(f"Score obtenu : **${score}$**")
     
     
     # Régression polynomiale :
@@ -276,13 +303,13 @@ def run():
         
         st.markdown(
             f"""
-            Intercept (valeur de Y lorsque X = 0) : **{round(plr.intercept_,5)}**
+            Intercept (valeur de Y lorsque X = 0) : **${round(plr.intercept_,5)}$**
             
-            Coefficients ('pentes' des courbes la régression) : **{coeffs}**
+            Coefficients ('pentes' des courbes la régression) : **${coeffs}$**
 
             Il s'agit d'une régression polynomiale de degré ${degree}$, pour laquelle :
             
-            $Température \ (°C) = {round(plr.intercept_,5)} + \sum_1^{degree} coef_{degree} * (polynôme \ de \ (émissions \ de \ CO_2 \ (Gt))_{degree}$.
+            $Température \ (°C) = {round(plr.intercept_,5)} + \sum_1^{degree} coef_{degree} * (polynôme \ de \ (émissions \ de \ CO_2 \ (Gt))_{degree}$
             
             Visualisons le résultat de la régression linéaire en l'affichant sur le nuage de points :
             """
@@ -314,17 +341,17 @@ def run():
         
         # Evaluation de la régression :
         
-        st.markdown("Afin d'évaluer notre régression, nous utilisons comme métrique le score $R^2$.")
+        st.markdown("Afin d'**évaluer notre régression**, nous utilisons comme métrique le **score $R^2$**.")
     
         score = round(r2_score(y, y_poly_pred), 5)
-        st.markdown(f"Score obtenu : **{score}**")
+        st.markdown(f"Score obtenu : **${score}$**")
     
     st.markdown(
         """
-        En faisant varier de 1 à 5 le degré de la régression polynomiale, nous obtenons des scores $R^2$ croissants compris entre 0.918
-        et 0.966 (avec un risque d'overfitting).
-        Le modèle est donc performant et confirme l'étroite relation qui existe entre nos 2 variables. Les émissions de $CO_2$ sont
-        donc bien une variable explicative majeure de la hausse des températures.
+        En faisant varier de 1 à 5 le degré de la régression polynomiale, **nous obtenons des scores $R^2$ croissants compris entre 0.918
+        et 0.966** (avec un risque d'overfitting).
+        **Le modèle est donc performant** et confirme l'étroite relation qui existe entre nos 2 variables. **Les émissions de $CO_2$ sont
+        donc bien une variable explicative majeure de la hausse des températures**.
         """
         )    
     
@@ -339,10 +366,8 @@ def run():
         sommes à présent en mesure d'affirmer que **statistiquement, la hausse des températures est très fortement liée à celle des
         émissions de $CO^2$**.
         
-        **Attention cependant** : dans le cadre d'une étude statistique comme la nôtre, **corrélation ou linéarité ne signifient pas
-        nécessairement causalité**.
-        
-        
+        **Attention cependant** : dans le cadre d'une étude s**tatistique** comme la nôtre, **corrélation ou linéarité ne signifient
+        pas nécessairement causalité**.
         """
         )
 
