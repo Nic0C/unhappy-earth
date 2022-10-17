@@ -131,13 +131,17 @@ def run():
     </style>
     ''', unsafe_allow_html=True)
 
-    st.markdown("Notre prévision repose sur le **principe** que la température globale absolue va suivre la **même tendance que ces 46 dernières années, sans action climatique majeure**. Dans ce cas, notre modèle prédit une **croissance approximative de 1.9 °C dans 50 ans**. En **comparaison** avec la multitude d'**études prévisionnelles** qui existent actuellement, **notre résultat** semble **juste et raisonnable**, mais bien peu optimiste.$^[$ $^1$ $^0$ $^]$ $^,$ $^[$ $^1$ $^1$ $^]$ $^,$ $^[$ $^1$ $^2$ $^]$")
+    st.markdown("Notre prévision repose sur le **principe** que la température globale absolue va suivre la **même tendance que ces 46 dernières années, sans action climatique majeure**. Dans ce cas, notre modèle prédit une **croissance approximative de 1.9 °C dans 50 ans**. En **comparaison** avec la multitude d'**études prévisionnelles** qui existent actuellement, **notre résultat** semble **juste et raisonnable**, mais bien peu optimiste.$^[$ $^1$ $^]$ $^,$ $^[$ $^2$ $^]$ $^,$ $^[$ $^3$ $^]$")
 
     st.markdown(
         """
         <br />
         
         ----
+        Liens vers les études consultées:    
+         <font size="2"> $^[$ $^1$ $^]$ [La hausse de la température globale s’est encore accentuée, selon le dernier rapport du GIEC](https://www.ecologie.gouv.fr/hausse-temperature-globale-sest-encore-accentuee-selon-dernier-rapport-du-giec)  
+        $^[$ $^2$ $^]$ [L'ampleur des hausses que vous connaîtrez](https://www.francelive.fr/article/france-live/vous-pouvez-desormais-savoir-le-changement-climatique-que-vous-subirez-selon-votre-age-7403908/)  
+        $^[$ $^3$ $^]$ [Les prévisions alarmantes de Météo France](https://www.lefigaro.fr/sciences/rechauffement-climatique-les-previsions-alarmantes-de-meteo-france-20210201) </font>    
         
         Crédit image : Michal Osmenda, [CC-BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0),
         via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Weather_station_on_Mount_Vesuvius_(2437693238).jpg).
