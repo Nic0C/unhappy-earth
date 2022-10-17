@@ -116,7 +116,7 @@ pays dans la liste pour les afficher.
     # Add country selection
     options = st.multiselect(
         'Sélectionner un pays',
-        temps_countries.columns,
+        temps_countries.columns[2:],
         ['france', 'united-states-of-america', 'china'],
         key = "temps_countries")
 
@@ -166,7 +166,7 @@ Nous pouvons visualiser l'évolution des productions de $CO_2$ par pays. Sélect
     # Add country selection
     options = st.multiselect(
         'Sélectionner un pays',
-        co2_countries.columns,
+        co2_countries.columns[1:],
         default=['FRA', 'USA', 'CHN', 'OWID_WRL'],
         key="co2_countries")
 

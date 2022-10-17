@@ -420,7 +420,6 @@ une date choisie).
                scheme='NaturalBreaks')
     plt.title('Différence de températures', fontsize=25)
     st.pyplot(fig)
-    plt.show()
 
     st.markdown(
         """
