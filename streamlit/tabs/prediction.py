@@ -138,7 +138,7 @@ def run():
         <br />
         
         ----
-        Liens vers les études consultées:    
+        Liens vers les articles et études consultées:  
          <font size="2"> $^[$ $^1$ $^]$ [La hausse de la température globale s’est encore accentuée, selon le dernier rapport du GIEC](https://www.ecologie.gouv.fr/hausse-temperature-globale-sest-encore-accentuee-selon-dernier-rapport-du-giec)  
         $^[$ $^2$ $^]$ [L'ampleur des hausses que vous connaîtrez](https://www.francelive.fr/article/france-live/vous-pouvez-desormais-savoir-le-changement-climatique-que-vous-subirez-selon-votre-age-7403908/)  
         $^[$ $^3$ $^]$ [Les prévisions alarmantes de Météo France](https://www.lefigaro.fr/sciences/rechauffement-climatique-les-previsions-alarmantes-de-meteo-france-20210201) </font>    
