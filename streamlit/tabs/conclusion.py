@@ -69,18 +69,18 @@ def run():
     elif biblio == 'Documentation' :
         st.markdown(
             """
-            * [6e rapport du GIEC : quelles solutions face au changement climatique ? - Réseau Action Climat](https://reseauactionclimat.org/6e-rapport-du-giec-quelles-solutions-face-au-changement-climatique/)
-            * [Le véritable coût du changement climatique | National Geographic](https://www.nationalgeographic.fr/environnement/2017/09/le-veritable-cout-du-changement-climatique)
-            * [The Elusive Absolute Surface Air Temperature (SAT)](https://data.giss.nasa.gov/gistemp/faq/abs_temp.html)
-            * [Global Carbon Project](https://www.globalcarbonproject.org/)
-            * [Changement climatique et effet de serre | Insee](https://www.insee.fr/fr/statistiques/4277613)
-            * [Early onset of industrial-era warming across the oceans and continents](http://rdcu.be/jVFv)
-            * [Le réchauffement climatique anthropique aurait débuté au tout début de la révolution industrielle - IPSL](https://www.ipsl.fr/Actualites/Actualites-scientifiques/Le-rechauffement-climatique-anthropique-aurait-debute-au-tout-debut-de-la-revolution-industrielle)
-            * [Covid-19 et baisse des émissions de CO2 | Cairn.info](https://www.cairn.info/magazine-pour-la-science-2020-7-page-7.htm)
-            * [Hoax climatique #3 : quand les scientifiques prévoyaient un refroidissement](https://www.lemonde.fr/cop21/article/2015/10/22/hoax-climatique-3-dans-les-annees-1970-les-scientifiques-prevoyaient-un-refroidissement_4794858_4527432.html)
-            * [La hausse de la température globale s’est encore accentuée, selon le dernier rapport du GIEC](https://www.ecologie.gouv.fr/hausse-temperature-globale-sest-encore-accentuee-selon-dernier-rapport-du-giec)
-            * [Réchauffement climatique : voici l'ampleur des hausses que vous connaîtrez](https://www.francelive.fr/article/france-live/vous-pouvez-desormais-savoir-le-changement-climatique-que-vous-subirez-selon-votre-age-7403908/)
-            * [Réchauffement climatique : les prévisions alarmantes de Météo France](https://www.lefigaro.fr/sciences/rechauffement-climatique-les-previsions-alarmantes-de-meteo-france-20210201)
+            * $^1$ [6e rapport du GIEC : quelles solutions face au changement climatique ? - Réseau Action Climat](https://reseauactionclimat.org/6e-rapport-du-giec-quelles-solutions-face-au-changement-climatique/)
+            * $^2$ [Le véritable coût du changement climatique | National Geographic](https://www.nationalgeographic.fr/environnement/2017/09/le-veritable-cout-du-changement-climatique)
+            * $^3$ [The Elusive Absolute Surface Air Temperature (SAT)](https://data.giss.nasa.gov/gistemp/faq/abs_temp.html)
+            * $^4$ [Global Carbon Project](https://www.globalcarbonproject.org/)
+            * $^5$ [Changement climatique et effet de serre | Insee](https://www.insee.fr/fr/statistiques/4277613)
+            * $^6$ [Early onset of industrial-era warming across the oceans and continents](http://rdcu.be/jVFv)
+            * $^7$ [Le réchauffement climatique anthropique aurait débuté au tout début de la révolution industrielle](https://www.ipsl.fr/Actualites/Actualites-scientifiques/Le-rechauffement-climatique-anthropique-aurait-debute-au-tout-debut-de-la-revolution-industrielle)
+            * $^8$ [Covid-19 et baisse des émissions de CO2 | Cairn.info](https://www.cairn.info/magazine-pour-la-science-2020-7-page-7.htm)
+            * $^9$ [Hoax climatique #3 : quand les scientifiques prévoyaient un refroidissement](https://www.lemonde.fr/cop21/article/2015/10/22/hoax-climatique-3-dans-les-annees-1970-les-scientifiques-prevoyaient-un-refroidissement_4794858_4527432.html)
+            * $^1$ $^0$ [La hausse de la température globale s’est encore accentuée, selon le dernier rapport du GIEC](https://www.ecologie.gouv.fr/hausse-temperature-globale-sest-encore-accentuee-selon-dernier-rapport-du-giec)
+            * $^1$ $^1$ [Réchauffement climatique : voici l'ampleur des hausses que vous connaîtrez](https://www.francelive.fr/article/france-live/vous-pouvez-desormais-savoir-le-changement-climatique-que-vous-subirez-selon-votre-age-7403908/)
+            * $^1$ $^2$ [Réchauffement climatique : les prévisions alarmantes de Météo France](https://www.lefigaro.fr/sciences/rechauffement-climatique-les-previsions-alarmantes-de-meteo-france-20210201)
             """
             )
     else : 
