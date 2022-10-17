@@ -22,8 +22,8 @@ def run():
     st.markdown(
         """
         En quelques décennies à peine, **la question du réchauffement climatique est devenue un sujet majeur**, inquiétant 
-        pour l'avenir de la planète et de sa biodiversité, y compris l'espèce humaine. Pourtant il fait débat, oppose 
-        experts et climato-sceptiques, à l'heure même où **ses manifestations et ses conséquences** (sécheresses et pluies torrentielles,
+        pour l'avenir de la planète et de sa biodiversité, y compris l'espèce humaine. **Pourtant il fait encore débat**, oppose 
+        experts et climato-sceptiques, **à l'heure même où ses manifestations et ses conséquences** (sécheresses et pluies torrentielles,
         à répétition, montée du niveau des eaux) **sont chaque jour plus flagrantes**. En voici une définition simple, proposée par la
         plateforme média [Youmatter](https://youmatter.world/fr/) :
             
@@ -35,7 +35,7 @@ def run():
         l'affirme : **le réchauffement climatique est incroyablement coûteux** : humainement, socialement, géopolitiquement,
         financièrement et économiquement.
         
-        **Anticiper et mieux comprendre ses conséquences devient une priorité pour beaucoup d’entreprises et d’organisations**.
+        **Anticiper et mieux comprendre ses conséquences devient donc une priorité** pour beaucoup d’entreprises et d’organisations.
         """
         )
 
@@ -46,8 +46,8 @@ def run():
     st.markdown(
         """
         A travers ce projet, nous avons souhaité **identifier les éléments factuels disponibles et faire notre propre analyse**, sans
-        connaissances préalable en climatologie. Notre objectif est de **mettre à disposition d'un public curieux et non-spécialiste,
-        à l'aide de données fiables et librement accessibles, une analyse du réchauffement climatique**.
+        connaissances préalable en climatologie. Notre objectif est de **mettre à disposition d'un public curieux et non-spécialiste**,
+        à l'aide de données fiables et librement accessibles, **une analyse du réchauffement climatique**.
         
         Nous répondrons aux problématiques suivantes :
         1. **Les données disponibles permettent-elles de confirmer le phénomène de changement climatique ? Le réchauffement est-il

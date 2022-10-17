@@ -26,7 +26,7 @@ def run():
         pertinence.
         
         
-        A cet effet, nous créons, à partir de nos datasets 'temperatures_globales.csv' et 'co2_global.csv', le DataFrame 'co2_temps'.
+        A cet effet, nous créons, à partir de nos datasets `temperatures_globales.csv` et `co2_global.csv`, le DataFrame `co2_temps`.
         Nous calculons la moyenne glissante sur 10 ans des températures globales, la somme des émissions de $CO_2$ dues à
         l’utilisation des sols et de celles liés à la combustion d’énergie fossiles. Enfin, nous le réduisons à la période 1860 - 2020.
         """
@@ -55,8 +55,7 @@ def run():
     
     # Affichage optionnel d'un aperçu du DF :
     
-    show_df = st.checkbox("Afficher un aperçu et une description du DataFrame 'co2_temps'")
-    if show_df :
+    with st.expander("En savoir plus sur ce DataFrame...") :
         st.dataframe(co2_temps)
         st.markdown(
             """
@@ -70,11 +69,10 @@ def run():
             | Total  $CO_2$ emissions | float | 0 | Total des émissions de $CO_2$ (en Gigatonnes) | 39.156034 |
             """
             )
-    st.write("\n")
     
     # Affichage graphe températures / émissions CO2 :
         
-    st.markdown("**Nous pouvons comparer l’évolution de ces 4 variables dans le graphique suivant :**")
+    st.markdown("**Nous comparons l’évolution des 4 principales variables dans le graphique suivant :**")
     
     fig, ax1 = plt.subplots(figsize=(18,10))
     
@@ -119,22 +117,22 @@ def run():
     
     st.markdown(
         """
-        Nous allons maintenant  déterminer les **coefficents de corrélation** entre nos variables, à l'aide du **test statistique de
+        Nous allons maintenant déterminer les **coefficents de corrélation** entre nos variables, à l'aide du **test statistique de
         Pearson**.
         """
         )    
     
-    show_heatmap = st.checkbox("Afficher la 'heatmap' du DataFrame 'co2_temps'")
-    if show_heatmap :
+    with st.expander("Afficher une 'heatmap' des corrélations du DataFrame...") :
         fig, ax = plt.subplots()
-        sns.heatmap(co2_temps.drop('abs', axis=1).corr(method="pearson"), annot=True, ax=ax)
+        sns.heatmap(co2_temps.drop('abs', axis=1).corr(method="pearson"), ax=ax)#,annot=True)
         st.pyplot(fig)
     
-    
-    
-    
-    
-    
+        st.markdown(
+            """
+            La heatmap permet de **repérer visuellement les degrés de corrélations** entre nos variables. Nous constatons déjà une
+            corrélation quasi-parfaite entre les émissions liées aux énergies fossiles et à l'industrie, et les émissions totales.
+            """
+            )
     
     st.markdown("Mesurons la **corrélation entre 2 variables au choix** de notre DataFrame :")
     
@@ -142,12 +140,12 @@ def run():
             "abs_10y_mov_avg" : "Températures moyennes",
             "Land use emissions (GtCO2)": "Emissions de CO2 liées à l'utilisation des sols",
             "Fossil fuel and industry emissions (GtCO2)": "Emissions de CO2 des combustibles fossiles et de l'industrie",
-            "Total emissions (GtCO2)": "Emissions totales"}
+            "Total emissions (GtCO2)": "Emissions totales de CO2"}
     
     options = st.multiselect("Quelle paire de variables souhaitez-vous soumettre au test de Pearson ?",
                              list(co2_temps.drop("abs", axis=1).columns),
-                             #list(co2_temps.drop(["abs", "Land use emissions (GtCO2)", "Fossil fuel and industry emissions (GtCO2)",
-                             #"Total emissions (GtCO2)"], axis=1).columns),
+                             list(co2_temps.drop(["abs", "Land use emissions (GtCO2)", "Fossil fuel and industry emissions (GtCO2)",
+                             "Total emissions (GtCO2)"], axis=1).columns),
                              format_func=cols.get)
     
     if len(options) == 0 : 
@@ -172,11 +170,12 @@ def run():
         Les résultats de ces tests nous confirment que :
         - Les émissions totales de $CO_2$ et les températures moyennes sur 10 ans présentent chacune une forte corrélation aux années :
             coefs > 0.90. **Les années passant, les émissions de $CO_2$ et les températures augmentent**.
+        - Les émissions dues à l'utilisation des sols ne sont que moyennement corrélées aux années : coef = 0.55. Sur le graphique,
+            nous observons en effet une baisse de celles-ci sur le dernier tiers de la période étudiée (1960 - 2020). **Les émissions
+            liées aux énergies fossiles et à l'industrie pèsent effectivement fortement sur le total des émissions** : coef > 0.99 !.
         - Les **températures moyennes** sur 10 ans et les **émissions totales** le sont encore plus entre elles : coef > 0.95. Au-delà
             de la tendance générale à la hausse de ces 2 variables, cela confirme que globalement, **les variations de l'une suivent
             les variations de l'autre**.
-        - Les émissions dues à l'utilisation des sols ne sont que moyennement corrélées aux années : coef = 0.55. Sur le graphique,
-        nous observons en effet une baisse de celles-ci sur le dernier tiers de la période étudiée (1960 - 2020).
         """
         )
  
