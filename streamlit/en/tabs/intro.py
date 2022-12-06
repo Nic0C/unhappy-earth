@@ -13,11 +13,11 @@ def run():
 
     st.markdown("---")
     
-    st.header("Analyse du réchauffement climatique")
+    st.header("Global Warming Analysis")
     
 # Contexte :
 
-    st.subheader("Contexte / Définition")
+    st.subheader("Context / Definition")
     
     st.markdown(
         """
