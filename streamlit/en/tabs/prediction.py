@@ -6,7 +6,7 @@ import matplotlib.dates as mdates
 from prophet import Prophet
 
 
-title = "Prédictions"
+title = "PrédictionsEN"
 sidebar_name = "Prédictions"
 
 
