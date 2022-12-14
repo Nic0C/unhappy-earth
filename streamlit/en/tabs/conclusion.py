@@ -7,7 +7,7 @@ sidebar_name = "Conclusion"
 
 def run():
     
-    st.image("streamlit/assets/Global_Warming.jpg", use_column_width=True)
+    st.image("streamlit/en/assets/Global_Warming.jpg", use_column_width=True)
     
     st.title(title)
 

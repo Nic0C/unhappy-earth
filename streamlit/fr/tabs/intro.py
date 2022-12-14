@@ -7,7 +7,7 @@ sidebar_name = "Introduction"
 
 def run():
 
-    st.image("streamlit/assets/starving_polar_bear.jpg")
+    st.image("streamlit/fr/assets/starving_polar_bear.jpg")
 
     st.title(title)
 
