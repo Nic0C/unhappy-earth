@@ -14,7 +14,7 @@ st.set_page_config(
     page_icon="https://datascientest.com/wp-content/uploads/2020/03/cropped-favicon-datascientest-1-32x32.png",
 )
 
-with open("streamlit/style.css", "r") as f:
+with open("streamlit/fr/style.css", "r") as f:
     style = f.read()
 
 st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
@@ -38,7 +38,7 @@ TABS = OrderedDict(
 def run():
     
     st.sidebar.image(
-        "streamlit/assets/Unhappy_earth.png",
+        "streamlit/fr/assets/Unhappy_earth.png",
         width=250,
         )
     

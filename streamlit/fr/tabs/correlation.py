@@ -14,7 +14,7 @@ sidebar_name = "Corrélations"
                                                     
 def run():
     
-    st.image("streamlit/assets/Reftinsky_reservoir_of_Sverdlovsk_region.jpg", use_column_width=True)   
+    st.image("streamlit/fr/assets/Reftinsky_reservoir_of_Sverdlovsk_region.jpg", use_column_width=True)   
     st.title(title)
     
     
