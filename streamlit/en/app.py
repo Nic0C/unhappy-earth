@@ -54,7 +54,7 @@ def run():
         """
         ----
         
-        Crédit image :
+        Image credit:
         earth PNG Designed By IMZOMBIEASU from [Pngtree.com](https://pngtree.com/freepng/waste-water-and-exhaust-gas-and-unhappy-earth-clipart_6072655.html)
         """,
         unsafe_allow_html=True

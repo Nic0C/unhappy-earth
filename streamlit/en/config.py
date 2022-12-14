@@ -20,4 +20,4 @@ TEAM_MEMBERS = [
            linkedin_url="https://www.linkedin.com/in/nicolas-cristiano-7b8a23171/", 
            github_url="https://github.com/Nic0C")]
 
-PROMOTION = "Promotion Continue Data Analyst - Mars 2022"
+PROMOTION = "Data Analyst Prom - March 2022"
