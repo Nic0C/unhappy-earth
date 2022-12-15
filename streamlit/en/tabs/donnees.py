@@ -3,8 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-title = "Données utilisées"
-sidebar_name = "Données"
+title = "Data sources"
+sidebar_name = "Data sources"
 
 plt.style.use('seaborn-whitegrid')
 
@@ -31,62 +31,47 @@ def run():
     co2_global, co2_countries = read_co2()
     co2_countries_10y = pd.concat([co2_countries['year'], co2_countries.iloc[:,2:].rolling(120).mean()], axis=1)
     
-    st.header('Identification des sources')
+    st.header('Identifying data sources')
     
     st.markdown(
         """
-Nous avons identifié deux sources de données pour nos recherches : [Berkeley Earth](http://berkeleyearth.org/data/) 
-et [Our world in data](https://ourworldindata.org/). Toutes nos données sont publiquement téléchargeables, sous une 
-licence spécifique pour le premier et [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode) pour le second. 
+We identified two data sources for our research: [Berkeley Earth](http://berkeleyearth.org/data/)
+and [Our world in data](https://ourworldindata.org/). The datasets provided are all publicly available, under a
+specific license for the first and under the [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode) for the second.
         """)
         
-    with st.expander("En savoir plus sur les sources de données..."):
+    with st.expander("About the data sources"):
         st.markdown(
         """
-[Berkeley Earth](http://berkeleyearth.org/data/) est une organisation américaine indépendante qui fournit des données 
-de température historiques nettoyées et cross-vérifiées. Recoupant elle-même plusieurs sources, notamment l'analyse 
-[GISTEMP](https://data.giss.nasa.gov/gistemp/) réalisée sous l'égide de la NASA, elle fournit un ensemble de jeux de 
-données actualisés, les mesures vont jusqu'à 2021, et complets, avec plus de 19 millions d’observations depuis 46 000 
-stations météo.
+[Berkeley Earth](http://berkeleyearth.org/data/) is an independent American organization that provides curated and cross-validated historic temperature datasets. They rely on a variety of other data sources, including the well-known [GISTEMP](https://data.giss.nasa.gov/gistemp/) datasets published by the NASA, and provide complete and up-to-date datasets that go up to 2021. The overall dataset contains more than 19 million observations from 46,000 weather stations spread across the world.
 
-[Our world in data](https://ourworldindata.org/) est un organisme reconnu pour la qualité de leurs publications de 
-données sur un ensemble de sujets d'actualité tels que la pollution, la santé ou la population. Leurs données sont 
-librement [téléchargeables sur GitHub](https://github.com/owid/), et sont notamment utilisées pour [l'enseignement 
-et la recherche](https://ourworldindata.org/coverage) à travers le monde. Nous nous appuyons sur leurs données 
-d'émission de $CO_2$ disponibles dans [leur référentiel GitHub](https://github.com/owid/co2-data).
+[Our world in data](https://ourworldindata.org/) is a well-established organization providing datasets and visualisations about a range of recent hot topics, from pollution to public health and worldwide population. Their datasets are freely [available on GitHub](https://github.com/owid/), and are commonly used in [teaching and research](https://ourworldindata.org/coverage) around the world. We specifically use their $CO_2$ emission dataset, as published in [their dedicated GitHub repository](https://github.com/owid/co2-data).
         """
         )
 
-    st.header('Données de températures')
+    st.header('Temperature datasets')
 
     st.markdown(
         """
-Les jeux de données de Berkeley Earth sont fournis sous forme de fichiers .txt, chacun d’entre eux correspondant 
-à une région (totalité du globe, par hémisphère ou par pays). La fréquence d'échantillonnage est mensuelle.
+Berkeley Earth datasets are provided as a set of txt files, corresponding to monthly updates on various areas from worldwide measures down to hemispheres and countries. 
 
-Ils sont tous construits de la même manière, avec en en-tête une **description complète**, incluant un élément 
-crucial : une liste de 12 températures de _référence absolues mensuelles_ et leur incertitude sur une période 
-fixe de 30 ans, de janvier 1951 à décembre 1980. Cette période a été retenue d'une part pour la fiabilité et 
-la complétude des observations effectuées, mais également car elle représente une sorte de médiane sur l'ensemble 
-du dataset. Ensuite, un **tableau donne le détail des résultats** moyens sous forme d’_anomalies_, ou _températures 
-relatives_, assorties de leur incertitude, observées par mois pour la région donnée, pour une période allant de 
-1750 au plus tôt, et jusqu’en 2021. 
+All files are built along the same format. The headers have a complete description of the dataset, including a set of monthly average measures on a reference time range (from January 1951 to December 1980). This time period was selected on the one hand for the reliability and completeness of the observations, and on the second hand because it represents a sort of median of the whole dataset. Following is a **space-separated table of monthly anomalies**, or relative measures, and their uncertainty on a period ranging from 1750 at the earliest to 2021.
 
-L’**anomalie de température** est une valeur relative, exprimée en degrés Celsius correspondant à l’écart, 
-positif ou négatif, entre la température mesurée et la température moyenne de référence correspondante. Plus 
-d'informations concernant ce mesurement et l'intérêt de raisonner en termes d'anomalies peut être trouvé [sur le 
-site de la NASA](https://data.giss.nasa.gov/gistemp/faq/abs_temp.html). 
+**Anomalies** represent a relative value, expressed in degrees Celsius and corresponding to the difference,
+positive or negative, between the measured temperature and the corresponding average reference temperature. More
+information on this measurement and the interest of reasoning in terms of anomalies can be found [on the
+NASA website](https://data.giss.nasa.gov/gistemp/faq/abs_temp.html).
 
-L’**incertitude** est la dispersion liée à différents facteurs, notamment de sous-échantillonnage statistique et 
-spatial, influant in fine sur la qualité de la mesure. Elle représente l'intervalle de confiance à 95 %. **Ces 
-références nous permettent de calculer les températures en valeurs absolues.**
+**Uncertainty** is the dispersion related to various factors, in particular geographical and statistical under-sampling, ultimately influencing the quality of the measurement. It represents the 95% confidence interval. 
+
+**These figures put together allow us to compute the temperatures in absolute values.**
         """
     )
 
-    with st.expander("En savoir plus sur les datasets..."):
-        tab1, tab2, tab3 = st.tabs(["Températures globales", 
-                                    "Température par hemisphère", 
-                                    "Températures par pays"])
+    with st.expander("More about the datasets"):
+        tab1, tab2, tab3 = st.tabs(["Global Temperatures", 
+                                    "Temperature by hemisphere", 
+                                    "Temperatures by country"])
         with tab1:
             st.dataframe(temps_globales.tail(10))
         with tab2:
@@ -96,20 +81,15 @@ références nous permettent de calculer les températures en valeurs absolues.*
    
         st.markdown(
         """
-Les données sont réparties sur 12 colonnes :
-* Les quatre premières colonnes fournissent les informations suivantes : l’année, le mois de l’année, l’anomalie
-  de température moyenne estimée pour ce mois et son incertitude.
-* Les huit dernières colonnes rapportent les anomalies et incertitudes sous la forme de moyennes glissantes 
-  annuelles, quinquennales, décennales et vicennales, centrées sur le mois considéré. Par exemple, la moyenne 
-  annuelle de janvier à décembre 1950 est rapportée à juin 1950, ce qui explique la présence de « NaNs » en début et 
-  fin de ces colonnes dans les data sets.
+Each line has 12 fields:
+* The first four columns provide information about the year, month, anomaly and uncertainty for the measure.
+* The last 8 columns provide centered moving averages over 1, 5, 10 and 20 years. As an example, the yearly moving average for 1950 (January-December) is reported for June 1950. As a consequence we can observe NaNs at the top and bottom of the dataset.
         """
         )
 
     st.markdown(
         """
-Nous pouvons visualiser l'évolution des températures par pays -- 188 pays sont renseignés. Vous pouvez sélectionner d'autres 
-pays dans la liste pour les afficher.
+We can visualise the evolution of temperatures across the 180 countries of the dataset: please select any item in the list.
         """
     )
       
@@ -121,24 +101,22 @@ pays dans la liste pour les afficher.
         key = "temps_countries")
 
     if len(options) == 0 : 
-        st.markdown("Attention : Selectionner au moins un pays !")
+        st.markdown("Warning: please select at least one country!")
     else :
         fig, ax = plt.subplots(figsize=(10,6))
         ax.plot(temps_countries_10y['year'], temps_countries_10y[options], label=options)
         ax.set_ylim(bottom=0)
         ax.grid(visible=True, alpha=0.5)
         ax.legend(loc='lower left')
-        ax.set_title("Températures par pays, moyenne sur 10 ans")
+        ax.set_title("10 years moving average temperature by country")
         st.pyplot(fig=fig, )
         
         
-    st.header('Données de dioxyde de carbone')
+    st.header('Carbon dioxyde datasets')
 
     st.markdown(
         """
-Nous identifions deux jeux de données pour le $CO_2$ : le premier est la quantité totale produite par pays et par an, 
-l'autre détaille les émissions dues à la production industrielle et à l'utilisation des sols, tous pays confondus 
-et par an.
+We identify two datasets for the Carbon dioxyde analysis. The first one is the yearly total emission of $CO_2$ by country, and the second one details annual worldwide emissions associated to *land use* and *fossil fuel and industry*.
         """
         )
 
