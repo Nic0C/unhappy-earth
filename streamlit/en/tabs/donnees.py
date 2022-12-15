@@ -40,7 +40,7 @@ and [Our world in data](https://ourworldindata.org/). The datasets provided are 
 specific license for the first and under the [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode) for the second.
         """)
         
-    with st.expander("About the data sources"):
+    with st.expander("More about the data sources"):
         st.markdown(
         """
 [Berkeley Earth](http://berkeleyearth.org/data/) is an independent American organization that provides curated and cross-validated historic temperature datasets. They rely on a variety of other data sources, including the well-known [GISTEMP](https://data.giss.nasa.gov/gistemp/) datasets published by the NASA, and provide complete and up-to-date datasets that go up to 2021. The overall dataset contains more than 19 million observations from 46,000 weather stations spread across the world.
@@ -101,7 +101,7 @@ We can visualise the evolution of temperatures across the 180 countries of the d
         key = "temps_countries")
 
     if len(options) == 0 : 
-        st.markdown("Warning: please select at least one country!")
+        st.markdown("Warning: please select at least one country.")
     else :
         fig, ax = plt.subplots(figsize=(10,6))
         ax.plot(temps_countries_10y['year'], temps_countries_10y[options], label=options)
@@ -120,9 +120,9 @@ We identify two datasets for the Carbon dioxyde analysis. The first one is the y
         """
         )
 
-    with st.expander("En savoir plus sur les datasets..."):
-        tab1, tab2 = st.tabs(["Production CO2 globales", 
-                              "Production CO2 par pays"])
+    with st.expander("More about the datasets"):
+        tab1, tab2 = st.tabs(["CO2 emissions, worldwide", 
+                              "CO2 emissions, by country"])
         with tab1:
             st.dataframe(co2_global.tail(10))
         with tab2:
@@ -130,37 +130,37 @@ We identify two datasets for the Carbon dioxyde analysis. The first one is the y
 
     st.markdown(
         """
-Les pays sont identifiés par leur trigramme ISO 3166 - alpha-3, et comme pour les températures, les données peuvent 
-manquer en fonction des années et des pays. 
+Countries are identified according to their ISO 3166 - alpha-3 code. As for the temperatures, there are missing values for some countries over some time ranges.
         """
     )
 
     st.markdown(
         """
-Nous pouvons visualiser l'évolution des productions de $CO_2$ par pays. Sélectionner d'autres pays dans la liste pour les afficher ; OWID_WRL permet d'afficher les productions au niveau mondial.
+We can visualise the evolution of $CO_2$ emissions by country. Please select the countries of your choice in the list to display them. `OWID_WRL` displays the overall worldwide emissions.
         """
     )
     
     # Add country selection
     options = st.multiselect(
-        'Sélectionner un pays',
+        'Select a country',
         co2_countries.columns[1:],
         default=['FRA', 'USA', 'CHN', 'OWID_WRL'],
         key="co2_countries")
 
     if len(options) == 0 : 
-        st.markdown("Attention : Selectionner au moins un pays !")
+        st.markdown("Warning: please select at least one country.")
     else :
         fig, ax = plt.subplots(figsize=(10,6))
         ax.plot(co2_countries['year'], co2_countries[options], label=options)
         ax.set_ylim(bottom=0)
         ax.grid(visible=True, alpha=0.5)
         ax.legend(loc='lower left')
-        ax.set_title("Production de $CO_2$ par pays, par an")
+        ax.set_title("Yearly $CO_2$ emissions, by country")
         st.pyplot(fig=fig)
         
     st.markdown(
         """
+
 Les **données de $CO_2$ globales** nous fournissent une autre information : la quantité de $CO_2$ émise par l’utilisation 
 des terres, en plus de la génération de $CO_2$ liée à la production d'énergie et industrielle. Les terres, en fonction 
 de leur utilisation, produisent une certaine quantité de $CO_2$ qui vient s’ajouter à la production industrielle ; dans 
