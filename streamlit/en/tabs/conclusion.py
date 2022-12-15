@@ -14,50 +14,45 @@ def run():
     st.markdown("---")
 # Bilan :
 
-    st.header("Bilan")    
+    st.header("Summary")    
 
     st.markdown(
         """
-        Ce **sujet** est déjà connu, **largement étudié** et débattu par des experts hautement qualifiés. **Nous souhaitions** principalement
-        **savoir si la Data Analyse nous permettrait d’atteindre des résultats concordants**.
+        The topics of global warming and temperature forecasting over the upcoming future are widely discussed and studied by highly qualified experts. 
+        Our objective was mainly to test the knowledge that we acquired during the course of Data Analyst and see if we would be able to achieve consistent results.
         
-        Grâce à l'analyse statistique de données fiables et concrètes, nous avons pu **répondre aux problématiques posées** en début de
-        projet :
-        1. Nous avons pu **confirmer et quantifier le réchauffement climatique : c'est une réalité indiscutable**. Le phénomène est
-            graduel depuis la révolution industrielle de 1880, et s'accélère à partir de 1975, de manière plus forte encore dans
-            l'hémisphère nord.
-        2. **Les émissions de CO2 ont une forte influence (corrélation / linéarité)** sur la hausse des températures.
-        3. Nos **prédictions** ne sont pas optimistes. D'après notre modèle Prophet, **la température moyenne globale augmentera de près
-            de 2°C dans les 50 prochaines années**. Ces résultats rejoignent ceux de la majorité des études disponibles sur le
-            changemen climatique.
+        Thanks to the statistical analysis of reliable and concrete data, we were able to respond to the issues raised at the begging of the project:
+        1.  We could confirm and quantify the global warming: it is an indisputable reality. The phenomenon is gradual since the industrial revolution of 1880, and it accelerates since 1975, especially in the northern hemisphere.  
+        2.  CO2 emissions have a strong influence (correlation / linearity) on the temperature increase.  
+        3.  Our predictions are not optimistic. According to the results of Prophet Model, the global average temperature will increase by almost 2°C in the next 50 years. These results are consistent with numerous studies on climate change made by professional climatologists.  
             
-        Malheureusement, nos **conclusions**, et a fortiori celles des experts en climatologie, **ne sont pas positives** ni pour notre planète
-        Terre (**UnhapPy Earth**), ni pour l'humanité.
+        Unfortunately, our conclusions, and a fortiori those of the experts in climatology, are not positive neither for 
+        our planet Earth (UnhapPy Earth), nor for the humanity.
         """
         )
         
 # Suite du projet :
     
-    st.header("Suite du projet")
+    st.header("Project follow-up")
     
     st. markdown(
         """
-        Afin de compléter notre étude, de **nombreux autres causes et conséquencs pourraient être analysés**, notamment :
-        * **Émissions de Gaz à Effet de Serre** autres que le CO2 (méthane, etc.) ;
-        * **Évolution de la répartition entre sols naturels et sols exploités** par et pour l'activité humaine ;
-        * **Augmentation du niveau des mers et des océans** ;
-        * **Augmentation de la fréquence et de l'intensité des catastrophes dites naturelles**.
+        In order to complete our research it would be possible to analyze other causes and consequences related with global warming, in particular:
+        * **Greenhouse gas emissions**  other than CO2 (methane, etc.);
+        * **Evolution of the distribution between natural soils and soils exploited**  by and for human activity ;
+        * **Global sea and ocean level rise** ;
+        * **Frequency and intensity increase of natural disasters**.
         """
         )
 
 # Bibliographie :
 
-    st.header("Bibliographies")
+    st.header("Bibliography")
     
-    biblio = st.radio("Quelle bibliographie souhaitez-vous consulter ?",
-                     ('Données', 'Publications, articles et études consultées', 'Librairies Python'))
+    biblio = st.radio("Which bibliography would you like to consult?",
+                     ('Data', 'Publications, researches and articles consulted', 'Python Libraries'))
     
-    if biblio == 'Données' :
+    if biblio == 'Data' :
         st.markdown(
             """
             * [Data Overview - Berkeley Earth](http://berkeleyearth.org/data/)
@@ -66,7 +61,7 @@ def run():
             """
             )
         
-    elif biblio == 'Publications, articles et études consultées' :
+    elif biblio == 'Publications, researches and articles consulted' :
         st.markdown(
             """
             * [6e rapport du GIEC : quelles solutions face au changement climatique ? - Réseau Action Climat](https://reseauactionclimat.org/6e-rapport-du-giec-quelles-solutions-face-au-changement-climatique/)
