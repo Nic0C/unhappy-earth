@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 
-title = "Confirmation du phénomène"
+title = "Phenomenon confirmation"
 sidebar_name = "Confirmation"
 
 
@@ -26,7 +26,7 @@ def plot_month(df, title):
     """
     Display both a plot and a scatter plot from a DF, with x = date (by month) and y = absolute temperature.
     Add a cmap to colorize the scatter based on y value.
-    Plot 12-months moving average temperature.
+    Plot 12-months rolling average temperature.
     """
     # Set the figure size and grid.
     plt.figure(figsize=(24, 10))
@@ -36,18 +36,18 @@ def plot_month(df, title):
     plt.plot(df['date'], df['abs'], c='lightgrey', zorder=1)
     # Display points (circles) for monthly measures
     plt.scatter(df['date'], df['abs'], c=df['abs'], cmap='jet', s=15, zorder=2,
-                label='Moyennes mensuelles')
-    # Display 12-months moving average as a straight, larger line.
+                label='Monthly averages')
+    # Display 12-months rolling average as a straight, larger line.
     plt.plot(df['date'], df['mov_average'], color='k',
-             linewidth=2, label='Moyenne glissante sur 12 mois')
+             linewidth=2, label='12 months rolling average')
 
     # Add the cmap.
     plt.colorbar()
     plt.clim(df['abs'].min(), df['abs'].max())
 
     # Labels, legend, title.
-    plt.xlabel('Date (par mois)')
-    plt.ylabel('Température absolue en °C')
+    plt.xlabel('Date (by month)')
+    plt.ylabel('Absolute temperature in °C')
     plt.legend()
     plt.title(title)
 
@@ -73,23 +73,23 @@ def plot_year(df, title, show_uncert=False):
     # If required, display points and fill the area of uncertainty measures.
     if show_uncert == True:
         plt.scatter(temp_year['year'], temp_year['abs'],
-                    edgecolor='none', zorder=2, label='Moyennes annuelles')
+                    edgecolor='none', zorder=2, label='Annual averages')
         plt.fill_between(temp_year['year'],
                          temp_year['abs'] - temp_year['uncert'],
                          temp_year['abs'] + temp_year['uncert'],
                          color='#D3D3D3', 
-                         zorder=0, label='Incertitude')
+                         zorder=0, label='Uncertainty')
         # Otherwise display absolute temps with a colormap.
     else:
         plt.scatter(temp_year['year'], temp_year['abs'], c=temp_year['abs'],
                     cmap='jet', vmin=-40.5, vmax=40, edgecolor='none', 
-                    zorder=2, label='Moyennes annuelles')
+                    zorder=2, label='Annual averages')
         plt.colorbar()
         plt.clim(temp_year['abs'].min(), temp_year['abs'].max())
 
     # Labels, legend, title.
-    plt.xlabel('Date (par annnée)')
-    plt.ylabel('Température absolue en °C')
+    plt.xlabel('Date (by year')
+    plt.ylabel('Absolute temperature in °C')
     plt.title(title)
     plt.legend()
 
@@ -111,15 +111,13 @@ def run():
 #    co2_countries_10y = pd.concat(
 #        [co2_countries['year'], co2_countries.iloc[:, 2:].rolling(120).mean()], axis=1)
 
-    st.header('Pouvons-nous confirmer le phénomène de changement climatique ?')
+    st.header('Can we confirm the climate change phenomenon?')
 
     st.markdown(
         """
-Commençons notre analyse en tentant de confirmer ce phénomène. A cet effet, à partir des données du data set: 
-`global_land` nous présentons un graphique sur l'évolution des températures mensuelles globales, de 1750 à 2021. 
-Egalement, nous allons présenter la moyenne annuelle glissante sur l'ensemble des données du même data set, 
-rendant plus visible la tendance générale :
-
+Let's start our analysis by trying to confirm this phenomenon. For this purpose, from the `global_land` data set we
+present a graph showing the evolution of global monthly temperatures, from 1750 to 2021.
+Also, we will present the rolling annual average over the whole data set, making the general trend more visible:
         """
     )
 
@@ -140,56 +138,54 @@ rendant plus visible la tendance générale :
     #     ax.set_title("Températures globales, moyenne sur 10 ans")
     #     st.pyplot(fig=fig, )
 
-    uncert = st.checkbox("Inclure l'incertitude", key='temps_globales_uncert')
+    uncert = st.checkbox("Include uncertainty", key='temps_globales_uncert')
     st.pyplot(fig=plot_year(temps_globales.iloc[:-1,:],
-                            'Températures globales annuelles', show_uncert=uncert))
+                            'Annual global temperatures', show_uncert=uncert))
 
     st.markdown(
         """
-Nous pouvons observer, malgré les variations locales, une tendance croissante visible. Entre les années 1850, l'augmentation de moyenne visible est comprise entre 1.5 et 2 °C.
+We can observe, despite local variations, a visible growing trend. Since the 1850s, the visible average has risen between 
+1.5 and 2°C.
 
-Jusqu'à la moitié du graphique (année 1880) la variabilité des températures est beaucoup plus importante, et elle
-s'accompagne d'une plus grande incertitude : les données collectées à cette époque sont moins 
-fiables, à cause des capteurs utilisés et d'un nombre de stations météorologiques restreint. Cette incertitude 
-et sa corrélation aux fluctuations lors des premières décennies est clairement représentée sur le graphe 
-(en cliquant sur l'option).
+Up to half of the graph (year 1880) the temperature variability is much greater, and it is accompanied by greater 
+uncertainty: the data collected at this time are less reliable, because of the sensors used and a limited number of 
+meteorological stations. This uncertainty and its correlation to the fluctuations during the first decades is clearly 
+represented on the graph (by clicking on the option).
 
         """
     )
     
     st.markdown(
         """
-Il n'est pas possible d'établir précisément le début du 
-réchauffement climatique. Il s'agit même d'un sujet de désaccord entre experts : certaines recherches le 
-corrèlent avec la révolution industrielle occidentale, tels que les travaux de Abram et. al. ou ceux du groupe 
-PAGES. D'autres études indiquent un début plus précoce. 
+It is not possible to establish precisely the beginning of global warming. It is even a subject of disagreement between 
+experts: some research correlates it with the Western industrial revolution, such as the work of Abram et al. or those 
+of the PAGES group. Other studies indicate an earlier onset.
 
-Le réchauffement climatique est très graduel, et subit des variations cycliques qui rendent difficile une 
-datation précise. Néanmoins, en étudiant à nouveau le graphique, nous pouvons observer une tendance beaucoup 
-plus explicite, forte et continue à partir des années 1975. Dans les décennies précédant les années 1970, les 
-températures moyennes mondiales semblent même être assez stables, ce qui a suscité de [vives controverses](https://www.lemonde.fr/cop21/article/2015/10/22/hoax-climatique-3-dans-les-annees-1970-les-scientifiques-prevoyaient-un-refroidissement_4794858_4527432.html)
-à l'époque.
+Global warming is very gradual, and undergoes cyclical variations that make precise dating difficult. Nevertheless, by 
+studying the graph again, we can observe a much more explicit, strong and continuous trend from the years 1975. In the 
+decades preceding the 1970s, the global average temperatures even seem to be quite stable, which caused [strong controversies](https://www.lemonde.fr/cop21/article/2015/10/22/hoax-climatique-3-dans-les-annees-1970-les-scientifiques-prevoyaient-un-refroidissement_4794858_4527432.html) 
+at the time.
         """
     )
 
     st.markdown(
         """
-Pour rendre les choses plus identifiables, nous sélectionnons une période plus stable, par exemple à partir des années 1850, et 
-calculons les différences avec les dernières années :
-* La différence de température moyenne sur 10 ans entre 1850 et 2022 est de 1.943°C.
-* La différence de température moyenne sur 10 ans entre 1900 et 2022 est de 1.63°C.
+To make things easier to identify, we select a more stable period, for example from the 1850s, and calculate the 
+differences with the later years:
+* The 10-year average temperature difference between 1850 and 2022 is 1.943°C.
+* The 10-year average temperature difference between 1900 and 2022 is 1.63°C.
 
-Donc, **oui, le réchauffement climatique est bel et bien une réalité** !
+So, **yes, global warming is indeed a reality**!
 
         """
     )
         
-    st.header('Le réchauffement commence-t-il au même moment sur l’ensemble du globe ?')
+    st.header('Does warming start at the same time all over the globe?')
     
     st.markdown(
         """
-Visualisons l'évolution de la température dans différentes parties du monde, en commençant par les hémisphères Nord et Sud. Afin d'obtenir une courbe plus lisse, et des mesures plus lisibles, nous calculons une moyenne glissante sur 10 ans :
-        """
+Let's visualize the evolution of temperature in different parts of the world, starting with the northern and southern 
+hemispheres. In order to obtain a smoother curve, and more readable measurements, we calculate a rolling average over 10 years:        """
     )
         
     # Moyenne glissante sur 10 ans.
@@ -216,32 +212,31 @@ Visualisons l'évolution de la température dans différentes parties du monde, 
     hems_mov_average_10y['south_uncert_10y_centered'] = hems_mov_average_10y['south_uncert'] - hems_mov_average_10y['south_uncert'].mean()
     
     fig, ax1 = plt.subplots(figsize=(18, 8))
-    hems_mov_average_10y['north_abs_10y_centered'].plot(label='Hémisphère Nord')
-    hems_mov_average_10y['south_abs_10y_centered'].plot(label='Hémisphère Sud')
-    plt.title('Température par hémisphère terrestre - moyenne glissante sur 10 ans, centrée')
+    hems_mov_average_10y['north_abs_10y_centered'].plot(label='Northern hemisphere')
+    hems_mov_average_10y['south_abs_10y_centered'].plot(label='Southern hemisphere')
+    plt.title('Temperature by terrestrial hemisphere - 10 years rolling average, centered')
     plt.legend()
     plt.grid()
     st.pyplot(fig)
     
     st.markdown(
         """
-De la même manière que pour les températures globales, dans ce graphique par hémisphère nous ne pouvons pas identifier 
-avec précision un point de départ du réchauffement climatique. Les deux hémisphères montrent une tendance croissante, 
-mais il est intéressant de remarquer que leur comportement est différent entre l'un et l'autre. La hausse de température 
-dans l'hémisphère Sud est graduelle et constante, tandis que dans l'hémisphère Nord d'importantes variations apparaissent.
+As for global temperatures, in this graph by hemisphere we cannot precisely identify a starting point for global warming. 
+Both hemispheres show an increasing trend, but their behavior is different between one and the other. The temperature 
+rise in the southern hemisphere is gradual and constant, while significant variations appear in the northern hemisphere.
 
-Sur cette dernière période (1970 - 2021), dans l'hémisphère Sud la température moyenne passe de 16,9 °C à 18 °C, soit une 
-augmentation de 1,1 °C, tandis que dans l'hémisphère Nord la température passe de 10 °C à 11,8 °C, soit 1,8 °C d'augmentation 
-sur la même periode.
+Over this last period (1970 - 2021), the average temperature increases from 16.9°C to 18°C in the southern hemisphere, 
+i.e. a 1.1°C increase, while the temperature increases from 10°C to 11.8°C in the northern hemisphere, i.e. a 1.8°C increase
+over the same period.
 
-A cause de ces variations, il est difficile d'établir si le réchauffement a débuté plus tôt dans un hémisphère que dans 
-l'autre, mais nous pouvons observer globalement **un réchauffement plus rapide de l'hémisphère Nord**. 
+Because of these variations, it is difficult to confirm whether the warming started earlier in one hemisphere than in the 
+other, but globally we can observe **a faster warming of the northern hemisphere**.
 
-Afin de valider cette interprétation, nous allons étudier plus en détail l'évolution des températures dans les différents pays et 
-continents. Dans le graphique suivant, nous définissons deux groupes de pays, que nous visualisons avec des traits différents. Cela 
-permet de visualiser, et d'identifier, des évolutions similaires par région -- dans notre cas, par hémisphère. 
+In order to validate this interpretation, we will focus on the evolution of temperatures in the different countries and 
+continents. In the following graph, we define two groups of countries, which we visualize with different line styles. This 
+allows to visualize, and identify, similar evolutions by region -- in our case, by hemisphere. 
 
-Vous pouvez choisir d'autres ensembles de pays pour visualiser d'autres comparaisons géographiques (e.g. entre continents).
+You can choose other sets of countries to visualize other geographical comparisons (e.g. between continents).
         """
     )
     
@@ -265,18 +260,18 @@ Vous pouvez choisir d'autres ensembles de pays pour visualiser d'autres comparai
                           'greenland', 'russia', 'china']
     selected_countries_s = ['brazil', 'australia', 'antarctica']
     
-    countries1 = st.multiselect("Pays groupe 1", 
+    countries1 = st.multiselect("Group 1 countries", 
                                temps_countries_year_centered.columns[1:],
                                default=selected_countries_n,
                                key='countries_1')
-    countries2 = st.multiselect("Pays groupe 2", 
+    countries2 = st.multiselect("Group 2 countries", 
                                temps_countries_year_centered.columns[1:],
                                default=selected_countries_s,
                                key='countries_2')
 
 
     if len(countries1) == 0 or len(countries2) == 0: 
-        st.markdown("Attention : Selectionner au moins un pays pour chaque groupe.")
+        st.markdown("**Warning**: Select at least one country for each group.")
     else :
         fig, ax1 = plt.subplots(figsize=(18, 8))
         #plt.ylim(-.5, 2)
@@ -291,22 +286,22 @@ Vous pouvez choisir d'autres ensembles de pays pour visualiser d'autres comparai
 
     st.markdown(
         """
-Nous retrouvons sur ce graphique les éléments observés précédemment : le réchauffement est plus rapide dans 
-l'hémisphère nord (courbes en trait plein) que dans l'hémisphère sud (courbes en trait pointillé). Sur 
-l'ensemble des pays sélectionnés, on peut même observer que plus les pays sont situés au Nord, plus la différence 
-de température est visible.
+We find on this graph the previously observed elements: the warming is faster in the northern hemisphere (solid lines) 
+than in the southern hemisphere (dotted lines). On all the selected countries, we can even observe that the more the 
+countries are located in the North, the more the temperature difference is visible.
+
         """
     )
 
-    st.header('Evolution géographique')
+    st.header('Geographical evolution')
 
-    st.subheader('Température mondiale')
+    st.subheader('Global temperature')
     
     st.markdown(
         """
-Visualisons l'évolution des températures dans l'ensemble des pays du monde pour lesquels les données ont pu être 
-collectées. Le graphique suivant permet de naviguer dans le temps, des premières mesures (1743) aux plus récentes 
-(2020). Les données manquantes sont affichées en gris, et l'échelle de couleurs ne varie pas pour permettre une meilleure comparaison.
+Let's visualize the evolution of temperatures in all the countries where the data could be collected. The following 
+graph allows you to navigate through time, from the first measurements (1743) to the most recent (2020). Missing data 
+are displayed in gray, and the color scale does not vary to allow better comparison.
 
         """
     )
@@ -369,7 +364,7 @@ collectées. Le graphique suivant permet de naviguer dans le temps, des premièr
     from mapclassify import UserDefined
     
     temps_countries_from, temps_countries_to = int(temps_countries.iloc[0, 1]), int(temps_countries.iloc[-1, 1])
-    annee = st.slider("Choisir l'année", 
+    annee = st.slider("Choose year", 
                       temps_countries_from, 
                       temps_countries_to, 
                       1900, key='temps_annee')
@@ -383,30 +378,28 @@ collectées. Le graphique suivant permet de naviguer dans le temps, des premièr
                missing_kwds= dict(color="lightgrey",), 
                edgecolor='darkgrey', linewidth=1, legend_kwds={'loc': 'lower left'},
                scheme='userdefined', classification_kwds={'bins':bins}, norm=Normalize(0, len(bins)), vmin=-20, vmax=23)
-    ax1.set_title('Températures des terres', fontsize=25)
+    ax1.set_title('Land temperatures', fontsize=25)
     st.pyplot(fig)
 
     st.markdown(
         """
-L'augmentation est visible ; beaucoup de pays ont une couleur plus prononcée en 2010 -- la quasi-totalité des 
-pays a pris au moins une teinte de couleur plus sombre.
+The increase is visible; many countries took on a deeper hue in 2010 -- almost all countries took on at least one darker color hue.
 
         """
     )
 
-    st.subheader('Différence sur un siècle')
+    st.subheader('Difference over a century')
 
     st.markdown(
         """
-Nous voulons identifier l'augmentation de température sur l'ensemble des pays, en prenant comme référence les 
-températures observées au début du siècle précédent (1900) et en les comparant aux températures observées à 
-une date choisie).
+We want to identify the temperature increase in all countries, taking the temperatures observed at the beginning of the 
+previous century (1900) as a reference and comparing them to the temperatures observed on a chosen date..
 
         """
     )
 
     
-    annee = st.slider("Choisir l'année", 
+    annee = st.slider("Choose year", 
                       1900, 
                       temps_countries_to, 2014, key='temps_annee_diff')
     merge['diff'] = merge[annee] - merge[1900]
@@ -418,16 +411,15 @@ une date choisie).
                missing_kwds= dict(color="lightgrey",), 
                edgecolor='darkgrey', linewidth=1, legend_kwds={'loc': 'lower left'},
                scheme='NaturalBreaks')
-    plt.title('Différence de températures', fontsize=25)
+    plt.title('Temperature difference', fontsize=25)
     st.pyplot(fig)
 
     st.markdown(
         """
-On retrouve les observations précédentes : l'augmentation de température est en moyenne plus importante dans 
-l'hémisphère nord, et croît globalement en remontant vers le Nord. Cela n'est pas uniforme, cependant, et d'autres 
-paramètres doivent entrer en compte. Nous savons que la climatologie est une science complexe, et des paramètres 
-locaux (type environnement local, ou régulations de certains pays) autant que systémique par les effets globaux 
-du climat, tels que les modifications des courants océaniques et atmosphériques.
+Again, we find the previous observations: the increase in temperature is on average greater in the northern hemisphere, and 
+increases globally going up towards the North. This is not uniform, however, we know that climatology is a complex science, 
+and local parameters (local environment, or regulations of certain countries) as much as systemic (global effects of the 
+climate such as the modification of oceanic and atmospheric currents) must be taken into account.
         """
     )
 

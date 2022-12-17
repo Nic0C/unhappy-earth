@@ -354,9 +354,9 @@ def run():
     st.markdown(
         """
         Based on the results of the Pearson statistical tests, and on the scores obtained with the different degrees of regression, we are now
-        able to affirm that **statistically, the rise in temperatures is very strongly linked to that of $CO_2$ emissions **.
+        able to affirm that **statistically, the rise in temperatures is very strongly linked to that of $CO_2$ emissions**.
         
-         **Thouth, let's be careful**: in the context of a **statistical** study like ours, **correlation or linearity does not necessarily mean
+         **Though, let's be careful**: in the context of a **statistical** study like ours, **correlation or linearity does not necessarily mean
          causality**.
         """
         )
