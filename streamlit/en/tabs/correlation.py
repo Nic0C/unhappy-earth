@@ -26,7 +26,7 @@ def run():
          relevance.
         
         
-         For this purpose, we create, from our datasets `temperatures_globales.csv` and `co2_global.csv`, the DataFrame `co2_temps`.
+         For this purpose, we create, from our datasets `global_temperatures.csv` and `co2_global.csv`, the DataFrame `co2_temps`.
          We calculate the 10-year rolling average of global temperatures, the sum of $CO_2$ emissions due to
          land use and those related to the combustion of fossil fuels. Finally, we reduce it to the 1860 - 2020 period.
         """
@@ -72,7 +72,7 @@ def run():
     
     # Affichage graphe températures / émissions CO2 :
         
-    st.markdown("**We compare the evolution of the 4 main variables in the following graph:**")
+    st.markdown("We compare the evolution of the 4 main variables in the following graph:")
     
     fig, ax1 = plt.subplots(figsize=(18,10))
     
@@ -100,10 +100,10 @@ def run():
         
     st.markdown(
         """
-        **Rising temperatures seem to follow that of total $CO_2$ emissions**, although in a less linear way. We
+        **The rise of temperatures seem to follow that of total $CO_2$ emissions**, although less linearly. We
          also note a sharp drop in $CO_2$ emissions in 2020, linked to the overall drop in activity during the Covid crisis.
          Unfortunately, this one-time drop will have no effect on the climate, given the accumulation of $CO_2$ emissions into the
-         the atmosphere for several decades (article [here](https://www.cairn.info/magazine-pour-la-science-2020-7-page-7.htm)).
+         the atmosphere during the previous decades (article [here](https://www.cairn.info/magazine-pour-la-science-2020-7-page-7.htm)).
         """
         )
     
@@ -354,7 +354,7 @@ def run():
     st.markdown(
         """
         Based on the results of the Pearson statistical tests, and on the scores obtained with the different degrees of regression, we are now
-        able to affirm that **statistically, the rise in temperatures is very strongly linked to that of $CO_2$ emissions**.
+        able to assert that **statistically, the rise in temperatures is very strongly linked to that of $CO_2$ emissions**.
         
          **Though, let's be careful**: in the context of a **statistical** study like ours, **correlation or linearity does not necessarily mean
          causality**.

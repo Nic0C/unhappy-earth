@@ -23,13 +23,13 @@ def run():
         """
         In just a few decades, **the question of global warming has become a major subject**, worrying
         for the future of the planet and its biodiversity, including the human species. **Yet it is still debated**, opposes
-        experts and climate sceptics, **at the very time when its manifestations and consequences** (droughts and torrential rains,
-        repeatedly, rising water levels) **are more flagrant every day**. Here is a simple definition, proposed by the
+        experts and climate sceptics, **at the very time when its manifestations and consequences** (repeated droughts and torrential rains,
+        rising water levels) **are more flagrant every day**. Here is a simple definition, proposed by the
         media platform [Youmatter](https://youmatter.world/fr/):
            
-        **Global warming is a global phenomenon of climate transformation characterized by an increase
+        **"Global warming is a global phenomenon of climate transformation characterized by an increase
         general average temperatures (in particular linked to human activities, releasing quantities of greenhouse gases), and which
-        permanently alters meteorological balances and ecosystems.**
+        permanently alters meteorological balances and ecosystems."**
        
         In addition, a [United Nations report published in April 2022](https://www.nationalgeographic.fr/environnement/2017/09/le-veritable-cout-du-changement-climatique)
         asserts: **global warming is incredibly costly**: humanly, socially, geopolitically,
@@ -45,7 +45,7 @@ def run():
     
     st.markdown(
         """
-        Through this project, we wanted to **identify the factual elements available and make our own analysis**, without
+        Through this project, we want to **identify the factual elements available and make our own analysis**, without
          prior knowledge of climatology. Our objective is to **make available to a curious and non-specialist public**,
          using reliable and freely accessible data, **an analysis of global warming**.
         
