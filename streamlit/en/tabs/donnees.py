@@ -95,7 +95,7 @@ We can visualise the evolution of temperatures across the 180 countries of the d
       
     # Add country selection
     options = st.multiselect(
-        'Sélectionner un pays',
+        'Select a country',
         temps_countries.columns[2:],
         ['france', 'united-states-of-america', 'china'],
         key = "temps_countries")
@@ -161,12 +161,12 @@ We can visualise the evolution of $CO_2$ emissions by country. Please select the
     st.markdown(
         """
 
-Les **données de $CO_2$ globales** nous fournissent une autre information : la quantité de $CO_2$ émise par l’utilisation 
-des terres, en plus de la génération de $CO_2$ liée à la production d'énergie et industrielle. Les terres, en fonction 
-de leur utilisation, produisent une certaine quantité de $CO_2$ qui vient s’ajouter à la production industrielle ; dans 
-certains cas elles peuvent aussi en consommer, et nous pouvons avoir des valeurs négatives sur cette mesure. 
+**Global $CO_2$ data** provides us with another information: the amount of $CO_2$ emitted by land use, 
+in addition to the generation of $CO_2$ related to energy and industrial production. Land, depending on its use, 
+produces a certain amount of $CO_2$ which is added to industrial production; in some cases the land can also consume it, 
+so we can see negative values on this measure.
 
-Visualisons l'évolution des ces deux valeurs (exprimées en Gigatonnes) sur la période de mesure.
+Let's visualize the evolution of these two values (expressed in Gigatons) over the measurement period.
         """
     )
     
@@ -178,47 +178,54 @@ Visualisons l'évolution des ces deux valeurs (exprimées en Gigatonnes) sur la 
     ax.set_ylim(bottom=0)
     ax.grid(visible=True, alpha=0.5)
     ax.legend(loc='upper left')
-    ax.set_title("Production de $CO_2$ globale, par an")
+    ax.set_title("Global $CO_2$ production, per year")
     st.pyplot(fig=fig)
         
 
-    st.header('Lecture et pré-traitement des données')
+    st.header('Reading and pre-processing of data')
 
-    st.subheader('Lecture')
+    st.subheader('Reading')
 
     st.markdown(
         """
-La plupart des jeux de données lus incluent des NaNs ; nous les identifions et décidons de leur maintien ou 
-de leur remplacement au cas par cas.
-* Pour les **températures globales**, il est rare qu’aucun capteur ne soit disponible au niveau planétaire et 
-  les quelques NaNs sont présents en tout début de jeu, dans les années 1751/1752. Nous en identifions seulement 
-  3 lignes, non-consécutives, et décidons de les remplacer par interpolation linéaire. 
-* Pour les **températures par hémisphère**, il y a une seule valeur manquante sur l’hémisphère nord et 2 sur 
-  l’hémisphère sud. Nous utilisons encore une fois une interpolation linéaire pour remplacer ces valeurs en 
-  s’appuyant sur leur continuité. Il faut noter également que la date de début de collecte est différente entre 
-  les deux jeux de données, dès 1840 pour le Nord et à partir de 1880 pour le Sud. 
-* Pour les températures par hémisphère toujours, nous calculons également une moyenne glissante sur 12 mois, 
-  qui permet de lisser les variations saisonnières et d’obtenir des courbes plus lisibles. 
-* Pour les **températures par pays**, les mesures sont souvent manquantes - lorsque les capteurs ont été 
-  installés tardivement, ou lors de périodes d’instabilité géopolitique. Pour ces raisons les NaNs se 
-  répartissent sur de grandes plages de temps – correspondant par exemple à la durée d’une guerre ou la mise en 
-  autarcie d’un pays. Nous ne pouvons donc utiliser d’interpolation pour les remplacer et décidons de les conserver 
-  tels quels. 
+Most of our datasets include NaNs; we identify them and decide whether to maintain or replace them on 
+a case-by-case basis.
+* For the **global temperatures**, it is rare that no sensor is available at a planet level and the few existing NaNs 
+  are at the very beginning of the dataset, in the years 1751/1752. We identify only 3 non-consecutive lines with NaNs 
+  and we decide to replace them using linear interpolation. 
+  
+* For **temperatures by hemisphere**, there is only one missing value on the northern hemisphere and 2 on the 
+  southern hemisphere dataset. Identically as in the previous case, we use linear interpolation to replace these 
+  values based on their continuity. It should also be noted that the start date of the two datasets is different:
+  1840 for the North hemisphere and 1880 for the South.
+  
+* Still for the temperatures by hemisphere, we also calculate a mooving average over 12 months, which makes 
+  possible to smooth out seasonal variations and to obtain more readable curves.
+  
+* For **temperatures by country**, many lines of dataset contain NaNs - it can be due to different reasons as the 
+  late temperature sensor installation, or to periods of geopolitical instability. The missing values 
+  which are spread over large periods of time – correspond for example to the duration of a war or the autarky of a country. 
+  Therefore we cannot use interpolation to replace NaNs, so we decide to keep them as they are.
+  
 
-Les **informations de $CO_2$ par pays** sont disponibles en format CSV ; comme pour le dataset précédent des 
-températures par pays, les valeurs manquantes sont liées à des périodes où le pays, pour quelque raison que ce soit, 
-n'a pas pu collecter les données. Ces trous représentent des plages de temps importantes, et nous les laisserons 
-tels quels pour ne pas compromettre l'intégrité statistique des données.
+The **$CO_2$ information by country** is available in CSV format; idem as with the previous dataset "temperatures by country", 
+the missing values are related to periods when the country, for whatever reason, could not collect the data. These holes 
+represent significant time ranges, and we decide to keep them untouchable with the aim of not to compromise the statistical 
+integrity of the data.
+
         """
     )
 
-    st.subheader('Agrégation des données')
+    st.subheader('Data aggregation')
 
     st.markdown(
         """
 Nous souhaitons mettre à disposition de nos utilisateurs les jeux de données nettoyés afin qu'ils puissent les utiliser facilement.
 Nous utiliserons pour cela le format CSV, qui peut être aisément importé dans d'autres outils (e.g. Excel) et est plus 
 facile à manipuler que les fichier texte originaux. 
+
+We proceeded to the dataset cleaning in order to facilitate their use. For this purpose we use the CSV format,
+which can be easily imported into other tools (e.g. Excel) and is easier to handle than the original text files.
 
 Egalement, les informations par hémisphère et par pays sont fournies dans des fichiers distincts (par hémisphère dans le premier 
 cas, et par pays dans le second). Afin de faciliter leur lecture, analyse et ré-utilisation, nous les rassemblons pour
