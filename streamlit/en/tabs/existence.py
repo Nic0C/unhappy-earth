@@ -117,7 +117,7 @@ def run():
         """
 Let's start our analysis by trying to confirm this phenomenon. For this purpose, from the `global_land` data set we
 present a graph showing the evolution of global monthly temperatures, from 1750 to 2021.
-Also, we will present the rolling annual average over the whole data set, making the general trend more visible:
+Also, we present the rolling annual average over the whole data set, making the general trend more visible:
         """
     )
 
@@ -161,7 +161,7 @@ It is not possible to establish precisely the beginning of global warming. It is
 experts: some research correlates it with the Western industrial revolution, such as the work of Abram et al. or those 
 of the PAGES group. Other studies indicate an earlier onset.
 
-Global warming is very gradual, and undergoes cyclical variations that make precise dating difficult. Nevertheless, by 
+Global warming is very gradual, and undergoes cyclical variations that make accurate dating difficult. Nevertheless, by 
 studying the graph again, we can observe a much more explicit, strong and continuous trend from the years 1975. In the 
 decades preceding the 1970s, the global average temperatures even seem to be quite stable, which caused [strong controversies](https://www.lemonde.fr/cop21/article/2015/10/22/hoax-climatique-3-dans-les-annees-1970-les-scientifiques-prevoyaient-un-refroidissement_4794858_4527432.html) 
 at the time.
