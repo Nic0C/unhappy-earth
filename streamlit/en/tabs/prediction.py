@@ -23,9 +23,9 @@ def run():
     
     st.subheader("Can we predict the temperature over the upcoming years?")
     
-    st.markdown("To build a temperature prediction for the next decades, we decided to choose Facebook Prophet among multiple existing models to forecast time series. We consider that Prophet is quite simple to understand, comparing to other models, it is easy to apply and it adapts perfectly to our data and to our objective. Then, the two methods inside the model to analyze the seasonality of a Time Series are basically: additive (tends to show a linear trend) and multiplicative (exponential trend). We tested both of them and we saw that the additive method gives better results, so we proceeded with it.")
+    st.markdown("To build a temperature prediction for the next decades, we decide to choose **Facebook Prophet** among multiple existing models **to forecast time series**. We consider that Prophet is quite simple to understand, comparing to other models, it is easy to apply and it adapts perfectly to our data and to our objective. Then, the two methods, inside this model, to analyze the seasonality of a Time Series are basically: additive (tends to show a linear trend) and multiplicative (exponential trend). We test both of them and we see that the **additive method gives better results**, so we proceed with it.")
     
-    st.markdown("Regarding the data used to train the model: we select just the period when the absolute temperature trend is increasing, constant and explicit. In the following graph we clearly see that this is the period between 1975 and 2022.")
+    st.markdown("Regarding the data used to train the model: we select just the **period when the absolute temperature trend is increasing, constant and explicit**. In the following graph we clearly see that this is the **period between 1975 and 2022**.")
 
     col1, col2 = st.columns(2)
     col1.metric("Temperature 1975", "8.7 °C")
@@ -75,7 +75,7 @@ def run():
 
 
 #Prediction Prophet    
-    st.markdown("From our data, Facebook Prophet calculates the following temperature forecast over the next 50 years:")
+    st.markdown("From our data, Facebook Prophet calculates the following temperature **forecast over the next 50 years**:")
 
 
     m = Prophet(seasonality_mode='additive').fit(new_column)
@@ -92,10 +92,10 @@ def run():
     warnings.filterwarnings("ignore")
     st.pyplot(fig)
 
-    st.markdown("The forecast (which starts from year 2022 on this graph) shows a clear increasing evolution of the temperature.")
+    st.markdown("The forecast (which starts from year 2022 on this graph) shows a clear **increasing temperature evolution**.")
 
 #Presentation des components: tendance et la déviation
-    st.markdown("For more detail, we visualize 2 components of the prediction:")
+    st.markdown("For more detail, we visualize **2 components of the prediction**:")
     st.markdown("- **The trend** ;")
     st.markdown("- **Seasonal deviation** from the trend :")
     
@@ -131,7 +131,7 @@ def run():
     </style>
     ''', unsafe_allow_html=True)
 
-    st.markdown("Our forecast is based on the premise that the absolute global temperature will follow the same trend as for the past 46 years, without major climate action. In this case, our model predicts an increase of approximately 1.9°C for the next 50 years. Comparing with a multitude of forecasting studies that currently exist, our result seems to be fair and reasonable, but far from optimistic..$^[$ $^1$ $^]$ $^,$ $^[$ $^2$ $^]$ $^,$ $^[$ $^3$ $^]$")
+    st.markdown("Our forecast is based on the **premise** that the absolute global temperature will follow **the same trend as for the past 46 years, without major climate action**. In this case, our model predicts **an increase of approximately 1.9°C for the next 50 years**. **Comparing** with a multitude of **forecasting studies** that currently exist, **our result seems to be fair and reasonable**, but far from optimistic..$^[$ $^1$ $^]$ $^,$ $^[$ $^2$ $^]$ $^,$ $^[$ $^3$ $^]$")
 
     st.markdown(
         """
@@ -143,7 +143,7 @@ def run():
         $^[$ $^2$ $^]$ [L'ampleur des hausses que vous connaîtrez](https://www.francelive.fr/article/france-live/vous-pouvez-desormais-savoir-le-changement-climatique-que-vous-subirez-selon-votre-age-7403908/)  
         $^[$ $^3$ $^]$ [Les prévisions alarmantes de Météo France](https://www.lefigaro.fr/sciences/rechauffement-climatique-les-previsions-alarmantes-de-meteo-france-20210201) </font>    
         
-        Crédit image : Michal Osmenda, [CC-BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0),
+        Image credit: Michal Osmenda, [CC-BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0),
         via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Weather_station_on_Mount_Vesuvius_(2437693238).jpg).
         """,
         unsafe_allow_html=True

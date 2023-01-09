@@ -18,16 +18,16 @@ def run():
 
     st.markdown(
         """
-        The topics of global warming and temperature forecasting over the upcoming future are widely discussed and studied by highly qualified experts. 
-        Our objective was mainly to test the knowledge that we acquired during the course of Data Analyst and see if we would be able to achieve consistent results.
+        The topics of **global warming** and temperature forecasting over the upcoming future are **widely discussed and studied** by highly qualified experts. 
+        **Our objective** was mainly to **test the knowledge** that we acquired during the course of **Data Analyst and** see if we would **be able to achieve consistent results**.
         
-        Thanks to the statistical analysis of reliable and concrete data, we were able to respond to the issues raised at the begging of the project:
-        1.  We could confirm and quantify the global warming: it is an indisputable reality. The phenomenon is gradual since the industrial revolution of 1880, and it accelerates since 1975, especially in the northern hemisphere.  
-        2.  CO2 emissions have a strong influence (correlation / linearity) on the temperature increase.  
-        3.  Our predictions are not optimistic. According to the results of Prophet Model, the global average temperature will increase by almost 2°C in the next 50 years. These results are consistent with numerous studies on climate change made by professional climatologists.  
+        Thanks to the statistical analysis of reliable and concrete data, we were able to **respond to the issues raised at the begging of the project**:
+        1.  We could **confirm and quantify the global warming**: it is an indisputable reality. The phenomenon is gradual since the industrial revolution of 1880, and it accelerates since 1975, especially in the northern hemisphere.  
+        2.  **CO2 emissions have a strong influence (correlation / linearity)** on the temperature increase.  
+        3.  Our **predictions** are not optimistic. According to the results of Prophet Model, the **global average temperature will increase by almost 2°C in the next 50 years**. These results are consistent with numerous studies on climate change made by professional climatologists.  
             
-        Unfortunately, our conclusions, and a fortiori those of the experts in climatology, are not positive neither for 
-        our planet Earth (UnhapPy Earth), nor for the humanity.
+        Unfortunately, **our conclusions**, and a fortiori those of the experts in climatology, **are not positive** neither for 
+        our planet Earth (**UnhapPy Earth**), nor for the humanity.
         """
         )
         
@@ -100,7 +100,7 @@ def run():
         
         ----
         
-        Crédit image : Global Warming Representation, [CC-BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0),
+        Image credit : Global Warming Representation, [CC-BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0),
         via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Global_Warming_Representation,_NASA_Goddard_Photo_%26_Video.jpg#file).
         """,
         unsafe_allow_html=True
