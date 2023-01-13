@@ -35,7 +35,7 @@ def run():
         asserts: **global warming is incredibly costly**: humanly, socially, geopolitically,
         financially and economically.
        
-        **Anticipating and better understanding its consequences is therefore becoming a priority** for many companies and organizations.
+        **Anticipating and better understanding its consequences are therefore becoming a priority** for many companies and organizations.
         """
         )
 
