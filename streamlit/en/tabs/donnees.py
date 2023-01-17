@@ -223,22 +223,23 @@ integrity of the data.
 We proceeded to the dataset cleaning in order to facilitate their use. For this purpose we use the CSV format,
 which can be easily imported into other tools (example: Excel) and it is easier to handle with rather than the original text files.
 
-Egalement, les informations par hémisphère et par pays sont fournies dans des fichiers distincts (par hémisphère dans le premier 
-cas, et par pays dans le second). Afin de faciliter leur lecture, analyse et ré-utilisation, nous les rassemblons pour
-obtenir des jeux de données unifiés et cohérents (i.e. un fichier pour les hémisphères, et un fichier pour tous les 
-pays). 
-
 Also, the information by hemisphere and by country originally comes in separate files (by each hemisphere in the first case, 
 and by each country in the second). In order to facilitate their reading, analysis and use, we aggregate them together to
 obtain a unified and consistent dataset (one file for the hemispheres, and one file for all countries).
 The generated files are available below :
-* [global_temperatures.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/temperatures_globales.csv) fournit les températures globales,
-* [temperatures_by_hemisphere.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/temperatures_hemispheres.csv) fournit les températures par 
-  hémisphère, et
-* [temperatures_by_country.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/temperatures_countries.csv) fournit les températures par pays,
-* [co2_global.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/co2_global.csv) fournit le production de CO2 globale,
-* [co2_countries.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/co2_countries.csv) fournit la production de CO2 par pays.
-
-
+* [global_temperatures.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/temperatures_globales.csv) provides global temperatures,
+* [temperatures_by_hemisphere.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/temperatures_hemispheres.csv) provides temperatures for both hemisphere,
+* [temperatures_by_country.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/temperatures_countries.csv) provides temperatures for each country,
+* [co2_global.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/co2_global.csv) provides global $CO_2$ production,
+* [co2_countries.csv](https://github.com/borisbaldassari/unhappy-earth/tree/main/data/unhappy_earth/co2_countries.csv) provides $CO_2$ production for each country.
         """
+    )
+        
+    st.markdown(
+        """
+        <br />
+        
+        ----
+        """,
+    unsafe_allow_html=True
     )
