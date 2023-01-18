@@ -35,9 +35,9 @@ def run():
     
     st.markdown(
         """
-We identified two data sources for our research: [Berkeley Earth](http://berkeleyearth.org/data/)
+For our research we identified two main data sources: [Berkeley Earth](http://berkeleyearth.org/data/)
 and [Our world in data](https://ourworldindata.org/). The datasets provided are all publicly available, under a
-specific license for the first and under the [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode) for the second.
+specific license for the first one and under the [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode) for the second.
         """)
         
     with st.expander("More about the data sources"):
@@ -53,18 +53,18 @@ specific license for the first and under the [CC-BY](https://creativecommons.org
 
     st.markdown(
         """
-Berkeley Earth datasets are provided as a set of txt files, corresponding to monthly updates on various areas from worldwide measures down to hemispheres and countries. 
+Berkeley Earth datasets are provided as a set of txt files, corresponding to monthly global world data, monthly data by hemispheres and monthly data by countries. 
 
-All files are built along the same format. The headers have a complete description of the dataset, including a set of monthly average measures on a reference time range (from January 1951 to December 1980). This time period was selected on the one hand for the reliability and completeness of the observations, and on the second hand because it represents a sort of median of the whole dataset. Following is a **space-separated table of monthly anomalies**, or relative measures, and their uncertainty on a period ranging from 1750 at the earliest to 2021.
+All original files have a similar format. Each txt file include a description of the dataset, including a special table with reference data: set of monthly average measures on a specific time range (from January 1951 to December 1980). This time period was selected on one hand for the reliability and completeness of the existing observations, and on the other, it represents a sort of median of the whole dataset. Thereafter, the main dataset follow, which is a **space-separated table of monthly temperature anomalies**, and their uncertainty; for the period starting from 1750 and going till the beginning of 2021.
 
 **Anomalies** represent a relative value, expressed in degrees Celsius and corresponding to the difference,
-positive or negative, between the measured temperature and the corresponding average reference temperature. More
+positive or negative, between the real - absolute temperature and the corresponding average reference temperature. A positive anomaly indicates that the observed temperature was warmer than the reference value, while a negative anomaly indicates that the observed temperature was cooler than the reference value. More
 information on this measurement and the interest of reasoning in terms of anomalies can be found [on the
 NASA website](https://data.giss.nasa.gov/gistemp/faq/abs_temp.html).
 
-**Uncertainty** is the dispersion related to various factors, in particular geographical and statistical under-sampling, ultimately influencing the quality of the measurement. It represents the 95% confidence interval. 
+**Uncertainty** is the dispersion related to various factors, in particular to geographical and statistical under-sampling, ultimately influencing the quality of the measurement. It represents the 95% confidence interval. 
 
-**These figures put together allow us to compute the temperatures in absolute values.**
+**Using the above data we are able to recalculate and obtain the temperature in absolute value.**
         """
     )
 
@@ -82,7 +82,7 @@ NASA website](https://data.giss.nasa.gov/gistemp/faq/abs_temp.html).
         st.markdown(
         """
 Each line has 12 fields:
-* The first four columns provide information about the year, month, anomaly and uncertainty for the measure.
+* The first four columns give us the information about the year, month, anomaly and uncertainty of the measure.
 * The last 8 columns provide centered moving averages over 1, 5, 10 and 20 years. As an example, the yearly moving average for 1950 (January-December) is reported for June 1950. As a consequence we can observe NaNs at the top and bottom of the dataset.
         """
         )
