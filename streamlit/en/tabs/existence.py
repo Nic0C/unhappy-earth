@@ -423,4 +423,11 @@ climate such as the modification of oceanic and atmospheric currents) must be ta
         """
     )
 
-
+    st.markdown(
+        """
+        <br />
+        
+        ----
+        """,
+    unsafe_allow_html=True
+    )
