@@ -53,18 +53,25 @@ specific license for the first one and under the [CC-BY](https://creativecommons
 
     st.markdown(
         """
-Berkeley Earth datasets are provided as a set of txt files, corresponding to monthly global world data, monthly data by hemispheres and monthly data by countries. 
+**Berkeley Earth** datasets are provided as a set of **txt files**, corresponding to **monthly global world data**, **monthly data by hemispheres** and **monthly data by countries**. 
 
-All original files have a similar format. Each txt file include a description of the dataset, including a special table with reference data: set of monthly average measures on a specific time range (from January 1951 to December 1980). This time period was selected on one hand for the reliability and completeness of the existing observations, and on the other, it represents a sort of median of the whole dataset. Thereafter, the main dataset follow, which is a **space-separated table of monthly temperature anomalies**, and their uncertainty; for the period starting from 1750 and going till the beginning of 2021.
+All original files have a similar format. Each txt file include a description of the dataset, including a special table with **reference data**: set of monthly average measures on a specific time range (**from January 1951 to December 1980**). This time period was selected on one hand for the reliability and completeness of the existing observations, and on the other, it represents a sort of median of the whole dataset.  
 
-**Anomalies** represent a relative value, expressed in degrees Celsius and corresponding to the difference,
+Thereafter, the main dataset follows, which is a **space-separated table of monthly temperature anomalies**, and their uncertainty. The time range differs from one dataset to another. For global temperatures the measures start from 1750 and go till the beginning of 2021.
+        """
+    )
+
+    st.image("streamlit/en/assets/exempledata.jpg", use_column_width=True)  
+    st.markdown(
+        """
+**Anomalies**, expressed in degrees Celsius, represent the difference,
 positive or negative, between the real - absolute temperature and the corresponding average reference temperature. A positive anomaly indicates that the observed temperature was warmer than the reference value, while a negative anomaly indicates that the observed temperature was cooler than the reference value. More
 information on this measurement and the interest of reasoning in terms of anomalies can be found [on the
 NASA website](https://data.giss.nasa.gov/gistemp/faq/abs_temp.html).
 
 **Uncertainty** is the dispersion related to various factors, in particular to geographical and statistical under-sampling, ultimately influencing the quality of the measurement. It represents the 95% confidence interval. 
 
-**Using the above data we are able to recalculate and obtain the temperature in absolute value.**
+**Using the above data we are able to recalculate and obtain the temperature in absolute values.**
         """
     )
 
