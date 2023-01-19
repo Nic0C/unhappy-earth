@@ -57,8 +57,14 @@ specific license for the first one and under the [CC-BY](https://creativecommons
 
 All original files have a similar format. Each txt file include a description of the dataset, including a special table with **reference data**: set of monthly average measures on a specific time range (**from January 1951 to December 1980**). This time period was selected on one hand for the reliability and completeness of the existing observations, and on the other, it represents a sort of median of the whole dataset.  
 
-Thereafter, the main dataset follows, which is a **space-separated table of monthly temperature anomalies**, and their uncertainty. The time range differs from one dataset to another. For global temperatures the measures start from 1750 and go till the beginning of 2021.
-        """
+Thereafter, the main dataset follow, which is a space-separated table of 12 columns:
+* The first four columns give us the information about the year, month, temperature anomalies and their uncertainty.
+* The last 8 columns provide centered moving averages over 1, 5, 10 and 20 years. As an example, the yearly moving average for 1950 (January-December) is reported for June 1950. As a consequence we can observe NaNs at the top and bottom of the dataset.    
+    
+The time range differs from one dataset to another. For global temperatures the measures start from 1750 and go till the beginning of 2021.
+       
+
+      """
     )
 
     st.image("streamlit/en/assets/exempledata.jpg", use_column_width=True)  
@@ -86,13 +92,6 @@ NASA website](https://data.giss.nasa.gov/gistemp/faq/abs_temp.html).
         with tab3:
             st.dataframe(temps_countries.tail(10))
    
-        st.markdown(
-        """
-Each line has 12 fields:
-* The first four columns give us the information about the year, month, anomaly and uncertainty of the measure.
-* The last 8 columns provide centered moving averages over 1, 5, 10 and 20 years. As an example, the yearly moving average for 1950 (January-December) is reported for June 1950. As a consequence we can observe NaNs at the top and bottom of the dataset.
-        """
-        )
 
     st.markdown(
         """
