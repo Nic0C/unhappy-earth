@@ -25,11 +25,11 @@ def run():
         for the future of the planet and its biodiversity, including the human species. **Yet it is still debated**, opposes
         experts and climate sceptics, **at the very time when its manifestations and consequences** (repeated droughts and torrential rains,
         rising water levels) **are more flagrant every day**. Here is a simple definition, proposed by the
-        media platform [Youmatter](https://youmatter.world/fr/):
+        media platform [Youmatter](https://youmatter.world/fr/definition/definition-rechauffement-climatique/):
            
-        **"Global warming is a global phenomenon of climate transformation characterized by an increase
-        general average temperatures (in particular linked to human activities, releasing quantities of greenhouse gases), and which
-        permanently alters meteorological balances and ecosystems."**
+        **"Global warming is a global phenomenon of climate transformation characterized by a general increase
+        in average temperatures (notably linked to human activities, releasing quantities of greenhouse gases), and which
+        permanently modifies meteorological balances and ecosystems."**
        
         In addition, a [United Nations report published in April 2022](https://www.nationalgeographic.fr/environnement/2017/09/le-veritable-cout-du-changement-climatique)
         asserts: **global warming is incredibly costly**: humanly, socially, geopolitically,
